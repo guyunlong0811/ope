@@ -550,8 +550,8 @@ class SMServerController extends BInitController
             }
 
             //创建数据库
-            $exec = 'mysqladmin -h' . $addLogic['db_m_host'] . ' -u' . $addLogic['db_m_user'] . ' -p\'' . $addLogic['db_m_pwd'] . '\' create ' . $addLogic['dbname'] . ' DEFAULT CHARSET utf8 COLLATE utf8_general_ci;';
-            exec($exec);
+//            $exec = 'mysqladmin -h' . $addLogic['db_m_host'] . ' -u' . $addLogic['db_m_user'] . ' -p\'' . $addLogic['db_m_pwd'] . '\' create ' . $addLogic['dbname'] . ' DEFAULT CHARSET utf8 COLLATE utf8_general_ci;';
+//            exec($exec);
 
             //创建表
             $exec = 'mysql -h' . $addLogic['db_m_host'] . ' -u' . $addLogic['db_m_user'] . ' -p\'' . $addLogic['db_m_pwd'] . '\' ' . $addLogic['dbname'] . ' < ' . $this->mDBPath . 'otl.sql' . ' --default-character-set=utf8';

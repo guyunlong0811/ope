@@ -39,7 +39,7 @@ $config = array(
 
     //超级管理员列表
     'SUPER_ADMIN' => array(1,),
-    'AES_KEY' => 'c9d23f432dd5e41b',
+    'AES_KEY' => 'linekong_yingpei',
 
     'APC_PREFIX' => 'admin_',
 

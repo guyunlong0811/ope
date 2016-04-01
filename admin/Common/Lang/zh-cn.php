@@ -19,6 +19,7 @@ return array(
 
     'data_real_time' => '实时数据',
     'data_statistics_index' => '汇总数据',
+    'data_statistics_asia' => '汇总数据(东南亚)',
     'data_statistics_daily' => '每日汇总数据',
     'data_statistics_monthly' => '每月汇总数据',
 
@@ -123,6 +124,7 @@ return array(
     //数据统计
     'data_real_time_index' => '查询实时数据',
     'data_statistics_index_index' => '查询汇总数据',
+    'data_statistics_asia_index' => '查询汇总数据(东南亚)',
     'data_statistics_daily_index' => '查询每日汇总数据',
     'data_statistics_monthly_index' => '查询每月汇总数据',
 
@@ -370,6 +372,7 @@ return array(
     'pay_count' => '订单数量',
     'pay_member' => '充值人数',
     'pay_rate' => '付费率',
+    'login_pay_rate' => '登录付费比',
 
     //等级充值
     'diamond_pay_produce' => '充值水晶产出',
@@ -1123,5 +1126,10 @@ return array(
     'db_port' => '数据库端口',
     'redis_link' => 'Redis配置',
     'redis_db' => 'Redis使用DB号',
+
+    'arpnu' => '人均arpu',
+    'pay_amount_asia_web' => '网页充值金额',
+    'pay_count_asia_web' => '网页充值订单数',
+    'pay_member_asia_web' => '网页充值玩家数',
 
 );

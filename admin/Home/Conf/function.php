@@ -183,6 +183,14 @@ return array(
                 ),
 
                 array(
+                    'name' => 'data_statistics_asia',
+                    'controller' => 'DataStatisticsAsia',
+                    'permission' => array(
+                        array('action' => 'index', 'name' => 'data_statistics_asia_index',),
+                    ),
+                ),
+
+                array(
                     'name' => 'data_statistics_daily',
                     'controller' => 'DataStatisticsDaily',
                     'permission' => array(

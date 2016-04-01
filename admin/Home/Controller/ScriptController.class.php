@@ -376,6 +376,7 @@ class ScriptController extends BaseController
                 $channelData[$value]['create_count'] = 0;
                 $channelData[$value]['lost_count'] = 0;
                 $channelData[$value]['pay_amount'] = 0;
+                $channelData[$value]['pay_amount_asia_web'] = 0;
                 $channelData[$value]['pay_count'] = 0;
                 $channelData[$value]['pay_member'] = 0;
                 $channelData[$value]['first_pay_member'] = 0;
@@ -411,6 +412,14 @@ class ScriptController extends BaseController
                 $channelData[$value['channel_id']]['pay_amount'] = $value['amount'];
                 $channelData[$value['channel_id']]['pay_count'] = $value['count'];
                 $channelData[$value['channel_id']]['pay_member'] = $value['member'];
+            }
+
+            //网页充值情况
+            $select = $this->mModel->db($this->mSid)->table('l_order')->field("`channel_id`,sum(`price`) as `amount`,count(`id`) as `count`,count(distinct(`tid`)) as `member`")->where("`status` > 0 && `endtime` between '{$starttime}' and '{$endtime}' && length(`comment`) < 10")->group('`channel_id`')->select();
+            foreach ($select as $value) {
+                $channelData[$value['channel_id']]['pay_amount_asia_web'] = $value['amount'];
+                $channelData[$value['channel_id']]['pay_count_asia_web'] = $value['count'];
+                $channelData[$value['channel_id']]['pay_member_asia_web'] = $value['member'];
             }
 
             //首冲情况
