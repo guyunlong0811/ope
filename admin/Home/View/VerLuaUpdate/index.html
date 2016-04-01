@@ -1,0 +1,66 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-refresh"></i><{$Think.lang.ver_lua_update}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal" enctype="multipart/form-data">
+
+                        <input type="hidden" name="flag" value="1" />
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.upload_file}></label>
+                                <div class="col-md-9">
+                                    <label class="control-label">
+                                        <input type="file" name="file" id="file">
+                                        <p class="help-block"><{$Think.lang.upload_lua_select}></p>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn blue"><i class="fa fa-upload"></i>&nbsp;<{$Think.lang.upload}></button>
+                        </div>
+
+                    </form>
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

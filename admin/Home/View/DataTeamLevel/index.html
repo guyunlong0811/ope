@@ -1,0 +1,57 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServerAll" />
+        <include file="Public/selectChannelAll" />
+        <include file="Public/selectDateStartEnd" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <include file="Public/chartMulti" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.level}></th>
+                    <foreach name="vThList" item="value">
+                        <th><{$value}></th>
+                    </foreach>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <foreach name="vTable" item="value" key="key">
+
+                        <tr>
+                            <td><{$key}></td>
+                            <foreach name="value" item="val">
+                                <td><{$val}></td>
+                            </foreach>
+                        </tr>
+
+                    </foreach>
+                </tbody>
+            </table>
+
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

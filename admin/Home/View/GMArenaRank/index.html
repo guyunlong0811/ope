@@ -1,0 +1,46 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/exchange&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_arena_rank_exchange}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-striped table-bordered table-hover table-full-width">
+        <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.tid}></th>
+                <th><{$Think.lang.rank_before}></th>
+                <th><{$Think.lang.rank_after}></th>
+                <th><{$Think.lang.create_time}></th>
+            </tr>
+        </thead>
+        <tbody>
+            <notempty name="vTable">
+            <volist name="vTable" id="value">
+            <tr>
+                <td><{$value.server}></td>
+                <td><a href="__MODULE__/UserInfo&server_id=<{$value.sid}>&team_id=<{$value.tid}>"><{$value.tid}></a></td>
+                <td><{$value.before}></td>
+                <td><{$value.after}></td>
+                <td><{$value.ctime}></td>
+            </tr>
+            </volist>
+            <else />
+            <tr>
+                <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+            </tr>
+            </notempty>
+        </tbody>
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+<include file="Public/footer" />

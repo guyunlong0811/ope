@@ -1,0 +1,188 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+
+    function click_change(attr){
+        $(document).ready(function(){
+            $("#" + attr).attr('disabled',false);
+            $("#change_" + attr).hide();
+            $("#save_" + attr).show();
+            $("#cancel_" + attr).show();
+        });
+    }
+
+    function click_cancel(attr){
+        $(document).ready(function(){
+            $("#" + attr).attr('disabled',true);
+            $("#change_" + attr).show();
+            $("#save_" + attr).hide();
+            $("#cancel_" + attr).hide();
+        });
+    }
+
+    function click_save(attr){
+        $(document).ready(function(){
+            var value = $("#" + attr).val();
+            var sid = "<{$vGet.server_id}>";
+            $.get("__URL__/edit", {server_id:sid,id:"<{$vTable.id}>",attr:attr,value:value}, function(data){
+                alert(data);
+            });
+            $("#" + attr).attr('disabled',true);
+            $("#change_" + attr).show();
+            $("#save_" + attr).hide();
+            $("#cancel_" + attr).hide();
+        });
+    }
+
+    $(document).ready(function(){
+        $(".form-control").attr('disabled',true);
+        $(".a_save").hide();
+        $(".a_cancel").hide();
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <include file="Public/tableStart" />
+        <a href="__URL__&server_id=<{$vGet.server_id}>&team_id=<{$vGet.team_id}>&nickname=<{$vGet.nickname}>" style="color:whitesmoke;"><<<{$Think.lang.return}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.league_id}></td>
+                    <td><{$vTable.id}></td>
+                    <td class="col-md-2">/</td>
+                </tr>
+                <tr>
+                    <td><{$Think.lang.league_name}></td>
+                    <td><{$vTable.name}></td>
+                    <td>/</td>
+                </tr>
+                <tr>
+                    <td><{$Think.lang.league_president}></td>
+                    <td><{$vTable.president_tid}></td>
+                    <td>/</td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_fund}></td>
+                    <td><input type="text" class="form-control" id="fund" name="fund" value="<{$vTable.fund}>" /></td>
+                    <td>
+                        <a id="change_fund" class="a_change" href="javascript:;" onclick="click_change('fund')">[<{$Think.lang.change}>]</a>
+                        <a id="save_fund" class="a_save" href="javascript:;" onclick="click_save('fund')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_fund" class="a_cancel" href="javascript:;" onclick="click_cancel('fund')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_notice}></td>
+                    <td><{$vTable.notice}></td>
+                    <td>/</td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_center_level}></td>
+                    <td><input type="text" class="form-control" id="center_level" name="center_level" value="<{$vTable.center_level}>" /></td>
+                    <td>
+                        <a id="change_center_level" class="a_change" href="javascript:;" onclick="click_change('center_level')">[<{$Think.lang.change}>]</a>
+                        <a id="save_center_level" class="a_save" href="javascript:;" onclick="click_save('center_level')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_center_level" class="a_cancel" href="javascript:;" onclick="click_cancel('center_level')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_shop_level}></td>
+                    <td><input type="text" class="form-control" id="shop_level" name="shop_level" value="<{$vTable.shop_level}>" /></td>
+                    <td>
+                        <a id="change_shop_level" class="a_change" href="javascript:;" onclick="click_change('shop_level')">[<{$Think.lang.change}>]</a>
+                        <a id="save_shop_level" class="a_save" href="javascript:;" onclick="click_save('shop_level')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_shop_level" class="a_cancel" href="javascript:;" onclick="click_cancel('shop_level')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_food_level}></td>
+                    <td><input type="text" class="form-control" id="food_level" name="food_level" value="<{$vTable.food_level}>" /></td>
+                    <td>
+                        <a id="change_food_level" class="a_change" href="javascript:;" onclick="click_change('food_level')">[<{$Think.lang.change}>]</a>
+                        <a id="save_food_level" class="a_save" href="javascript:;" onclick="click_save('food_level')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_food_level" class="a_cancel" href="javascript:;" onclick="click_cancel('food_level')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_attribute_level}></td>
+                    <td><input type="text" class="form-control" id="attribute_level" name="attribute_level" value="<{$vTable.attribute_level}>" /></td>
+                    <td>
+                        <a id="change_attribute_level" class="a_change" href="javascript:;" onclick="click_change('attribute_level')">[<{$Think.lang.change}>]</a>
+                        <a id="save_attribute_level" class="a_save" href="javascript:;" onclick="click_save('attribute_level')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_attribute_level" class="a_cancel" href="javascript:;" onclick="click_cancel('attribute_level')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_boss_level}></td>
+                    <td><input type="text" class="form-control" id="boss_level" name="boss_level" value="<{$vTable.boss_level}>" /></td>
+                    <td>
+                        <a id="change_boss_level" class="a_change" href="javascript:;" onclick="click_change('boss_level')">[<{$Think.lang.change}>]</a>
+                        <a id="save_boss_level" class="a_save" href="javascript:;" onclick="click_save('boss_level')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_boss_level" class="a_cancel" href="javascript:;" onclick="click_cancel('boss_level')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_activity}></td>
+                    <td><input type="text" class="form-control" id="activity" name="activity" value="<{$vTable.activity}>" /></td>
+                    <td>
+                        <a id="change_activity" class="a_change" href="javascript:;" onclick="click_change('activity')">[<{$Think.lang.change}>]</a>
+                        <a id="save_activity" class="a_save" href="javascript:;" onclick="click_save('activity')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_activity" class="a_cancel" href="javascript:;" onclick="click_cancel('activity')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_fight_point}></td>
+                    <td><input type="text" class="form-control" id="point" name="point" value="<{$vTable.point}>" /></td>
+                    <td>
+                        <a id="change_point" class="a_change" href="javascript:;" onclick="click_change('point')">[<{$Think.lang.change}>]</a>
+                        <a id="save_point" class="a_save" href="javascript:;" onclick="click_save('point')">[<{$Think.lang.save}>]</a>
+                        <a id="cancel_point" class="a_cancel" href="javascript:;" onclick="click_cancel('point')">[<{$Think.lang.cancel}>]</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_fight_record}></td>
+                    <td><{$vTable.record}></td>
+                    <td>/</td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.league_recommend}></td>
+                    <td><{$vTable.recommend}></td>
+                    <td>/</td>
+                </tr>
+
+                <tr>
+                    <td><{$Think.lang.ctime}></td>
+                    <td><{$vTable.ctime}></td>
+                    <td>/</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+<include file="Public/footer" />

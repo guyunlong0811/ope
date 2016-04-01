@@ -1,0 +1,33 @@
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.date}>' != ''){
+            $("#date").val('<{$vGet.date}>');
+        }else{
+            $("#date").val('<{$vDate}>');
+        }
+
+        $("#date").focus(function(){
+            WdatePicker({
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'<{$vDateMin}>',
+                maxDate:'<{$vDateMax}>'
+            });
+        });
+        $("#date_button").click(function(){
+            WdatePicker({
+                el:'date',
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'<{$vDateMin}>',
+                maxDate:'<{$vDateMax}>'
+            });
+        });
+    });
+
+</script>
+<div style="float:left; margin-left:10px;">
+    <input style="float:left;" id="date" name="date" class="form-control input-small" type="text" value="" />
+    <span style="float:left;">
+        <button id="date_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+    </span>
+</div>

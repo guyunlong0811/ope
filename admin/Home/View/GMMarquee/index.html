@@ -1,0 +1,63 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/send&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_marquee_send}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+        <notempty name="vTable">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.server}></th>
+                    <th><{$Think.lang.content}></th>
+                    <th><{$Think.lang.notice_level}></th>
+                    <th><{$Think.lang.notice_endtime}></th>
+                    <th><{$Think.lang.notice_interval}></th>
+                    <th><{$Think.lang.result}></th>
+                    <th><{$Think.lang.notice_ctime}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <volist name="vTable" id="value">
+                <tr>
+                    <td><{$value.sid}></td>
+                    <td><{$value.content}></td>
+                    <td><{$value.level}></td>
+                    <td><{$value.endtime}></td>
+                    <td><{$value.interval}></td>
+                    <td><{$value.result_name}></td>
+                    <td><{$value.ctime}></td>
+                    <switch name="value.result">
+                        <case value="0">
+                            <td><a href="__URL__/resend&notice_id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.resend}></a></td>
+                        </case>
+                        <case value="2">
+                            <td><a href="__URL__/resend&notice_id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.resend}></a></td>
+                        </case>
+                        <case value="1">
+                            <td><a href="__URL__/cancel&notice_id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.cancel}></a></td>
+                        </case>
+
+                    </switch>
+                </tr>
+                </volist>
+            </tbody>
+        <else />
+            <tr>
+                <td align="center"><{$Think.lang.no_data}></td>
+            </tr>
+        </notempty>
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+<include file="Public/footer" />

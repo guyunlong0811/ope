@@ -1,0 +1,96 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/add&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_exchange_mail_add}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-striped table-bordered table-hover table-full-width">
+        <thead>
+            <tr>
+                <th><{$Think.lang.exchange_mail_id}></th>
+                <th><{$Think.lang.mail_title}></th>
+                <th><{$Think.lang.mail_type}></th>
+                <th><{$Think.lang.mail_from}></th>
+                <th><{$Think.lang.mail_expires_value}></th>
+                <th colspan="2"><{$Think.lang.operation}></th>
+            </tr>
+        </thead>
+        <tbody>
+            <notempty name="vTable">
+            <volist name="vTable" id="value">
+            <tr>
+                <td><{$value.index}></td>
+                <td><{$value.name}></td>
+                <td><{$value.type}></td>
+                <td><{$value.from}></td>
+                <td><{$value.expires_value}></td>
+                <td><a href="__URL__/edit&index=<{$value.index}>&p=<{$pg}>"><{$Think.lang.edit}></a></td>
+                <td><a href="javascript:;" id="click_detail_<{$value.index}>"><{$Think.lang.detail}></a></td>
+            </tr>
+            <tr id="detail_<{$value.index}>" style="display:none;">
+                <td class="details" colspan="100%">
+                    <table class="table table-bordered table-hover table-full-width">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-3"><{$Think.lang.mail_des}></td>
+                                <td><{$value.des}></td>
+                            </tr>
+                            <tr>
+                                <td><{$Think.lang.mail_annex1}></td>
+                                <td><{$value.annex1}></td>
+                            </tr>
+                            <tr>
+                                <td><{$Think.lang.mail_annex2}></td>
+                                <td><{$value.annex2}></td>
+                            </tr>
+                            <tr>
+                                <td><{$Think.lang.mail_annex3}></td>
+                                <td><{$value.annex3}></td>
+                            </tr>
+                            <tr>
+                                <td><{$Think.lang.mail_annex4}></td>
+                                <td><{$value.annex4}></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <input type="hidden" id="switch_detail_<{$value.index}>" value="0" />
+            <input type="hidden" id="switch_create_<{$value.index}>" value="0" />
+            <script type="text/javascript">
+                $(document).ready(function(){
+
+                    //详情
+                    $("#click_detail_<{$value.index}>").click(function(){
+                        if($("#switch_detail_<{$value.index}>").val() == '0'){
+                            $("#click_detail_<{$value.index}>").html('<{$Think.lang.close}>');
+                            $("#switch_detail_<{$value.index}>").val('1');
+                            $("#detail_<{$value.index}>").show('fast');
+                        }else{
+                            $("#click_detail_<{$value.index}>").html('<{$Think.lang.detail}>');
+                            $("#switch_detail_<{$value.index}>").val('0');
+                            $("#detail_<{$value.index}>").hide('fast');
+                        }
+                    });
+                });
+            </script>
+            </volist>
+            <else />
+            <tr>
+                <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+            </tr>
+            </notempty>
+        </tbody>
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+<include file="Public/footer" />

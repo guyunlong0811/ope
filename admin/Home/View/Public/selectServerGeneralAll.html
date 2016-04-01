@@ -1,0 +1,12 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.server_id}>' != ''){$("#server_id").val('<{$vGet.server_id}>');}
+    });
+</script>
+<select style="float:left; margin-left:10px;" class="form-control input-medium" id="server_id" name="server_id">
+    <option value="-1"><{$Think.lang.all_server}></option>
+    <option value="0"><{$Think.lang.all_server_general}></option>
+    <foreach name="vServer" item="value" key="key" >
+        <option value=<{$key}>><{$value.server_name}></option>
+    </foreach>
+</select>

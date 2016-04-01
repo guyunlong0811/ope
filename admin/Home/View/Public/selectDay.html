@@ -1,0 +1,10 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.day}>' != ''){$("#day").val('<{$vGet.day}>');}
+    });
+</script>
+<select style="float:left; margin-left:10px;" class="form-control input-medium" id="day" name="day">
+    <volist name="vDay" id="value">
+        <option value="<{$value}>"><{$Think.lang.last_{$value}_day}></option>
+    </volist>
+</select>

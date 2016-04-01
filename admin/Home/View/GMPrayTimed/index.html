@@ -1,0 +1,56 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStartEmpty" />
+        <a href="__URL__/add&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_pray_timed_add}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.index}></th>
+                    <th><{$Think.lang.server}></th>
+                    <th><{$Think.lang.partner_show}></th>
+                    <th><{$Think.lang.rank_type}></th>
+                    <th><{$Think.lang.pray_1_point}></th>
+                    <th><{$Think.lang.pray_10_point}></th>
+                    <th><{$Think.lang.starttime}></th>
+                    <th><{$Think.lang.endtime}></th>
+                    <th><{$Think.lang.status}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+                <tr>
+                    <td><{$value.index}></td>
+                    <td><{$value.server_name}></td>
+                    <td><{$value.partner}></td>
+                    <td><{$value.rank_type}></td>
+                    <td><{$value.point_1}></td>
+                    <td><{$value.point_10}></td>
+                    <td><{$value.starttime}></td>
+                    <td><{$value.endtime}></td>
+                    <td>
+                        <{$value.status}>
+                        <a href="__URL__/status&p=<{$pg}>&id=<{$value.index}>">[<{$Think.lang.change}>]</a>
+                    </td>
+                    <td><a href="__URL__/edit&p=<{$pg}>&id=<{$value.index}>"><{$Think.lang.edit}></a></td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+
+        <{$vPageBar}>
+        <include file="Public/tableEndEmpty" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

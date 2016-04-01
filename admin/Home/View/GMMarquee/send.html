@@ -1,0 +1,187 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('input[type="checkbox"][name="server[]"]').each(function(){
+            $(this).attr('checked',false);
+        });
+        $("#level").val(1);
+        $("#duration").val(0);
+        $("#interval").val(0);
+        $("#interval").attr('disabled',true);
+        $("#content").val('');
+
+        $("#level").blur(function(){
+            if(!($("#level").val() > 0)){
+                $("#level").val(1);
+            }else{
+                $("#level").val(parseInt($("#level").val()));
+            }
+        });
+
+        $("#duration").blur(function(){
+            if(!($("#duration").val() >= 0)){
+                $("#duration").val(0);
+                $("#interval").val(0);
+                $("#interval").attr('disabled',true);
+            }else{
+                $("#duration").val(parseInt($("#duration").val()));
+                if($("#duration").val() == 0){
+                    $("#interval").val(0);
+                    $("#interval").attr('disabled',true);
+                }else{
+                    $("#interval").attr('disabled',false);
+                }
+
+            }
+        });
+
+        $("#interval").blur(function(){
+            if(!($("#interval").val() >= 0) || $("#interval").val() > 90){
+                $("#interval").val(0);
+            }else{
+                $("#interval").val(parseInt($("#interval").val()));
+            }
+        });
+
+        $("#mainform").submit(function(){
+
+            if($("#duration").val() > 0 && $("#interval").val() == 0){
+                alert('<{$Think.lang.notice_interval_input}>');
+                return false;
+            }else if($("#content").val() == ''){
+                alert('<{$Think.lang.notice_content_input}>');
+                return false;
+            }
+
+            var flag = false;
+            if($('input[name="server_type"]:checked').val() == 'check'){
+                $('input[type="checkbox"][name="server[]"]').each(function(){
+                    if($(this).attr('checked') == 'checked'){
+                        flag = true;
+                    }
+                });
+            }else{
+                flag = true;
+            }
+
+            if(flag == false){
+                alert('<{$Think.lang.exchange_type_server_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-plane"></i><{$Think.lang.gm_marquee_send}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                    <div class="col-md-9">
+                                        <foreach name="vServer" item="value" key="key">
+                                            <label class="checkbox">
+                                                <input type="checkbox" value="<{$key}>" id="server<{$key}>" name="server[]" />
+                                                <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                            </label>
+                                        </foreach>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.view_min_level}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-small" id="level" name="level" value="1" >
+                                        <span class="help-block"><{$Think.lang.view_min_level_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.notice_duration}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-small" id="duration" name="duration" value="0" >
+                                        <span class="help-block"><{$Think.lang.notice_duration_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.notice_interval}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-small" id="interval" name="interval" value="0" >
+                                        <span class="help-block"><{$Think.lang.notice_interval_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.notice_content}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+                                        <span class="help-block"><{$Think.lang.notice_content_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+<include file="Public/footer" />

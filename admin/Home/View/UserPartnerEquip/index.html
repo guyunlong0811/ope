@@ -1,0 +1,109 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#mainform").submit(function(){
+            if($("#partner_group_id").val() == 0 && $("#team_id").val() == ''){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/inputTeamID" />
+        <include file="Public/selectPartnerGroup" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.tid}></th>
+                    <th><{$Think.lang.partner}></th>
+                    <th><{$Think.lang.equip_type}></th>
+                    <th><{$Think.lang.equip_quality}></th>
+                    <th><{$Think.lang.level}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="vTable" id="value">
+                    <input type="hidden" id="switch<{$value.tid}>_<{$value.group}>" value="0" />
+                    <tr>
+                        <td><{$value.tid}></td>
+                        <td><{$value.partner_group}></td>
+                        <td><{$Think.lang.$value[type]}></td>
+                        <td><{$value.index}></td>
+                        <td><{$value.level}></td>
+                        <td><a href="javascript:;" id="click<{$value.tid}>_<{$value.group}>"><{$Think.lang.detail}></a></td>
+                    </tr>
+                    <tr id="detail<{$value.tid}>_<{$value.group}>" style="display:none;">
+                        <td class="details" colspan="100%">
+                            <table class="table table-bordered table-hover table-full-width">
+                                <tbody>
+                                    <tr>
+                                        <td width="200"><{$Think.lang.equip_extra}>1</td>
+                                        <td><{$value.extra_1_type}>-<{$value.extra_1_value}></td>
+                                    </tr>
+                                    <tr>
+                                        <td><{$Think.lang.equip_extra}>2</td>
+                                        <td><{$value.extra_2_type}>-<{$value.extra_2_value}></td>
+                                    </tr>
+                                    <tr>
+                                        <td><{$Think.lang.equip_extra}>3</td>
+                                        <td><{$value.extra_3_type}>-<{$value.extra_3_value}></td>
+                                    </tr>
+                                    <tr>
+                                        <td><{$Think.lang.equip_extra}>4</td>
+                                        <td><{$value.extra_4_type}>-<{$value.extra_4_value}></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#click<{$value.tid}>_<{$value.group}>").click(function(){
+                                if($("#switch<{$value.tid}>_<{$value.group}>").val() == '0'){
+                                    $("#click<{$value.tid}>_<{$value.group}>").html('<{$Think.lang.close}>');
+                                    $("#switch<{$value.tid}>_<{$value.group}>").val('1');
+                                    $("#detail<{$value.tid}>_<{$value.group}>").show('fast');
+                                }else{
+                                    $("#click<{$value.tid}>_<{$value.group}>").html('<{$Think.lang.detail}>');
+                                    $("#switch<{$value.tid}>_<{$value.group}>").val('0');
+                                    $("#detail<{$value.tid}>_<{$value.group}>").hide('fast');
+                                }
+                            });
+                        });
+                    </script>
+                </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

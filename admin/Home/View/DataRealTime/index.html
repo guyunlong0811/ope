@@ -1,0 +1,89 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServer" />
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <notempty name="vGet">
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.new_user}></td>
+                    <td><{$vTable.nu}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.activity_user}></td>
+                    <td><{$vTable.au}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.pay_user}></td>
+                    <td><{$vTable.pu}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.pay_count}></td>
+                    <td><{$vTable.pc}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.pay_amount}></td>
+                    <td><{$vTable.pa}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.pay_rate}></td>
+                    <td><{$vTable.pr}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">ARPU</td>
+                    <td><{$vTable.arpu}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">ARPPU</td>
+                    <td><{$vTable.arppu}></td>
+                </tr>
+
+                <foreach name="vTable.cash_today" item="value" key="key">
+                    <tr>
+                        <td class="col-md-4"><{$value.cash}></td>
+                        <td><{$value.count}></td>
+                    </tr>
+                </foreach>
+
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th colspan="2"><{$Think.lang.data_pay_cash_total}></td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <foreach name="vTable.cash_total" item="value" key="key">
+                    <tr>
+                        <td class="col-md-4"><{$value.cash}></td>
+                        <td><{$value.count}></td>
+                    </tr>
+                </foreach>
+            </tbody>
+
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </notempty>
+
+</div>
+
+<include file="Public/footer" />

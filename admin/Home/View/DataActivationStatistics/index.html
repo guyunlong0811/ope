@@ -1,0 +1,92 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServerAll" />
+    <include file="Public/selectChannelAll" />
+    <include file="Public/selectDate" />
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <notempty name="vGet">
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.today_create}></td>
+                    <td><{$vTable.today_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.yesterday_create}></td>
+                    <td><{$vTable.yesterday_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.week_create}></td>
+                    <td><{$vTable.this_week_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.last_week_create}></td>
+                    <td><{$vTable.last_week_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.week_ppi}></td>
+                    <td><{$vTable.ppi_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.month_create}></td>
+                    <td><{$vTable.month_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day1_login_member}></td>
+                    <td><{$vTable.login_day1_member}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day1_login_count}></td>
+                    <td><{$vTable.login_day1_count}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day7_login_create}></td>
+                    <td><{$vTable.login_day7_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day7_login_member}></td>
+                    <td><{$vTable.login_day7_member}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day7_login_count}></td>
+                    <td><{$vTable.login_day7_count}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day30_login_create}></td>
+                    <td><{$vTable.login_day30_create}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day30_login_member}></td>
+                    <td><{$vTable.login_day30_member}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.day30_login_count}></td>
+                    <td><{$vTable.login_day30_count}></td>
+                </tr>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.login_count}></td>
+                    <td><{$vTable.login_all_count}></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </notempty>
+
+</div>
+
+<include file="Public/footer" />

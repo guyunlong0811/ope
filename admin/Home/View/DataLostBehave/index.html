@@ -1,0 +1,60 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServer" />
+    <include file="Public/selectDate" />
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <notempty name="vGet">
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.tid}></th>
+                <th><{$Think.lang.level}></th>
+                <th><{$Think.lang.partner_count}></th>
+                <th><{$Think.lang.diamond_used}></th>
+                <th><{$Think.lang.gold_used}></th>
+                <th><{$Think.lang.vality_used}></th>
+                <th><{$Think.lang.ctime}></th>
+                <th><{$Think.lang.last_login_time}></th>
+                <th><{$Think.lang.vality_utime}></th>
+            </thead>
+            <tbody>
+            <volist name="vTable" id="value">
+
+                <tr>
+                    <td><{$value.server_name}></td>
+                    <td><a href="__MODULE__/UserInfo&server_id=<{$vGet.server_id}>&team_id=<{$value.tid}>"><{$value.tid}></a></td>
+                    <td><{$value.level}></td>
+                    <td><{$value.partner}></td>
+                    <td><{$value.diamond}></td>
+                    <td><{$value.gold}></td>
+                    <td><{$value.vality}></td>
+                    <td><{$value.create_time}></td>
+                    <td><{$value.last_login_time}></td>
+                    <td><{$value.vality_utime}></td>
+                </tr>
+
+            </volist>
+            </tbody>
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </notempty>
+
+</div>
+
+<include file="Public/footer" />

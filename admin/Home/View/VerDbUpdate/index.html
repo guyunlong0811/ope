@@ -1,0 +1,71 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-refresh"></i><{$Think.lang.ver_db_update}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <input type="hidden" name="flag" value="1" />
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.comment}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-long" name="comment" id="comment" >
+                                        <span class="help-block"><{$Think.lang.comment_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue"><i class="fa fa-refresh"></i>&nbsp;<{$Think.lang.update}></button>
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+<include file="Public/footer" />

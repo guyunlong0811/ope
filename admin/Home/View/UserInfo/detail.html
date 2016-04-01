@@ -1,0 +1,58 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <include file="Public/tableStart" />
+        <a href="__URL__&server_id=<{$vGet.server_id}>&user_id=<{$vGet.user_id}>&team_id=<{$vGet.team_id}>&nickname=<{$vGet.nickname}>" style="color:whitesmoke;"><<<{$Think.lang.return}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <foreach name="vTable" item="vo" key="k" >
+                    <tr>
+                        <td class="col-md-4"><{$Think.lang.$k}></td>
+                        <if condition="$k eq 'level'">
+                            <td><a class="label label-default" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=level&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <elseif condition="$k eq 'exp'" />
+                            <td><a class="label label-danger" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=exp&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <elseif condition="$k eq 'diamond_pay'"/>
+                            <td><a class="label label-info" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=diamond_pay&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <elseif condition="$k eq 'diamond_free'"/>
+                            <td><a class="label label-info" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=diamond_free&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <elseif condition="$k eq 'gold'"/>
+                            <td><a class="label label-warning" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=gold&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <elseif condition="$k eq 'vality'"/>
+                            <td><a class="label label-success" href="__APP__/Home/UserAttrChange/index&server_id=<{$vGet.server_id}>&type=vality&team_id=<{$vTable.tid}>"> <{$vTable[$k]}></a></td>
+                        <else />
+                            <td><{$vTable[$k]}></td>
+                        </if>
+                    </tr>
+                </foreach>
+                <tr>
+                    <td class="col-md-4"><{$Think.lang.more}></td>
+                    <td>
+                        <a class="label label-info" href="__MODULE__/UserPartner/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_partner}>]</a>
+                        <a class="label label-info" href="__MODULE__/UserItem/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_item}>]</a>
+                        <a class="label label-info" href="__MODULE__/UserItemChange/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_item_change}>]</a>
+                        <a class="label label-info" href="__MODULE__/UserMail/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_mail}>]</a>
+                        <a class="label label-info" href="__MODULE__/UserQuest/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_quest}>]</a>
+                        <a class="label label-info" href="__MODULE__/UserShop/index&server_id=<{$vGet.server_id}>&team_id=<{$vTable.tid}>">[<{$Think.lang.user_shop}>]</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+<include file="Public/footer" />

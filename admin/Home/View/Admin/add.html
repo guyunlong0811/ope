@@ -1,0 +1,158 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#username").val('');
+    $("#nickname").val('');
+    $("#password").val('');
+    $("#repassword").val('');
+    $("#ip_limit").val('');
+
+
+	$("#mainform").submit(function(){
+		
+		if($("#username").val() == ''){
+			alert('<{$Think.lang.username_require}>');
+			return false;
+		}else if($("#username").val().length < 4){
+			alert('<{$Think.lang.username_length}>');
+			return false;
+		}else if($("#password").val() == ''){
+			alert('<{$Think.lang.password_require}>');
+			return false;
+		}else if($("#password").val().length < 6){
+			alert('<{$Think.lang.password_length}>');
+			return false;
+		}else if($("#repassword").val() == ''){
+			alert('<{$Think.lang.repassword_error}>');
+			return false;
+		}else if($("#password").val() != $("#repassword").val()){
+			alert('<{$Think.lang.repassword_error}>');
+			return false;
+		}else if($("#nickname").val() == ''){
+			alert('<{$Think.lang.nickname_require}>');
+			return false;
+		}else{
+			return true;
+		}
+		
+	})
+})
+</script>
+
+<!-- BEGIN PAGE -->
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.admin_add}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_account}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="username" name="username" >
+                                        <span class="help-block"><{$Think.lang.username_require}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_nickname}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="nickname" name="nickname" >
+                                        <span class="help-block"><{$Think.lang.nickname_require}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_pwd}></label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="password" name="password" >
+                                        <span class="help-block"><{$Think.lang.pwd_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_repwd}></label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="repassword" name="repassword" >
+                                        <span class="help-block"><{$Think.lang.pwd_confirm}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.ip_limit}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="ip_limit" name="ip_limit"></textarea>
+                                        <span class="help-block"><{$Think.lang.ip_limit_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+    <include file="Public/footer" />

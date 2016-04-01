@@ -1,0 +1,175 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#mainform").submit(function(){
+            if($("#team_id").val() == '' || $("#item_id").val() == 0){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/selectDateStartEnd" />
+        <include file="Public/inputTeamID" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-spinner"></i><{$Think.lang.order_wait}></div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+
+                            <empty name="gameData">
+
+                                <tbody>
+                                    <tr>
+                                        <td align="center"><{$Think.lang.no_data}></td>
+                                    </tr>
+                                </tbody>
+
+                            <else />
+
+                                <thead>
+                                    <tr>
+                                        <th class=""><{$Think.lang.order_id}></th>
+                                        <th class=""><{$Think.lang.order_goods}></th>
+                                        <th class=""><{$Think.lang.order_channel}></th>
+                                        <th class=""><{$Think.lang.order_ctime}></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <foreach name="gameData" item="value" key="key" >
+                                    <tr>
+                                        <td class=""><{$value.order_id}></td>
+                                        <td class=""><{$value.cash}></td>
+                                        <td class=""><{$value.channel}></td>
+                                        <td class=""><{$value.ctime}></td>
+                                    </tr>
+                                    </foreach>
+                                </tbody>
+
+                            </empty>
+
+                        </table>
+
+                        <{$vPageBar}>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-check"></i><{$Think.lang.order_complete}></div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <empty name="logData">
+
+                                <tbody>
+                                    <tr>
+                                        <td align="center"><{$Think.lang.no_data}></td>
+                                    </tr>
+                                </tbody>
+
+                            <else />
+
+                                <thead>
+                                    <tr>
+                                        <th class=""><{$Think.lang.order_id}></th>
+                                        <th class=""><{$Think.lang.order_goods}></th>
+                                        <th class=""><{$Think.lang.order_channel}></th>
+                                        <th class=""><{$Think.lang.order_starttime}></th>
+                                        <th class=""><{$Think.lang.order_status}></th>
+                                        <th><{$Think.lang.more}></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <foreach name="logData" item="value" key="key" >
+                                    <input type="hidden" id="switch<{$value.id}>" value="0" />
+                                    <tr>
+                                        <td class=""><{$value.order_id}></td>
+                                        <td class=""><{$value.cash}></td>
+                                        <td class=""><{$value.channel}></td>
+                                        <td class=""><{$value.starttime}></td>
+                                        <td class=""><{$value.status}></td>
+                                        <td class=""><a href="javascript:;" id="click<{$value.id}>"><{$Think.lang.detail}></a></td>
+                                    </tr>
+                                    <tr id="detail<{$value.id}>" style="display:none;">
+                                        <td class="details" colspan="100%">
+                                            <table class="table table-bordered table-hover table-full-width">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class=""><{$Think.lang.order_platform_order_id}></td>
+                                                        <td class="col-md-3"><{$value.platform_order_id}></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=""><{$Think.lang.order_endtime}></td>
+                                                        <td class="col-md-3"><{$value.endtime}></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=""><{$Think.lang.order_comment}></td>
+                                                        <td class="col-md-3"><{$value.comment}></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <script type="text/javascript">
+                                        $(document).ready(function(){
+                                            $("#click<{$value.id}>").click(function(){
+                                                if($("#switch<{$value.id}>").val() == '0'){
+                                                    $("#click<{$value.id}>").html('<{$Think.lang.close}>');
+                                                    $("#switch<{$value.id}>").val('1');
+                                                    $("#detail<{$value.id}>").show('fast');
+                                                }else{
+                                                    $("#click<{$value.id}>").html('<{$Think.lang.detail}>');
+                                                    $("#switch<{$value.id}>").val('0');
+                                                    $("#detail<{$value.id}>").hide('fast');
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                    </foreach>
+
+                                </tbody>
+
+                            </empty>
+
+                        </table>
+                        <{$vPageBar}>
+
+                    </div>
+                </div>
+            </div>
+
+        </notempty>
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+<include file="Public/footer" />

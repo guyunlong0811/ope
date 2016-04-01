@@ -1,0 +1,75 @@
+[ 2016-03-21T19:44:11+08:00 ] ::1 /zettaiOpe/admin.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000056s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001224s ]
+
+[ 2016-03-21T19:44:12+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/logout
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000098s ]
+
+[ 2016-03-21T19:44:12+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000087s ]
+
+[ 2016-03-21T19:44:18+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000040s ]
+
+[ 2016-03-21T19:44:18+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000046s ]
+
+[ 2016-03-21T19:44:35+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMScript
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000104s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000192s ]
+
+[ 2016-03-21T19:44:39+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMScript
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000050s ]
+
+[ 2016-03-21T19:44:50+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMGame
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000099s ]
+
+[ 2016-03-21T19:44:52+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMScript
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000043s ]
+
+[ 2016-03-21T19:45:14+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMScript
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000097s ]
+
+[ 2016-03-21T19:45:15+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMServer
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000048s ]
+
+[ 2016-03-21T19:45:17+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMServer/channel&server_id=101&search_channel_id=0&id=1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000044s ]
+
+[ 2016-03-21T19:46:05+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMServer
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000041s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000290s ]
+
+[ 2016-03-21T19:47:06+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMServer
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000114s ]
+
+[ 2016-03-21T19:47:21+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/SMServer
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000088s ]
+

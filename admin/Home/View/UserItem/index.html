@@ -1,0 +1,63 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#mainform").submit(function(){
+            if($("#team_id").val() == ''){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/inputTeamID" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.tid}></th>
+                    <th><{$Think.lang.item}></th>
+                    <th><{$Think.lang.count}></th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="vTable" id="value">
+                    <input type="hidden" id="switch<{$value.tid}>_<{$value.group}>" value="0" />
+                    <tr>
+                        <td><{$value.tid}></td>
+                        <td><{$value.name}></td>
+                        <td><{$value.count}></td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

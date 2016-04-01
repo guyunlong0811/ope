@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.item_id}>' != ''){$("#item_id").val('<{$vGet.item_id}>');}
+    });
+</script>
+<select style="float:left; margin-left:10px;" class="form-control input-medium" id = "item_id" name = "item_id">
+    <option value="0"><{$Think.lang.all_item}></option>
+    <foreach name="vItemConfig" item="value" key="key" >
+        <option value=<{$key}>><{$value}></option>
+    </foreach>
+</select>

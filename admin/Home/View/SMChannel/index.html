@@ -1,0 +1,47 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStart" />
+        <a href="__URL__/add&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.sm_channel_add}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.channel_id}></th>
+                    <th><{$Think.lang.channel_name}></th>
+                    <th><{$Think.lang.channel_code}></th>
+                    <th><{$Think.lang.channel_callback}></th>
+                    <th><{$Think.lang.admin_status}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+                <tr>
+                    <td><{$value.channel_id}></td>
+                    <td><{$value.name}></td>
+                    <td><{$value.code}></td>
+                    <td><{$value.callback}></td>
+                    <td>
+                        <{$value.status_name}>
+                        <a href="__URL__/status&id=<{$value.channel_id}>">[<{$Think.lang.change}>]</a>
+                    </td>
+                    <td><a href="__URL__/edit&id=<{$value.channel_id}>"><{$Think.lang.edit}></a></td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

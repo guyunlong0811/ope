@@ -1,0 +1,343 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    var html = '<option value="0"><{$Think.lang.please_select}></option>';
+    var htmlItem;
+    htmlItem = html;
+    <foreach name="vItemConfig" item="value" key="key" >
+    htmlItem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+    var htmlAttr;
+    htmlAttr = html;
+    <foreach name="vFieldConfig" item="value" key="key" >
+    htmlAttr += '<option value="<{$key}>"><{$key}>-<{$Think.lang.$value}></option>';
+    </foreach>
+
+    var htmlPartner;
+    htmlPartner = html;
+    <foreach name="vPartnerConfig" item="value" key="key" >
+    htmlPartner += '<option value="<{$key}>"><{$key}>-<{$value}></option>';
+    </foreach>
+
+    var htmlEmblem;
+    htmlEmblem = html;
+    <foreach name="vEmblemConfig" item="value" key="key" >
+    htmlEmblem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+//    alert(htmlItem);
+//    alert(htmlAttr);
+//    alert(htmlPartner);
+
+    $(document).ready(function(){
+        $("#server_id").val(-1);
+        $("#select_tid").val(0);
+        $("#tid").val('');
+        $("#type").val(0);
+        $("#title").val('');
+        $("#des").val('');
+        $("#dtime").val(0);
+
+        $("#dtime").blur(function(){
+            if(!($("#dtime").val() >= 0)){
+                $("#dtime").val(0);
+            }else{
+                $("#dtime").val(parseInt($("#dtime").val()));
+            }
+        });
+
+        //显示邮件附件选项
+        $('#type').change(function(){
+            if($('#type').val() == 2){
+                $('.mail_annex').show('fast');
+            }else{
+                $('.mail_annex').hide('fast');
+            }
+            for(var i=1;i<=4;++i){
+                $('#annex_'+i+'_type').val(0);
+                $('#annex_'+i+'_value_1').val(0);
+                $('#annex_'+i+'_value_2').val(0);
+                $('#annex_'+i+'_value_1').attr('disabled',true);
+                $('#annex_'+i+'_value_2').attr('disabled',true);
+            }
+        });
+
+        $("#mainform").submit(function(){
+
+            if($("#server_id").val() == -1){
+                alert('<{$Think.lang.server_select}>');
+                return false;
+            }else if($("#server_id").val() > 0 && $("#select_tid").val() == 0){
+                alert('<{$Think.lang.tid_select}>');
+                return false;
+            }else if($("#select_tid").val() == 2 && $("#tid").val() == ''){
+                alert('<{$Think.lang.tid_input}>');
+                return false;
+            }else if($("#type").val() == 0){
+                alert('<{$Think.lang.mail_type_input}>');
+                return false;
+            }else if($("#title").val() == ''){
+                alert('<{$Think.lang.mail_title_input}>');
+                return false;
+            }else if($("#des").val() == ''){
+                alert('<{$Think.lang.mail_des_input}>');
+                return false;
+            }else if($("#dtime").val() == 0){
+                alert('<{$Think.lang.mail_dtime_input}>');
+                return false;
+            }
+
+            if($("#type").val() == 2){
+                var count = 0;
+                for(var i=1;i<=4;++i){
+
+                    if($('#annex_'+i+'_type').val() > 0){
+                        ++count;
+                        if(!($('#annex_'+i+'_value_1').val() > 0) || !($('#annex_'+i+'_value_2').val() > 0) || ($('#annex_'+i+'_value_1').val() == '1' && $('#annex_'+i+'_value_2').val() > 1000)){
+                            alert('<{$Think.lang.mail_annex_input}>');
+                            return false;
+                        }
+                    }
+
+                }
+
+                if(count == 0){
+                    alert('<{$Think.lang.mail_annex_input}>');
+                    return false;
+                }
+
+            }
+
+            return true;
+
+        });
+
+    })
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-mail-forward"></i><{$Think.lang.gm_mail_send}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-medium" id = "server_id" name = "server_id">
+                                        <option value="-1"><{$Think.lang.please_select}></option>
+                                        <option value="0"><{$Think.lang.all_server}></option>
+                                        <foreach name="vServer" item="value" key="key" >
+                                            <option value="<{$key}>">
+                                                <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                            </option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_tid}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-medium" id = "select_tid" name = "select_tid" disabled>
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                        <option value="1"><{$Think.lang.all_player}></option>
+                                        <option value="2"><{$Think.lang.part_player}></option>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.tid_select}></span>
+                                </div>
+                            </div>
+
+                            <div id="div_tid" class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_tid}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="3" id="tid" name="tid" disabled></textarea>
+                                    <span class="help-block"><{$Think.lang.tid_input}></span>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    $('#server_id').change(function(){
+                                        $('#select_tid').val('0');
+                                        $('#tid').val('');
+                                        if($(this).val() == '0' || $(this).val() == 'all'){
+                                            $('#select_tid').attr('disabled', true);
+                                            $('#tid').attr('disabled', true);
+                                        }else{
+                                            $('#select_tid').attr('disabled', false);
+                                        }
+                                    });
+
+                                    $('#select_tid').change(function(){
+                                        if($(this).val() == '2'){
+                                            $('#tid').attr('disabled', false);
+                                        }else{
+                                            $('#tid').val('');
+                                            $('#tid').attr('disabled', true);
+                                        }
+                                    });
+                                });
+                            </script>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_type}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id="type" name="type">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                        <option value="1"><{$Think.lang.notice_mail}></option>
+                                        <option value="2"><{$Think.lang.annex_mail}></option>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.mail_type_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_title}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="1" id="title" name="title"></textarea>
+                                    <span class="help-block"><{$Think.lang.mail_title_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_des}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="3" id="des" name="des"></textarea>
+                                    <span class="help-block"><{$Think.lang.mail_des_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_dtime}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-small" id="dtime" name="dtime" value="0" >
+                                    <span class="help-block"><{$Think.lang.mail_dtime_input}></span>
+                                </div>
+                            </div>
+                            <php>
+                                for($i=1;$i<=4;++$i){
+                            </php>
+                            <script type="application/javascript">
+                                $(document).ready(function(){
+
+                                    $('#annex_<{$i}>_type').change(function(){
+                                        $('#annex_<{$i}>_value_1').val(0);
+                                        $('#annex_<{$i}>_value_2').val(0);
+                                        if($('#annex_<{$i}>_type').val() == 0){
+                                            $('#annex_<{$i}>_value_1').attr('disabled',true);
+                                            $('#annex_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#annex_<{$i}>_value_1').attr('disabled',false);
+
+                                            switch ($('#annex_<{$i}>_type').val()){
+                                                case '1':
+                                                    $('#annex_<{$i}>_value_1').html(htmlItem);
+                                                    break;
+                                                case '2':
+                                                    $('#annex_<{$i}>_value_1').html(htmlAttr);
+                                                    break;
+                                                case '3':
+                                                case '4':
+                                                case '5':
+                                                case '6':
+                                                case '7':
+                                                    $('#annex_<{$i}>_value_1').html(htmlPartner);
+                                                    break;
+                                                case '9':
+                                                    $('#annex_<{$i}>_value_1').html(htmlEmblem);
+                                                    break;
+                                            }
+
+                                        }
+
+                                    });
+
+                                    $('#annex_<{$i}>_value_1').change(function(){
+                                        if($('#annex_<{$i}>_value_1').val() == 0){
+                                            $('#annex_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#annex_<{$i}>_value_2').attr('disabled',false);
+                                        }
+                                    });
+
+                                    $("#annex_<{$i}>_value_2").blur(function(){
+                                        if(!($("#annex_<{$i}>_value_2").val() >= 0)){
+                                            $("#annex_<{$i}>_value_2").val(0);
+                                        }else{
+                                            $("#annex_<{$i}>_value_2").val(parseInt($("#annex_<{$i}>_value_2").val()));
+                                        }
+                                    });
+
+
+                                });
+                            </script>
+                            <div class="form-group mail_annex" style="display:none;">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_annex$i}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id="annex_<{$i}>_type" name="annex_<{$i}>_type" style="float:left;">
+                                        <foreach name="bonus_type" item="value" key="key" >
+                                        <option value="<{$key}>"><{$Think.lang.$value}></option>
+                                        </foreach>
+                                    </select>
+                                    <select class="form-control input-medium" style="float:left;" id="annex_<{$i}>_value_1" name="annex_<{$i}>_value_1">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                    </select>
+                                    <input type="text" class="form-control input-small" id="annex_<{$i}>_value_2" name="annex_<{$i}>_value_2" value="0" >
+                                    <span class="help-block"><{$Think.lang.mail_annex_input}></span>
+                                </div>
+                            </div>
+                            <php>
+                                }
+                            </php>
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

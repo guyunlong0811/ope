@@ -1,0 +1,211 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$get.server_id}>' != ''){$("#server_id").val('<{$get.server_id}>');}
+        if('<{$get.day}>' != ''){$("#day").val('<{$get.day}>');}
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                    <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <div class="portlet box yellow">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-rocket"></i><{$Think.lang.data_active_users_select}></div>
+            </div>
+            <div class="portlet-body">
+                <form role="form" action="" method="get">
+                    <input type="hidden" name="s" value="<{$s}>">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group input">
+                                <!-- <div class="form-group">-->
+
+                                <select style="float:left;" class="form-control input-medium" id="server_id" name="server_id">
+                                    <foreach name="vServer" item="value" key="key" >
+                                        <option value=<{$key}>><php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach></option>
+                                    </foreach>
+                                </select>
+
+                                <select style="float:left; margin:0 10px;" class="form-control input-medium" id="day" name="day">
+                                    <option value="7"><{$Think.lang.last_7_day}></option>
+                                    <option value="14"><{$Think.lang.last_14_day}></option>
+                                    <option value="30"><{$Think.lang.last_30_day}></option>
+                                </select>
+
+                                <button class="btn red" type="submit"><i class="fa fa-search"></i>&nbsp;<{$Think.lang.search}></button>
+
+                                <!-- /btn-group -->
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-md-6 -->
+                    </div>
+                    <!-- /.row -->
+                </form>
+            </div>
+        </div>
+
+        <!-- BEGIN PAGE CONTENT-->
+        <notempty name="ticklable">
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-bar-chart-o"></i><{$Think.lang.active_users}></div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_2" class="chart"></div>
+            </div>
+        </div>
+        </notempty>
+
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<script type="text/javascript">
+
+
+
+    function chart2() {
+        function randValue() {
+            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+        }
+
+        var visitors = <{$activeUsersData}>; //[["06","12134"],["05","11134"],["04","21534"],["03","2134"],["02","12134"],["01","11134"],["12","23534"],["11","12134"],["10","12134"],["09","11134"],["08","21534"],["07","12134"],["06","12134"],["05","11134"],["04","21534"],["03","2134"],["02","12134"],["01","11134"],["12","21534"],["11","2134"],["10","12134"]];
+
+        //alert("<{$activeUsersData}>");
+
+        var plot = $.plot($("#chart_2"), [{
+            data: visitors,
+            label: '<{$req_days}>'
+            }
+        ], {
+            series: {
+                lines: {
+                    show: true,
+                    lineWidth: 2,
+                    fill: true,
+            fillColor: {
+            colors: [{
+                opacity: 0.05
+                }, {
+                opacity: 0.01
+                }
+                ]
+            }
+        },
+        points: {
+            show: true
+        },
+            shadowSize: 2
+        },
+        grid: {
+            hoverable: true,
+            clickable: true,
+            tickColor: "#eee",
+            borderWidth: 0
+        },
+        colors: ["#d12610", "#37b7f3", "#52e136"],
+        xaxis: {
+            ticks: <{$ticklable}>,
+            showLabel: true,
+            tickDecimals: 0
+
+        },
+
+        yaxis: {
+            ticks: 10,
+            tickDecimals: 0
+    }
+    });
+
+
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 15,
+            border: '1px solid #333',
+            padding: '4px',
+            color: '#fff',
+            'border-radius': '3px',
+            'background-color': '#333',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+    }
+
+
+    var previousPoint = null;
+    $("#chart_2").bind("plothover", function (event, pos, item) {
+    $("#x").text(pos.x.toFixed(2));
+    $("#y").text(pos.y.toFixed(2));
+
+    if (item) {
+        if (previousPoint != item.dataIndex) {
+            previousPoint = item.dataIndex;
+
+            $("#tooltip").remove();
+            var x = item.datapoint[0].toFixed(0),
+            y = item.datapoint[1].toFixed(0);
+
+            showTooltip(item.pageX, item.pageY,  y);
+        }
+    } else {
+        $("#tooltip").remove();
+        previousPoint = null;
+    }
+    });
+}
+    var handleDatePickers = function () {
+
+        if (jQuery().datepicker) {
+            $('.date-picker').datepicker({
+                rtl: App.isRTL(),
+                autoclose: true
+            });
+            $('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+
+            $('.date-picker').datepicker()
+                    .on('changeDate', function(ev){
+
+                       post('admin.php?s=/Home/DataOnlineCount', {date: Math.round(ev.date.getTime() / 1000)});
+
+                    });
+        }
+    }
+
+
+    jQuery(document).ready(function() {
+        // initiate layout and plugins
+        chart2();
+        handleDatePickers();
+    });
+
+
+
+
+</script>
+<include file="Public/footer" />

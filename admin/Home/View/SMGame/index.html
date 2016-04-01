@@ -1,0 +1,45 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStartEmpty" />
+        <a href="__URL__/add&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.sm_game_add}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.server_id}></th>
+                    <th><{$Think.lang.server_name}></th>
+                    <th><{$Think.lang.server_link}></th>
+                    <th><{$Think.lang.status}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+                <tr>
+                    <td><{$value.id}></td>
+                    <td><{$value.name}></td>
+                    <td><{$value.url}></td>
+                    <td>
+                        <{$value.status}>
+                        <a href="__URL__/status&id=<{$value.id}>">[<{$Think.lang.change}>]</a>
+                    </td>
+                    <td><a href="__URL__/delete&id=<{$value.id}>"><{$Think.lang.delete}></a></td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+
+        <include file="Public/tableEndEmpty" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

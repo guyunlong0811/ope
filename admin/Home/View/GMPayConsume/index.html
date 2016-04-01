@@ -1,0 +1,56 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStartEmpty" />
+        <a href="__URL__/groupAdd" style="color:whitesmoke;"><{$Think.lang.gm_pay_consume_group_add}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.ID}></th>
+                    <th><{$Think.lang.server}></th>
+                    <th><{$Think.lang.channel}></th>
+                    <th><{$Think.lang.activity_type}>1</th>
+                    <th><{$Think.lang.activity_type}>2</th>
+                    <th><{$Think.lang.activity_name}></th>
+                    <th><{$Think.lang.starttime}></th>
+                    <th><{$Think.lang.endtime}></th>
+                    <th colspan="6"><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+                <tr>
+                    <td><{$value.group}></td>
+                    <td><{$value.server_name}></td>
+                    <td><{$value.channel_name}></td>
+                    <td><{$Think.lang.$value[type1_name]}></td>
+                    <td><{$Think.lang.$value[type2_name]}></td>
+                    <td><{$value.name}></td>
+                    <td><{$value.starttime}></td>
+                    <td><{$value.endtime}></td>
+                    <td><a href="__URL__/groupOpen&group=<{$value.group}>"><{$Think.lang.status_all_active}></a></td>
+                    <td><a href="__URL__/groupClose&group=<{$value.group}>"><{$Think.lang.status_all_banned}></a></td>
+                    <td><a href="__URL__/groupIndex&group=<{$value.group}>"><{$Think.lang.detail}></a></td>
+                    <td><a href="__URL__/groupEdit&group=<{$value.group}>"><{$Think.lang.edit}></a></td>
+                    <td><a href="__URL__/groupCopy&group=<{$value.group}>"><{$Think.lang.copy}></a></td>
+                    <td><a href="__URL__/groupDelete&group=<{$value.group}>"><{$Think.lang.delete}></a></td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+
+        <{$vPageBar}>
+        <include file="Public/tableEndEmpty" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

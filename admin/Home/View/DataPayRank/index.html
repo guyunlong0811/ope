@@ -1,0 +1,65 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServerAll" />
+        <include file="Public/selectChannelAll" />
+        <include file="Public/selectDate" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th><{$Think.lang.server}></th>
+                        <th><{$Think.lang.channel}></th>
+                        <th><{$Think.lang.tid}></th>
+                        <th><{$Think.lang.nickname}></th>
+                        <th><{$Think.lang.team_level}></th>
+                        <th><{$Think.lang.pay_amount}></th>
+                        <th><{$Think.lang.pay_count}></th>
+                        <th><{$Think.lang.last_pay_time}></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                
+                    <foreach name="vTable" item="value" key="key" >
+                        <tr>
+                            <td><{$value.server}></td>
+                            <td><{$value.channel}></td>
+                            <td><a href="__MODULE__/UserInfo&server_id=<{$value.sid}>&team_id=<{$value.tid}>"><{$value.tid}></a></td>
+                            <td><a href="__MODULE__/UserInfo&server_id=<{$value.sid}>&nickname=<{$value.nickname}>"><{$value.nickname}></a></td>
+                            <td><{$value.level}></td>
+                            <td><{$value.pay}></td>
+                            <td><{$value.count}></td>
+                            <td><{$value.last_pay_time}></td>
+                        </tr>
+                    </foreach>
+
+                </tbody>
+
+            </table>
+
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

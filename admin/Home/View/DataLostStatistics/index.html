@@ -1,0 +1,62 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServerAll" />
+    <include file="Public/selectChannelAll" />
+    <include file="Public/selectDate" />
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <notempty name="vGet">
+
+        <include file="Public/chart" />
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+            <tr>
+                <th><{$Think.lang.level}></th>
+                <th><{$Think.lang.user_count}></th>
+                <th><{$Think.lang.lost_count}></th>
+                <th><{$Think.lang.user_rate}></th>
+                <th><{$Think.lang.lost_rate}></th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><{$Think.lang.total}></td>
+                    <td><{$vTotal.count}></td>
+                    <td><{$vTotal.lost}></td>
+                    <td><{$vTotal.level_rate}></td>
+                    <td><{$vTotal.lost_rate}></td>
+                </tr>
+                <foreach name="vTable" item="value" key="key" >
+                    <tr>
+                        <td><{$value.level}></td>
+                        <td><{$value.count}></td>
+                        <td><{$value.lost}></td>
+                        <td><{$value.level_rate}></td>
+                        <td><{$value.lost_rate}></td>
+                    </tr>
+                </foreach>
+            </tbody>
+
+        </table>
+
+        <include file="Public/tableEnd" />
+
+    </notempty>
+
+</div>
+
+<include file="Public/footer" />

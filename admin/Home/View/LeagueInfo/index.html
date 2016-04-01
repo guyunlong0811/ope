@@ -1,0 +1,95 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.league_id}>' != ''){$("#league_id").val('<{$vGet.league_id}>');}
+        if('<{$vGet.league_name}>' != ''){$("#league_name").val('<{$vGet.league_name}>');}
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <input type="text" class="form-control input-medium" placeholder="<{$Think.lang.league_id_input}>" id="league_id" name="league_id">
+        or
+        <input type="text" class="form-control input-medium" placeholder="<{$Think.lang.league_name_input}>" id="league_name" name="league_name">
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.league_id}></th>
+                    <th><{$Think.lang.league_name}></th>
+                    <th><{$Think.lang.league_president}></th>
+                    <th><{$Think.lang.league_level}></th>
+                    <th><{$Think.lang.league_fund}></th>
+                    <th><{$Think.lang.league_activity}></th>
+                    <th><{$Think.lang.league_point}></th>
+                    <th><{$Think.lang.ctime}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="vTable" id="value">
+                    <tr>
+                        <td><{$value.id}></td>
+                        <td><{$value.name}></td>
+                        <td><{$value.president_tid}></td>
+                        <td><{$value.center_level}></td>
+                        <td><{$value.fund}></td>
+                        <td><{$value.activity}></td>
+                        <td><{$value.point}></td>
+                        <td><{$value.ctime}></td>
+                        <td><a href="__URL__/detail&server_id=<{$vGet.server_id}>&league_id=<{$vGet.league_id}>&league_name=<{$vGet.league_name}>&id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.detail}></a></td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#skip<{$value.tid}>").click(function(){
+                                $.get("__URL__/skipGuide&server_id=<{$vGet.server_id}>&tid=<{$value.tid}>", function(data){
+                                    if(data=='ok'){
+                                        $("#td_skip<{$value.tid}>").html("<{$Think.lang.guide_skipped}>");
+                                        alert("<{$Think.lang.success}>");
+                                    }else{
+                                        alert("<{$Think.lang.fail}>");
+                                    }
+                                });
+                            });
+
+                            $("#kick<{$value.tid}>").click(function(){
+                                $.get("__URL__/kick&server_id=<{$vGet.server_id}>&uid=<{$value.uid}>", function(data){
+                                    if(data=='ok'){
+                                        alert("<{$Think.lang.success}>");
+                                    }else{
+                                        alert("<{$Think.lang.fail}>");
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

@@ -1,0 +1,156 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#server_type_all").click(function(){
+            $("#div_check_server").hide();
+        });
+
+        $("#server_type_check").click(function(){
+            $("#div_check_server").show();
+        });
+
+        $("#all").click(function(){
+            $(".checkbox_group span").each(function(){
+                $(this).attr('class', 'checked');
+            });
+            $(".module").each(function(){
+                $(this).attr('checked', true);
+            });
+        });
+        $("#none").click(function(){
+            $(".checkbox_group span").each(function(){
+                $(this).attr('class', '');
+            });
+            $(".module").each(function(){
+                $(this).attr('checked', false);
+            });
+        });
+
+        <if condition="$super eq 1">
+            $("input[type='checkbox']").attr("checked","checked");
+            $("#server_type_all").attr('checked',true);
+            $("#div_check_server").hide();
+        <elseif condition="$server eq 0" />
+            $("input[type='checkbox']").attr("checked","checked");
+            $("#server_type_all").attr('checked',true);
+            $("#div_check_server").hide();
+        <else />
+            $("#server_type_check").attr('checked',true);
+            $("#div_check_server").show();
+            <foreach name="server" item="value">
+            $("#server<{$value}>").attr("checked",true);
+            </foreach>
+        </if>
+
+
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-hdd-o"></i><{$Think.lang.admin_server_permission}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <input type="hidden" id="uid" name="uid" value="<{$data.uid}>" />
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_account}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="<{$data.username}>" disabled >
+                                        <span class="help-block"><{$Think.lang.not_allow_to_update}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group radio-list">
+                                    <label class="col-md-3 control-label"><{$Think.lang.permission}></label>
+                                    <div class="col-md-9">
+                                        <label class="radio-inline">
+                                            <input type="radio" id="server_type_all" name="server_type" value="all" /><{$Think.lang.all_server}>
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="server_type_check" name="server_type" value="check" /><{$Think.lang.select_server}>
+                                        </label>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="div_check_server">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                    <div class="col-md-9">
+                                        <div class="input-group" style="padding-top:8px;">
+                                            <a id="all" href="javascript:;"><{$Think.lang.select_all}></a>
+                                            |
+                                            <a id="none" href="javascript:;"><{$Think.lang.select_none}></a>
+                                        </div>
+                                        <div class="input-group checkbox_group">
+                                            <foreach name="vServer" item="value" key="key">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" value="<{$key}>" id="server<{$key}>" name="server[]" class="module" />
+                                                    <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                                </label>
+                                            </foreach>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-save"></i>&nbsp;<{$Think.lang.save}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+
+
+<include file="Public/footer" />

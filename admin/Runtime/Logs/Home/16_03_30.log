@@ -1,0 +1,35 @@
+[ 2016-03-30T10:50:45+08:00 ] ::1 /zettaiOpe/admin.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000434s ]
+
+[ 2016-03-30T10:50:45+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/logout
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000043s ]
+
+[ 2016-03-30T10:50:45+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000040s ]
+
+[ 2016-03-30T10:50:51+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000061s ]
+
+[ 2016-03-30T10:50:52+08:00 ] ::1 /zettaiOpe/admin.php?s=Home/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000055s ]
+
+[ 2016-03-30T10:51:22+08:00 ] ::1 /zettaiOpe/admin.php?s=/Home/DataPayFirstCash
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000075s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000188s ]
+
+[ 2016-03-30T10:51:23+08:00 ] ::1 /zettaiOpe/admin.php?s=%2FHome%2FDataPayFirstCash%2Findex&server_id=0&channel_id=0&date=2016-03-29
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000072s ]
+

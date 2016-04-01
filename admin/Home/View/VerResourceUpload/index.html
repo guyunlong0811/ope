@@ -1,0 +1,112 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#mainform").submit(function(){
+
+            if($("#file").val() == ''){
+                alert('<{$Think.lang.upload_file_select}>');
+                return false;
+            }
+
+            if($("#ver").val() == ''){
+                alert('<{$Think.lang.version_number_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTENT-->
+
+    <div class="row-fluid">
+
+
+        <div class="span12">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-upload"></i><{$Think.lang.ver_resource_upload}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal" enctype="multipart/form-data">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.current_version}></label>
+                                <div class="col-md-9">
+                                    <label class="control-label"><{$vVersion.currentver}></label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.current_base}></label>
+                                <div class="col-md-9">
+                                    <label class="control-label"><{$vVersion.currentbase}></label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.upload_file}></label>
+                                <div class="col-md-9">
+                                    <label class="control-label">
+                                        <input type="file" name="file" id="file">
+                                        <p class="help-block"><{$Think.lang.upload_file_select}></p>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.version_number}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-medium" name="ver" id="ver" placeholder="1.0.0.0" >
+                                    <span class="help-block"><{$Think.lang.version_number_input}></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn blue"><i class="fa fa-upload"></i>&nbsp;<{$Think.lang.upload}></button>
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

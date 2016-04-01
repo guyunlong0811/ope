@@ -1,0 +1,149 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+
+<div class="page-content" style="min-height: 500px;">
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number"><{$online}></div>
+                <div class="desc"><{$Think.lang.current_online_user}></div>
+            </div>
+            <a class="more" href="__MODULE__/DataOnlineCount">
+                <{$Think.lang.more}> <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green">
+            <div class="visual">
+                <i class="fa fa-group"></i>
+            </div>
+            <div class="details">
+                <div class="number"><{$nuu}></div>
+                <div class="desc"><{$Think.lang.yesterday_nuu}></div>
+            </div>
+            <a class="more" href="__MODULE__/DataUsersRetention">
+                <{$Think.lang.more}> <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple">
+            <div class="visual">
+                <i class="fa fa-rocket"></i>
+            </div>
+            <div class="details">
+                <div class="number"><{$dau}></div>
+                <div class="desc"><{$Think.lang.yesterday_dau}></div>
+            </div>
+            <a class="more" href="__MODULE__/DataActiveUsers">
+                <{$Think.lang.more}> <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow">
+            <div class="visual">
+                <i class="fa fa-usd"></i>
+            </div>
+            <div class="details">
+                <div class="number"><{$pu}></div>
+                <div class="desc"><{$Think.lang.yesterday_pu}></div>
+            </div>
+            <a class="more" href="__MODULE__/DataConsume">
+                <{$Think.lang.more}> <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="clearfix"></div>
+
+<notempty name="warning">
+<div class="row ">
+<div class="col-md-12">
+<!-- BEGIN PORTLET-->
+<div class="portlet paddingless">
+<div class="portlet-title line">
+    <div class="caption"><i class="fa fa-exclamation-triangle"></i><{$Think.lang.warning}></div>
+</div>
+<div class="portlet-body">
+<!--BEGIN TABS-->
+<div class="tabbable tabbable-custom">
+<ul class="nav nav-tabs">
+    <php>$i=1;</php>
+    <foreach name="warning" item="value" key="key" >
+    <eq name="i" value="1">
+    <li class="active"><a href="#tab_<{$i}>" data-toggle="tab"><{$Think.lang.$key}></a></li>
+    <else />
+    <li><a href="#tab_<{$i}>" data-toggle="tab"><{$Think.lang.$key}></a></li>
+    </eq>
+    <php>++$i;</php>
+    </foreach>
+</ul>
+<div class="tab-content">
+<php>$j=0;</php>
+<foreach name="warning" item="value" key="key" >
+<php>++$j;</php>
+<eq name="j" value="1">
+<div class="tab-pane active" id="tab_<{$j}>">
+<else />
+<div class="tab-pane" id="tab_<{$j}>">
+</eq>
+
+    <div class="scroller" style="height: 280px;" data-always-visible="1" data-rail-visible="0">
+        <table class="table table-striped table-bordered table-hover table-full-width">
+            <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.tid}></th>
+                <th><{$Think.lang.warning_type}></th>
+                <eq name="key" value="partner_soul">
+                <th><{$Think.lang.user_partner_group_id}></th>
+                </eq>
+                <th><{$Think.lang.warning_value}></th>
+                <th><{$Think.lang.operation}></th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="value" item="val" key="k" >
+                <tr>
+                    <td><{$val.server_name}></td>
+                    <td><a href="__MODULE__/UserInfo&server_id=<{$val.sid}>&team_id=<{$val.tid}>"><{$val.tid}></a></td>
+                    <td><{$Think.lang.$val[type]}></td>
+                    <eq name="key" value="partner_soul">
+                    <td><{$val.params}></td>
+                    </eq>
+                    <td><{$val.value}></td>
+                    <td><a href="__URL__/status&id=<{$val.id}>"><{$Think.lang.solve}></a></td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+</div>
+</foreach>
+</div>
+</div>
+<!--END TABS-->
+</div>
+</div>
+<!-- END PORTLET-->
+</div>
+</div>
+</notempty>
+</div>
+<!-- END PAGE -->
+
+</div>
+
+<include file="Public/footer" />

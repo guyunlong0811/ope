@@ -1,0 +1,46 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/send&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_push_send}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-striped table-bordered table-hover table-full-width">
+        <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.push_tid}></th>
+                <th><{$Think.lang.push_msg}></th>
+                <th><{$Think.lang.create_time}></th>
+            </tr>
+        </thead>
+        <tbody>
+            <notempty name="list">
+            <volist name="list" id="value">
+            <tr>
+                <td><{$value.sid}></td>
+                <td><{$value.tid}></td>
+                <td><{$value.msg}></td>
+                <td><{$value.ctime}></td>
+            </tr>
+            </volist>
+            <else />
+            <tr>
+                <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+            </tr>
+            </notempty>
+        </tbody>
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+</div>
+
+<include file="Public/footer" />

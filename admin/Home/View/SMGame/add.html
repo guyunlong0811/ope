@@ -1,0 +1,113 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#mainform").submit(function(){
+		
+		if($("#name").val() == ''){
+			alert('<{$Think.lang.server_name_input}>');
+			return false;
+		}else if($("#url").val() == ''){
+			alert('<{$Think.lang.server_url_input}>');
+			return false;
+		}
+
+        return true;
+		
+	})
+})
+</script>
+
+<!-- BEGIN PAGE -->
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.sm_game_add}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="name" name="name" >
+                                        <span class="help-block"><{$Think.lang.server_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server_link}> http://</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="url" name="url" >
+                                        <span class="help-block"><{$Think.lang.server_url_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+    <include file="Public/footer" />

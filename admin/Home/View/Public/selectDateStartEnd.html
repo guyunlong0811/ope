@@ -1,0 +1,58 @@
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.starttime}>' != ''){
+            $("#starttime").val('<{$vGet.starttime}>');
+        }else{
+            $("#starttime").val('<{$vDateStart}>');
+        }
+
+        if('<{$vGet.endtime}>' != ''){
+            $("#endtime").val('<{$vGet.endtime}>');
+        }else{
+            $("#endtime").val('<{$vDateEnd}>');
+        }
+
+        $("#starttime").focus(function(){
+            WdatePicker({
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'<{$vDateMin}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+        $("#starttime_button").click(function(){
+            WdatePicker({
+                el:'starttime',
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'<{$vDateMin}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+        $("#endtime").focus(function(){
+            WdatePicker({
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'#F{$dp.$D(\'starttime\')||\'%y-%M-%d\'}',
+                maxDate:'<{$vDateMax}>'
+            });
+        });
+        $("#endtime_button").click(function(){
+            WdatePicker({
+                el:'endtime',
+                dateFmt:'<{$vDateFmt}>',
+                minDate:'#F{$dp.$D(\'starttime\')||\'%y-%M-%d\'}',
+                maxDate:'<{$vDateMax}>'
+            });
+        });
+    });
+
+</script>
+<div style="float:left; margin-left:10px;">
+    <input style="float:left;" id="starttime" name="starttime" class="form-control input-small" type="text" value="" />
+    <span style="float:left;">
+        <button id="starttime_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+    </span>
+    <input style="float:left;" id="endtime" name="endtime" class="form-control input-small" type="text" value="" />
+    <span style="float:left;">
+        <button id="endtime_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+    </span>
+</div>

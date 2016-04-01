@@ -1,0 +1,80 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.behave_id}>' != ''){$("#behave_id").val('<{$vGet.behave_id}>');}
+
+        $("#mainform").submit(function(){
+            if($("#team_id").val() == '' || $("#item_id").val() == 0){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/selectItem" />
+        <select style="float:left; margin-left: 10px;" class="form-control input-medium" id = "behave_id" name = "behave_id">
+            <option value="0"><{$Think.lang.all_shop}></option>
+            <foreach name="vShopBehave" item="value">
+                <option value=<{$value}>><{$Think.lang.shop_$value}></option>
+            </foreach>
+        </select>
+        <include file="Public/inputTeamID" />
+        <include file="Public/buttonSearch" />
+        <include file="Public/selectDateStartEnd" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <empty name="vGet.team_id">
+                <div class="tools"><{$Think.lang.buy_user_count}>：<{$buyUserCount}></div>
+            </empty>
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                    <tr>
+                        <th><{$Think.lang.tid}></th>
+                        <th><{$Think.lang.item}></th>
+                        <th><{$Think.lang.count}></th>
+                        <th><{$Think.lang.shop}></th>
+                        <th><{$Think.lang.ctime}></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="vTable" id="value">
+                        <tr>
+                            <td><{$value.tid}></td>
+                            <td><{$value.name}></td>
+                            <td><{$value.count}></td>
+                            <td><{$Think.lang.shop_$value[behave]}></td>
+                            <td><{$value.ctime}></td>
+                        </tr>
+                    </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

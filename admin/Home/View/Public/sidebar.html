@@ -1,0 +1,66 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar navbar-collapse collapse">
+
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu">
+
+        <li>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            <div class="sidebar-toggler hidden-phone"></div>
+            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        </li>
+
+        <li>
+
+        </li>
+
+        <li class="start <eq name='vIcon' value='home'>active</eq>">
+            <a href="__MODULE__">
+                <i class="fa fa-home"></i>
+                <span class="title">主页</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+        <foreach name="vFunction" item="value">
+
+        <eq name='vIcon' value='$value.icon'>
+            <li class="selected">
+            <li class="active open">
+        <else />
+            <li >
+        </eq>
+
+            <a href="javascript:;">
+                <i class="fa fa-<{$value.icon}>"></i>
+                <span class="title"><{$value.name}></span>
+                <span class="selected"></span>
+                <eq name='vIcon' value='$value.icon'>
+                    <span class="arrow open"></span>
+                <else />
+                    <span class="arrow"></span>
+                </eq>
+            </a>
+
+            <ul class="sub-menu">
+                <foreach name="value.list" item="val">
+                    <neq name='val.display' value='false'>
+                        <eq name='vController' value='$val.controller'>
+                            <li class="active">
+                        <else />
+                            <li>
+                        </eq>
+                        <a href="__MODULE__/<{$val.controller}>"><{$val.name}></a>
+                        </li>
+                    </neq>
+                </foreach>
+            </ul>
+
+        </li>
+
+        </foreach>
+
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>
+<!-- END SIDEBAR-->

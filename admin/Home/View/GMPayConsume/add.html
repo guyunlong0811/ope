@@ -1,0 +1,244 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+<script type="text/javascript">
+    var html = '<option value="0"><{$Think.lang.please_select}></option>';
+    var htmlItem;
+    htmlItem = html;
+    <foreach name="vItemConfig" item="value" key="key" >
+    htmlItem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+    var htmlAttr;
+    htmlAttr = html;
+    <foreach name="vFieldConfig" item="value" key="key" >
+    htmlAttr += '<option value="<{$key}>"><{$key}>-<{$Think.lang.$value}></option>';
+    </foreach>
+
+    var htmlPartner;
+    htmlPartner = html;
+    <foreach name="vPartnerConfig" item="value" key="key" >
+    htmlPartner += '<option value="<{$key}>"><{$key}>-<{$value}></option>';
+    </foreach>
+
+    var htmlEmblem;
+    htmlEmblem = html;
+    <foreach name="vEmblemConfig" item="value" key="key" >
+    htmlEmblem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+    $(document).ready(function(){
+        $("#name").val('<{$vData.name}>');
+        $("#name").attr('disabled', true);
+        $("#value").val(0);
+        $("#receive_max").val(0);
+        $("#pt_activity_id").val(0);
+
+        $("#pt_activity_id").blur(function(){
+            if($("#pt_activity_id").val() == ''){
+                $("#pt_activity_id").val(0);
+            }
+        });
+
+        <php>for($i=1;$i<=8;++$i){</php>
+        $('#bonus_<{$i}>_value_1').attr('disabled',true);
+        $('#bonus_<{$i}>_value_2').attr('disabled',true);
+        $("#bonus_<{$i}>_type").val(0);
+        $("#bonus_<{$i}>_value_1").val(0);
+        $("#bonus_<{$i}>_value_2").val(0);
+        <php>}</php>
+
+        $("#mainform").submit(function(){
+
+            if(!($("#value").val() > 0)){
+                alert('<{$Think.lang.activity_condition_input}>');
+                return false;
+            }
+
+            if(!($("#receive_max").val() > 0)){
+                alert('<{$Think.lang.activity_max_complete_input}>');
+                return false;
+            }
+
+            var count = 0;
+            for(var i=1;i<=8;++i){
+
+                if($('#bonus_'+i+'_type').val() > 0){
+                    ++count;
+                    if(!($('#bonus_'+i+'_value_1').val() > 0) || !($('#bonus_'+i+'_value_2').val() > 0) || ($('#bonus_'+i+'_value_1').val() == '1' && $('#bonus_'+i+'_value_2').val() > 1000)){
+                        alert('<{$Think.lang.activity_bonus_error}>');
+                        return false;
+                    }
+                }
+
+            }
+
+            if(count == 0){
+                alert('<{$Think.lang.activity_bonus_select}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.gm_pay_consume_add}></div>
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.activity_name}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="name" name="name" disabled>
+                                    <span class="help-block"><{$Think.lang.activity_name_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.activity_condition}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="value" name="value" >
+                                    <span class="help-block"><{$Think.lang.activity_condition_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.activity_max_complete}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="receive_max" name="receive_max" >
+                                    <span class="help-block"><{$Think.lang.activity_max_complete_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.platform_activity_id}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="pt_activity_id" name="pt_activity_id" >
+                                    <span class="help-block"><{$Think.lang.platform_activity_id_input}></span>
+                                </div>
+                            </div>
+
+                            <php>for($i=1;$i<=8;++$i){</php>
+
+                            <script type="application/javascript">
+                                $(document).ready(function(){
+
+                                    $('#bonus_<{$i}>_type').change(function(){
+                                        $('#bonus_<{$i}>_value_1').val(0);
+                                        $('#bonus_<{$i}>_value_2').val(0);
+                                        if($('#bonus_<{$i}>_type').val() == 0){
+                                            $('#bonus_<{$i}>_value_1').attr('disabled',true);
+                                            $('#bonus_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#bonus_<{$i}>_value_1').attr('disabled',false);
+
+                                            switch ($('#bonus_<{$i}>_type').val()){
+                                                case '1':
+                                                    $('#bonus_<{$i}>_value_1').html(htmlItem);
+                                                    break;
+                                                case '2':
+                                                    $('#bonus_<{$i}>_value_1').html(htmlAttr);
+                                                    break;
+                                                case '3':
+                                                case '4':
+                                                case '5':
+                                                case '6':
+                                                case '7':
+                                                    $('#bonus_<{$i}>_value_1').html(htmlPartner);
+                                                    break;
+                                                case '9':
+                                                    $('#bonus_<{$i}>_value_1').html(htmlEmblem);
+                                                    break;
+                                            }
+
+                                        }
+
+                                    });
+
+                                    $('#bonus_<{$i}>_value_1').change(function(){
+                                        if($('#bonus_<{$i}>_value_1').val() == 0){
+                                            $('#bonus_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#bonus_<{$i}>_value_2').attr('disabled',false);
+                                        }
+                                    });
+
+                                    $("#bonus_<{$i}>_value_2").blur(function(){
+                                        if(!($("#bonus_<{$i}>_value_2").val() >= 0)){
+                                            $("#bonus_<{$i}>_value_2").val(0);
+                                        }else{
+                                            $("#bonus_<{$i}>_value_2").val(parseInt($("#bonus_<{$i}>_value_2").val()));
+                                        }
+                                    });
+
+
+                                });
+                            </script>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.activity_bonus}><{$i}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id="bonus_<{$i}>_type" name="bonus_<{$i}>_type" style="float:left;">
+                                        <foreach name="bonus_type" item="value" key="key" >
+                                            <option value="<{$key}>"><{$Think.lang.$value}></option>
+                                        </foreach>
+                                    </select>
+                                    <select class="form-control input-medium" style="float:left;" id="bonus_<{$i}>_value_1" name="bonus_<{$i}>_value_1">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                    </select>
+                                    <input type="text" class="form-control input-small" id="bonus_<{$i}>_value_2" name="bonus_<{$i}>_value_2" value="0" >
+                                    <span class="help-block"><{$Think.lang.activity_bonus_select}><{$i}></span>
+                                </div>
+                            </div>
+
+                            <php>}</php>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__CONTROLLER__/groupIndex&group=<{$vGet.group}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

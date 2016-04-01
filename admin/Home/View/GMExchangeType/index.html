@@ -1,0 +1,259 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <include file="Public/tableStartEmpty" />
+        <a href="__URL__/add&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_exchange_type_add}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.exchange_type_id}></th>
+                    <th><{$Think.lang.exchange_type_name}></th>
+                    <th><{$Think.lang.exchange_type_type}></th>
+                    <th><{$Think.lang.exchange_type_mail}></th>
+                    <th><{$Think.lang.exchange_type_act}></th>
+                    <th><{$Think.lang.exchange_type_total}></th>
+                    <th><{$Think.lang.status}></th>
+                    <th colspan="5"><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <empty name="list">
+                <tr>
+                    <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+                </tr>
+                </empty>
+                <volist name="list" id="value">
+                <tr>
+                    <td><{$value.id}></td>
+                    <td><{$value.name}></td>
+                    <td><{$value.type}></td>
+                    <td><{$value.goods}></td>
+                    <td><{$value.act}></td>
+                    <td><{$value.total}></td>
+                    <td><{$value.status}><a href="__URL__/status&id=<{$value.id}>&p=<{$pg}>">[<{$Think.lang.change}>]</a></td>
+                    <td><a href="javascript:;" id="click_detail_<{$value.id}>"><{$Think.lang.detail}></a></td>
+                    <td><a href="__URL__/edit&id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.edit}></a></td>
+                    <td><a href="javascript:;" id="click_create_<{$value.id}>"><{$Think.lang.create}></a></td>
+                    <td><a href="javascript:;" id="click_download_<{$value.id}>"><{$Think.lang.download}></a></td>
+                    <td><a href="__URL__/remove&id=<{$value.id}>&p=<{$pg}>"><{$Think.lang.delete}></a></td>
+
+                </tr>
+                <tr id="detail_<{$value.id}>" style="display:none;">
+                    <td class="details" colspan="100%">
+                        <table class="table table-bordered table-hover table-full-width">
+                            <tbody>
+                                <tr>
+                                    <td width="200"><{$Think.lang.exchange_type_server}></td>
+                                    <td><{$value.server}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_channel}></td>
+                                    <td><{$value.channel}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_use_count}></td>
+                                    <td><{$value.use_count}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_use_count_diff}></td>
+                                    <td><{$value.use_count_diff}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_starttime}></td>
+                                    <td><{$value.starttime}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_endtime}></td>
+                                    <td><{$value.endtime}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_lifetime}></td>
+                                    <td><{$value.lifetime}></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_type_create_count}></td>
+                                    <td><{$value.create_count}></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr id="create_<{$value.id}>" style="display:none;">
+                    <td class="creates" colspan="100%">
+                        <table class="table table-bordered table-hover table-full-width">
+                            <tbody>
+                                <tr>
+                                    <td width="400"><{$Think.lang.exchange_code_prefix}></td>
+                                    <td><input type="text" class="form-control input-small" id="prefix_<{$value.id}>" name="prefix_<{$value.id}>" value="3" ></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_create_count}></td>
+                                    <td><input type="text" class="form-control input-small" id="create_count_<{$value.id}>" name="create_count_<{$value.id}>" value="0" ></td>
+                                </tr>
+                                <tr>
+                                    <td><{$Think.lang.exchange_create_code}></td>
+                                    <td><input type="text" class="form-control input-medium" id="create_code_<{$value.id}>" name="create_code_<{$value.id}>" value="" ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><a id="submit_create_<{$value.id}>" href="javascript:;"><button type="button" class="btn blue"><{$Think.lang.create}></button></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr id="download_<{$value.id}>" style="display:none;">
+                    <td class="downloads" colspan="100%">
+                        <table class="table">
+                            <tbody>
+                            <notempty name="download[$value[id]]">
+                            <volist name="download[$value[id]]" id="val">
+                            <tr>
+                                <td><a href="__MODULE__/Base/download&file=<{$val.name}>&url=<{$val.url}>" target="_blank"><{$val.name}></a></td>
+                            </tr>
+                            </volist>
+                            <else />
+                            <tr>
+                                <td align="center"><{$Think.lang.no_data}></td>
+                            </tr>
+                            </notempty>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <input type="hidden" id="switch_detail_<{$value.id}>" value="0" />
+                <input type="hidden" id="switch_create_<{$value.id}>" value="0" />
+                <input type="hidden" id="switch_download_<{$value.id}>" value="0" />
+                <script type="text/javascript">
+                $(document).ready(function(){
+
+                    $("#prefix_<{$value.id}>").val(3);
+                    $("#create_count_<{$value.id}>").val(0);
+                    $("#create_code_<{$value.id}>").val('');
+                    $("#prefix_<{$value.id}>").attr('disabled', false);
+                    $("#create_count_<{$value.id}>").attr('disabled', false);
+
+                    //详情
+                    $("#click_detail_<{$value.id}>").click(function(){
+                        if($("#switch_detail_<{$value.id}>").val() == '0'){
+                            $("#click_detail_<{$value.id}>").html('<{$Think.lang.close}>');
+                            $("#switch_detail_<{$value.id}>").val('1');
+                            $("#detail_<{$value.id}>").show('fast');
+                        }else{
+                            $("#click_detail_<{$value.id}>").html('<{$Think.lang.detail}>');
+                            $("#switch_detail_<{$value.id}>").val('0');
+                            $("#detail_<{$value.id}>").hide('fast');
+                        }
+                    });
+
+                    //生成
+                    $("#click_create_<{$value.id}>").click(function(){
+                        if($("#switch_create_<{$value.id}>").val() == '0'){
+                            $("#click_create_<{$value.id}>").html('<{$Think.lang.close}>');
+                            $("#switch_create_<{$value.id}>").val('1');
+                            $("#create_<{$value.id}>").show('fast');
+                        }else{
+                            $("#click_create_<{$value.id}>").html('<{$Think.lang.create}>');
+                            $("#switch_create_<{$value.id}>").val('0');
+                            $("#create_<{$value.id}>").hide('fast');
+                        }
+                    });
+
+                    //下载
+                    $("#click_download_<{$value.id}>").click(function(){
+                        if($("#switch_download_<{$value.id}>").val() == '0'){
+                            $("#click_download_<{$value.id}>").html('<{$Think.lang.close}>');
+                            $("#switch_download_<{$value.id}>").val('1');
+                            $("#download_<{$value.id}>").show('fast');
+                        }else{
+                            $("#click_download_<{$value.id}>").html('<{$Think.lang.download}>');
+                            $("#switch_download_<{$value.id}>").val('0');
+                            $("#download_<{$value.id}>").hide('fast');
+                        }
+                    });
+
+                    //指定兑换码生成
+                    $("#create_code_<{$value.id}>").blur(function(){
+                        if($("#create_code_<{$value.id}>").val() != ''){
+                            $("#prefix_<{$value.id}>").val(3);
+                            $("#create_count_<{$value.id}>").val(0);
+                            $("#prefix_<{$value.id}>").attr('disabled', true);
+                            $("#create_count_<{$value.id}>").attr('disabled', true);
+                        }else{
+                            $("#prefix_<{$value.id}>").attr('disabled', false);
+                            $("#create_count_<{$value.id}>").attr('disabled', false);
+                        }
+                    });
+
+                    //生成逻辑
+                    $("#prefix_<{$value.id}>").val(3);
+                    $("#create_count_<{$value.id}>").val(0);
+
+                    $("#prefix_<{$value.id}>").blur(function(){
+                        if(!($("#prefix_<{$value.id}>").val() > 1)){
+                            $("#prefix_<{$value.id}>").val(2);
+                        }else{
+                            var num = parseInt($("#prefix_<{$value.id}>").val());
+                            $("#prefix_<{$value.id}>").val(num);
+                        }
+                    });
+
+                    $("#create_count_<{$value.id}>").blur(function(){
+                        if(!($("#create_count_<{$value.id}>").val() > 0)){
+                            $("#create_count_<{$value.id}>").val(0);
+                        }else{
+                            var num = parseInt($("#create_count_<{$value.id}>").val());
+                            $("#create_count_<{$value.id}>").val(num);
+                        }
+                    });
+
+                    $("#submit_create_<{$value.id}>").click(function(){
+
+                        var prefix = parseInt($("#prefix_<{$value.id}>").val());
+                        var count = parseInt($("#create_count_<{$value.id}>").val());
+                        var code = $("#create_code_<{$value.id}>").val();
+
+                        if(code == ''){
+
+                            if(!(count > 0)){
+                                $("#create_count_<{$value.id}>").val(0);
+                                alert('<{$Think.lang.exchange_type_create_count_input}>');
+                                return false;
+                            }
+
+                            if($("#create_count_<{$value.id}>").val() > 10000){
+                                $("#create_count_<{$value.id}>").val(10000);
+                                alert('<{$Think.lang.exchange_type_create_count_max}>');
+                                return false;
+                            }
+
+                        }
+
+                        $("#submit_create_<{$value.id}>").attr('href',"__URL__/create&id=<{$value.id}>&prefix="+prefix+"&count="+count+"&code="+code);
+                        $("#submit_create_<{$value.id}>").attr('target','_blank');
+
+                    });
+
+                });
+                </script>
+                </volist>
+            </tbody>
+        </table>
+
+        <{$vPageBar}>
+        <include file="Public/tableEndEmpty" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

@@ -1,0 +1,120 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $("#id").val("<{$vData.channel_id}>");
+        $("#channel_id").val("<{$vData.channel_id}>");
+        $("#name").val("<{$vData.name}>");
+        $("#code").val("<{$vData.code}>");
+        $("#callback").val("<{$vData.callback}>");
+
+        $("#name").blur(function(){
+            if($("#name").val() == ''){
+                $("#name").val("<{$vData.name}>");
+            }
+        });
+
+        $("#mainform").submit(function(){
+            if($("#name").val() == ''){
+                alert('<{$Think.lang.channel_name_input}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+                        <div class="caption"><i class="fa fa-edit"></i><{$Think.lang.sm_channel_edit}></div>
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <input type="hidden" id="id" name="id" />
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.channel_id}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="channel_id" disabled >
+                                        <span class="help-block"><{$Think.lang.not_allow_to_update}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.channel_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="name" name="name" >
+                                        <span class="help-block"><{$Think.lang.channel_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.channel_code}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="code" name="code" >
+                                        <span class="help-block"><{$Think.lang.channel_code_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.channel_callback}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="callback" name="callback" >
+                                        <span class="help-block"><{$Think.lang.channel_callback_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-save"></i>&nbsp;<{$Think.lang.save}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

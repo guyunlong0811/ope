@@ -1,0 +1,121 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#mainform").submit(function(){
+
+            if($("#tid").val() == ''){
+                alert('<{$Think.lang.tid_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    })
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12"></div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-mail-forward"></i><{$Think.lang.gm_vip_send}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-medium" id = "sid" name = "sid">
+                                            <foreach name="vServer" item="value" key="key" >
+                                                <option value="<{$key}>">
+                                                    <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                                </option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div id="div_tid" class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.mail_tid}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="tid" name="tid"></textarea>
+                                        <span class="help-block"><{$Think.lang.tid_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.vip_level}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-small" id="vip_index" name="vip_index">
+                                            <foreach name="vVipConfig" item="value" key="key" >
+                                            <option value="<{$key}>"><{$value.level}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.vip_level_select}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+    <include file="Public/footer" />

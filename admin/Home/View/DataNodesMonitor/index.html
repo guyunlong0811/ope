@@ -1,0 +1,62 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServer" />
+    <include file="Public/selectDateStartEnd" />
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <include file="Public/chartMulti" />
+
+    <notempty name="vGet">
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th><{$Think.lang.step}></th>
+                    <th><{$Think.lang.des}></th>
+                    <th><{$Think.lang.not_skip_count}></th>
+                    <th><{$Think.lang.not_skip_rate}></th>
+                    <th><{$Think.lang.skip_count}></th>
+                    <th><{$Think.lang.skip_rate}></th>
+                    <th><{$Think.lang.stay_count}></th>
+                    <th><{$Think.lang.stay_rate}></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <foreach name="vTable" item="value" key="key" >
+                    <tr>
+                        <td><{$value.step}></td>
+                        <td><{$value.des}></td>
+                        <td><{$value.not_skip_count}></td>
+                        <td><{$value.not_skip_rate}>%</td>
+                        <td><{$value.skip_count}></td>
+                        <td><{$value.skip_rate}>%</td>
+                        <td><{$value.stay_count}></td>
+                        <td><{$value.stay_rate}>%</td>
+                    </tr>
+                </foreach>
+            </tbody>
+
+        </table>
+
+        <{$vPageBar}>
+
+        <include file="Public/tableEnd" />
+
+    </notempty>
+
+</div>
+
+<include file="Public/footer" />

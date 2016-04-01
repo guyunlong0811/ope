@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.partner_group_id}>' != ''){$("#partner_group_id").val('<{$vGet.partner_group_id}>');}
+    });
+</script>
+<select style="float:left; margin-left:10px;" class="form-control input-medium" id = "partner_group_id" name = "partner_group_id">
+    <option value="0"><{$Think.lang.all_partner}></option>;
+    <foreach name="vPartnerConfig" item="value" key="key" >
+        <option value="<{$key}>"><{$value}></option>;
+    </foreach>
+</select>

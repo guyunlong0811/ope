@@ -1,0 +1,258 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#server_type_all").attr('checked',true);
+        $("#server_radio").hide('fast');
+
+        $("#server_type_all").click(function(){
+            $("#server_radio").hide('fast');
+        });
+
+        $("#server_type_check").click(function(){
+            $("#server_radio").show();
+        });
+
+        $("#partner").val('');
+        $("#des").val('');
+
+        $("#point_1").val(0);
+        $("#point_1").blur(function(){
+            if(!($("#point_1").val() > 0)){
+                $("#point_1").val(0);
+            }
+        });
+        $("#point_10").val(0);
+        $("#point_10").blur(function(){
+            if(!($("#point_10").val() > 0)){
+                $("#point_10").val(0);
+            }
+        });
+        $("#rank_type").val(0);
+        $("#rank_type").blur(function(){
+            if(!($("#rank_type").val() > 0)){
+                $("#rank_type").val(0);
+            }
+        });
+
+        //时间
+        $("#starttime").val('<{$vTime.starttime}>');
+        $("#endtime").val('<{$vTime.endtime}>');
+
+        $("#starttime").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+        $("#starttime_button").click(function(){
+            WdatePicker({
+                el:'starttime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+
+        $("#endtime").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime\')}'
+            });
+        });
+        $("#endtime_button").click(function(){
+            WdatePicker({
+                el:'endtime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime\')}'
+            });
+        });
+
+        //提交
+        $("#mainform").submit(function(){
+
+            if($("#partner").val() == ''){
+                alert('<{$Think.lang.partner_show_input}>');
+                return false;
+            }
+
+            if($("#rank_type").val() == '0'){
+                alert('<{$Think.lang.rank_type_input}>');
+                return false;
+            }
+
+            if($("#point_1").val() == '0'){
+                alert('<{$Think.lang.pray_1_point_input}>');
+                return false;
+            }
+
+            if($("#point_10").val() == '0'){
+                alert('<{$Think.lang.pray_10_point_input}>');
+                return false;
+            }
+
+            if($("#des").val() == ''){
+                alert('<{$Think.lang.activity_des_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.gm_pray_timed_add}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.exchange_type_server}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_all" name="server_type" value="all" /><{$Think.lang.all_server}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_check" name="server_type" value="check" /><{$Think.lang.select_server}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.exchange_type_server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="server_radio">
+                                <label class="col-md-3 control-label"><{$Think.lang.exchange_type_server}></label>
+                                <div class="col-md-9">
+                                    <foreach name="vServer" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="server<{$key}>" name="server[]" value="<{$key}>" />
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </label>
+                                    </foreach>
+                                    <span class="help-block"><{$Think.lang.exchange_type_server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.partner_show}><br /><a href="javascript:alert('<{$vPartnerGroupList}>');">[<{$Think.lang.view_partner_group_list}>]</a></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="partner" name="partner" >
+                                    <span class="help-block"><{$Think.lang.partner_show_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.pray_1_point}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-medium" id="point_1" name="point_1" >
+                                    <span class="help-block"><{$Think.lang.pray_1_point_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.pray_10_point}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-medium" id="point_10" name="point_10" >
+                                    <span class="help-block"><{$Think.lang.pray_10_point_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.rank_type}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-medium" id="rank_type" name="rank_type" >
+                                    <span class="help-block"><{$Think.lang.rank_type_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.activity_des}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="3" id="des" name="des"></textarea>
+                                    <span class="help-block"><{$Think.lang.activity_des_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.starttime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="starttime" name="starttime" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="starttime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_starttime_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.endtime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="endtime" name="endtime" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="endtime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_endtime_select}></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

@@ -1,0 +1,361 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    var html = '<option value="0"><{$Think.lang.please_select}></option>';
+    var htmlItem;
+    htmlItem = html;
+    <foreach name="vItemConfig" item="value" key="key" >
+    htmlItem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+    var htmlAttr;
+    htmlAttr = html;
+    <foreach name="vFieldConfig" item="value" key="key" >
+    htmlAttr += '<option value="<{$key}>"><{$key}>-<{$Think.lang.$value}></option>';
+    </foreach>
+
+    var htmlPartner;
+    htmlPartner = html;
+    <foreach name="vPartnerConfig" item="value" key="key" >
+    htmlPartner += '<option value="<{$key}>"><{$key}>-<{$value}></option>';
+    </foreach>
+
+    var htmlEmblem;
+    htmlEmblem = html;
+    <foreach name="vEmblemConfig" item="value" key="key" >
+    htmlEmblem += '<option value="<{$key}>"><{$key}>-<{$value.name}></option>';
+    </foreach>
+
+//    alert(htmlItem);
+//    alert(htmlAttr);
+//    alert(htmlPartner);
+
+    $(document).ready(function(){
+        $("#name").val('<{$vData.name}>');
+        $("#from").val('<{$vData.from}>');
+        $("#des").val('<{$vData.des}>');
+        $("#expires_value").val('<{$vData.expires_value}>');
+
+        $("#expires_value").blur(function(){
+            if(!($("#expires_value").val() > 0)){
+                $("#expires_value").val(1);
+            }
+        });
+
+        for(var i=1;i<=4;++i){
+            $('#annex_type_'+i).val(0);
+            $('#annex_type_'+i+'_value_1').val(0);
+            $('#annex_type_'+i+'_value_2').val(0);
+            $('#annex_type_'+i+'_value_1').attr('disabled',true);
+            $('#annex_type_'+i+'_value_2').attr('disabled',true);
+        }
+
+        if('<{$vData.annex_type_1}>' > 0){
+            $('#annex_type_1_value_1').attr('disabled',false);
+            $('#annex_type_1_value_2').attr('disabled',false);
+            switch ('<{$vData.annex_type_1}>'){
+                case '1':
+                    $('#annex_type_1_value_1').html(htmlItem);
+                    break;
+                case '2':
+                    $('#annex_type_1_value_1').html(htmlAttr);
+                    break;
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    $('#annex_type_1_value_1').html(htmlPartner);
+                    break;
+                case '9':
+                    $('#annex_type_1_value_1').html(htmlEmblem);
+                    break;
+            }
+        }
+        if('<{$vData.annex_type_2}>' > 0){
+            $('#annex_type_2_value_1').attr('disabled',false);
+            $('#annex_type_2_value_2').attr('disabled',false);
+            switch ('<{$vData.annex_type_2}>'){
+                case '1':
+                    $('#annex_type_2_value_1').html(htmlItem);
+                    break;
+                case '2':
+                    $('#annex_type_2_value_1').html(htmlAttr);
+                    break;
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    $('#annex_type_2_value_1').html(htmlPartner);
+                    break;
+                case '9':
+                    $('#annex_type_2_value_1').html(htmlEmblem);
+                    break;
+            }
+        }
+        if('<{$vData.annex_type_3}>' > 0){
+            $('#annex_type_3_value_1').attr('disabled',false);
+            $('#annex_type_3_value_2').attr('disabled',false);
+            switch ('<{$vData.annex_type_3}>'){
+                case '1':
+                    $('#annex_type_3_value_1').html(htmlItem);
+                    break;
+                case '2':
+                    $('#annex_type_3_value_1').html(htmlAttr);
+                    break;
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    $('#annex_type_3_value_1').html(htmlPartner);
+                    break;
+                case '9':
+                    $('#annex_type_3_value_1').html(htmlEmblem);
+                    break;
+            }
+        }
+        if('<{$vData.annex_type_4}>' > 0){
+            $('#annex_type_4_value_1').attr('disabled',false);
+            $('#annex_type_4_value_2').attr('disabled',false);
+            switch ('<{$vData.annex_type_4}>'){
+                case '1':
+                    $('#annex_type_4_value_1').html(htmlItem);
+                    break;
+                case '2':
+                    $('#annex_type_4_value_1').html(htmlAttr);
+                    break;
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                    $('#annex_type_4_value_1').html(htmlPartner);
+                    break;
+                case '9':
+                    $('#annex_type_4_value_1').html(htmlEmblem);
+                    break;
+            }
+        }
+
+        //显示邮件附件选项
+        $('#annex_type_1').val('<{$vData.annex_type_1}>');
+        $('#annex_type_1_value_1').val('<{$vData.annex_type_1_value_1}>');
+        $('#annex_type_1_value_2').val('<{$vData.annex_type_1_value_2}>');
+        $('#annex_type_2').val('<{$vData.annex_type_2}>');
+        $('#annex_type_2_value_1').val('<{$vData.annex_type_2_value_1}>');
+        $('#annex_type_2_value_2').val('<{$vData.annex_type_2_value_2}>');
+        $('#annex_type_3').val('<{$vData.annex_type_3}>');
+        $('#annex_type_3_value_1').val('<{$vData.annex_type_3_value_1}>');
+        $('#annex_type_3_value_2').val('<{$vData.annex_type_3_value_2}>');
+        $('#annex_type_4').val('<{$vData.annex_type_4}>');
+        $('#annex_type_4_value_1').val('<{$vData.annex_type_4_value_1}>');
+        $('#annex_type_4_value_2').val('<{$vData.annex_type_4_value_2}>');
+
+
+        $("#mainform").submit(function(){
+
+            if($("#name").val() == ''){
+                alert('<{$Think.lang.mail_title_input}>');
+                return false;
+            }else if($("#from").val() == ''){
+                alert('<{$Think.lang.mail_from_input}>');
+                return false;
+            }else if($("#des").val() == ''){
+                alert('<{$Think.lang.mail_des_input}>');
+                return false;
+            }
+
+            var count = 0;
+            for(var i=1;i<=4;++i){
+
+                if($('#annex_type_'+i).val() > 0){
+                    ++count;
+                    if(!($('#annex_type_'+i+'_value_1').val() > 0) || !($('#annex_type_'+i+'_value_2').val() > 0)){
+                        alert('<{$Think.lang.mail_annex_input}>');
+                        return false;
+                    }
+                }
+
+            }
+
+            if(count == 0){
+                alert('<{$Think.lang.mail_annex_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    })
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-mail-forward"></i><{$Think.lang.gm_exchange_mail_edit}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+                        <input type="hidden" id="index" name="index" value="<{$vData.index}>">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_title}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="name" name="name" >
+                                    <span class="help-block"><{$Think.lang.mail_title_input}></span>
+                                </div>
+                            </div>
+
+                            <div id="div_tid" class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_from}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="from" name="from" >
+                                    <span class="help-block"><{$Think.lang.mail_from_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_des}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="3" id="des" name="des"></textarea>
+                                    <span class="help-block"><{$Think.lang.mail_des_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_dtime}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control input-small" id="expires_value" name="expires_value" value="1" >
+                                    <span class="help-block"><{$Think.lang.mail_dtime_input}></span>
+                                </div>
+                            </div>
+
+                            <php>
+                                for($i=1;$i<=4;++$i){
+                            </php>
+                            <script type="application/javascript">
+                                $(document).ready(function(){
+
+                                    $('#annex_type_<{$i}>').change(function(){
+                                        $('#annex_type_<{$i}>_value_1').val(0);
+                                        $('#annex_type_<{$i}>_value_2').val(0);
+                                        if($('#annex_type_<{$i}>').val() == 0){
+                                            $('#annex_type_<{$i}>_value_1').attr('disabled',true);
+                                            $('#annex_type_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#annex_type_<{$i}>_value_1').attr('disabled',false);
+
+                                            switch ($('#annex_type_<{$i}>').val()){
+                                                case '1':
+                                                    $('#annex_type_<{$i}>_value_1').html(htmlItem);
+                                                    break;
+                                                case '2':
+                                                    $('#annex_type_<{$i}>_value_1').html(htmlAttr);
+                                                    break;
+                                                case '3':
+                                                case '4':
+                                                case '5':
+                                                case '6':
+                                                case '7':
+                                                    $('#annex_type_<{$i}>_value_1').html(htmlPartner);
+                                                    break;
+                                                case '9':
+                                                    $('#annex_type_<{$i}>_value_1').html(htmlEmblem);
+                                                    break;
+                                            }
+
+                                        }
+
+                                    });
+
+                                    $('#annex_type_<{$i}>_value_1').change(function(){
+                                        if($('#annex_type_<{$i}>_value_1').val() == 0){
+                                            $('#annex_type_<{$i}>_value_2').attr('disabled',true);
+                                        }else{
+                                            $('#annex_type_<{$i}>_value_2').attr('disabled',false);
+                                        }
+                                    });
+
+                                    $("#annex_type_<{$i}>_value_2").blur(function(){
+                                        if(!($("#annex_type_<{$i}>_value_2").val() >= 0)){
+                                            $("#annex_type_<{$i}>_value_2").val(0);
+                                        }else{
+                                            $("#annex_type_<{$i}>_value_2").val(parseInt($("#annex_type_<{$i}>_value_2").val()));
+                                        }
+                                    });
+
+
+                                });
+                            </script>
+                            <div class="form-group mail_annex">
+                                <label class="col-md-3 control-label"><{$Think.lang.mail_annex$i}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id="annex_type_<{$i}>" name="annex_type_<{$i}>" style="float:left;">
+                                        <foreach name="bonus_type" item="value" key="key" >
+                                        <option value="<{$key}>"><{$Think.lang.$value}></option>
+                                        </foreach>
+                                    </select>
+                                    <select class="form-control input-medium" style="float:left;" id="annex_type_<{$i}>_value_1" name="annex_type_<{$i}>_value_1">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                    </select>
+                                    <input type="text" class="form-control input-small" id="annex_type_<{$i}>_value_2" name="annex_type_<{$i}>_value_2" value="0" >
+                                    <span class="help-block"><{$Think.lang.mail_annex_input}></span>
+                                </div>
+                            </div>
+                            <php>
+                                }
+                            </php>
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-save"></i>&nbsp;<{$Think.lang.save}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

@@ -1,0 +1,110 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.user_id}>' != ''){$("#user_id").val('<{$vGet.user_id}>');}
+        if('<{$vGet.channel_uid}>' != ''){$("#channel_uid").val('<{$vGet.channel_uid}>');}
+        if('<{$vGet.nickname}>' != ''){$("#nickname").val('<{$vGet.nickname}>');}
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/inputTeamID" />
+        or
+        <input type="text" class="form-control input-small" placeholder="<{$Think.lang.channel_uid_input}>" id="channel_uid" name="channel_uid">
+        or
+        <input type="text" class="form-control input-small" placeholder="<{$Think.lang.user_id_input}>" id="user_id" name="user_id">
+        or
+        <input type="text" class="form-control input-small" placeholder="<{$Think.lang.user_nickname_input}>" id="nickname" name="nickname">
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.tid}></th>
+                    <th><{$Think.lang.uid}></th>
+                    <th><{$Think.lang.nickname}></th>
+                    <th><{$Think.lang.level}></th>
+                    <th><{$Think.lang.diamond_pay}></th>
+                    <th><{$Think.lang.diamond_free}></th>
+                    <th><{$Think.lang.gold}></th>
+                    <th><{$Think.lang.vality}></th>
+                    <th><{$Think.lang.ctime}></th>
+                    <th><{$Think.lang.last_login_time}></th>
+                    <th colspan="3"><{$Think.lang.operation}></th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="vTable" id="value">
+                    <tr>
+                        <td><{$value.tid}></td>
+                        <td><{$value.uid}></td>
+                        <td><{$value.nickname}></td>
+                        <td><{$value.level}></td>
+                        <td><{$value.diamond_pay}></td>
+                        <td><{$value.diamond_free}></td>
+                        <td><{$value.gold}></td>
+                        <td><{$value.vality}></td>
+                        <td><{$value.ctime}></td>
+                        <td><{$value.last_login_time}></td>
+                        <td><a href="__URL__/detail&server_id=<{$vGet.server_id}>&id=<{$vGet.id}>&team_id=<{$vGet.team_id}>&nickname=<{$vGet.nickname}>&tid=<{$value.tid}>"><{$Think.lang.detail}></a></td>
+                        <eq name="value.guide_skip" value="0">
+                            <td id="td_skip<{$value.tid}>"><a id="skip<{$value.tid}>" href="javascript:;"><{$Think.lang.skip_guide}></a></td>
+                        <else />
+                            <td id="td_skip<{$value.tid}>"><{$Think.lang.guide_skipped}></td>
+                        </eq>
+                        <td><a id="kick<{$value.tid}>" href="javascript:;"><{$Think.lang.kick_off}></a></td>
+                    </tr>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#skip<{$value.tid}>").click(function(){
+                                $.get("__URL__/skipGuide&server_id=<{$vGet.server_id}>&tid=<{$value.tid}>", function(data){
+                                    if(data=='ok'){
+                                        $("#td_skip<{$value.tid}>").html("<{$Think.lang.guide_skipped}>");
+                                        alert("<{$Think.lang.success}>");
+                                    }else{
+                                        alert("<{$Think.lang.fail}>");
+                                    }
+                                });
+                            });
+
+                            $("#kick<{$value.tid}>").click(function(){
+                                $.get("__URL__/kick&server_id=<{$vGet.server_id}>&uid=<{$value.uid}>", function(data){
+                                    if(data=='ok'){
+                                        alert("<{$Think.lang.success}>");
+                                    }else{
+                                        alert("<{$Think.lang.fail}>");
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

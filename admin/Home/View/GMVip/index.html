@@ -1,0 +1,48 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/send&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_vip_send}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-striped table-bordered table-hover table-full-width">
+        <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.tid}></th>
+                <th><{$Think.lang.vip_level}></th>
+                <th><{$Think.lang.score}></th>
+                <th><{$Think.lang.result}></th>
+                <th><{$Think.lang.create_time}></th>
+            </tr>
+        </thead>
+        <tbody>
+            <notempty name="vTable">
+            <volist name="vTable" id="value">
+            <tr>
+                <td><{$value.sid}></td>
+                <td><{$value.tid}></td>
+                <td><{$value.vip}></td>
+                <td><{$value.vip_score}></td>
+                <td><{$value.result}></td>
+                <td><{$value.ctime}></td>
+            </tr>
+            </volist>
+            <else />
+            <tr>
+                <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+            </tr>
+            </notempty>
+        </tbody>
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+<include file="Public/footer" />

@@ -1,0 +1,233 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        //Server&&Channel
+        $("#server_type_all").attr('checked',true);
+        $("#server_radio").hide('fast');
+
+        $("#server_type_all").click(function(){
+            $("#server_radio").hide('fast');
+        });
+
+        $("#server_type_check").click(function(){
+            $("#server_radio").show();
+        });
+
+        $("#channel_type_all").attr('checked',true);
+        $("#channel_radio").hide('fast');
+
+        var channel = '<{$vData.channel}>';
+        var arr = channel.split("#");
+        for(var i in arr){
+            $("#channel"+arr[i]).attr('checked',true);
+        }
+
+        $("#channel_type_all").click(function(){
+            $("#channel_radio").hide('fast');
+        });
+
+        $("#channel_type_check").click(function(){
+            $("#channel_radio").show();
+        });
+
+        $("#starttime").val('<{$vTime.starttime}>');
+        $("#endtime").val('<{$vTime.endtime}>');
+
+        $("#starttime").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+        $("#starttime_button").click(function(){
+            WdatePicker({
+                el:'starttime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime\')}'
+            });
+        });
+
+        $("#endtime").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime\')}'
+            });
+        });
+        $("#endtime_button").click(function(){
+            WdatePicker({
+                el:'endtime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime\')}'
+            });
+        });
+
+        $("#rate").blur(function(){
+            if(!($("#rate").val() > 0)){
+                $("#rate").val(100);
+            }
+        });
+
+
+        //提交
+        $("#mainform").submit(function(){
+
+            return true;
+
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.gm_activity_time_add}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_all" name="server_type" value="all" /><{$Think.lang.all_server}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_check" name="server_type" value="check" /><{$Think.lang.select_server}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="server_radio">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9">
+                                    <foreach name="vServer" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="server<{$key}>" name="server[]" value="<{$key}>" />
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </label>
+                                    </foreach>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.channel}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="channel_type_all" name="channel_type" value="all" /><{$Think.lang.all_channel}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="channel_type_check" name="channel_type" value="check" /><{$Think.lang.select_channel}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.channel_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="channel_radio">
+                                <label class="col-md-3 control-label"><{$Think.lang.channel}></label>
+                                <div class="col-md-9">
+                                    <foreach name="vChannel" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="channel<{$key}>" name="channel[]" value="<{$key}>" />
+                                            <{$key}>-<{$value}>
+                                        </label>
+                                    </foreach>
+                                    <span class="help-block"><{$Think.lang.channel_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.instance}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-medium" id="instance" name="instance">
+                                        <foreach name="vInstance" item="value" key="key" >
+                                            <option value=<{$key}>><{$Think.lang.$value}></option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.instance_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.starttime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="starttime" name="starttime" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="starttime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_starttime_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.endtime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="endtime" name="endtime" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="endtime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_endtime_select}></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&server_id=<{$vGet.server_id}>&channel_id=<{$vGet.channel_id}>&module=<{$vGet.module}>&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

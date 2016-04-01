@@ -1,0 +1,114 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStartEmpty" />
+        <a href="__URL__/add&group=<{$vGet.group}>" style="color:whitesmoke;"><{$Think.lang.gm_pay_consume_add}></a>
+        |
+        <a href="__URL__/index" style="color:whitesmoke;"><<<{$Think.lang.return}></a>
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.activity_group_id}></th>
+                    <th><{$Think.lang.activity_id}></th>
+                    <th><{$Think.lang.activity_name}></th>
+                    <th><{$Think.lang.activity_condition}></th>
+                    <th><{$Think.lang.activity_max_complete}></th>
+                    <th><{$Think.lang.platform_activity_id}></th>
+                    <th><{$Think.lang.status}></th>
+                    <th colspan="3"><{$Think.lang.operation}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+
+                    <tr>
+                        <td><{$value.group}></td>
+                        <td><{$value.index}></td>
+                        <td><{$value.name}></td>
+                        <td><{$value.value}></td>
+                        <td><{$value.receive_max}></td>
+                        <td><{$value.pt_activity_id}></td>
+                        <td>
+                            <{$value.status}>
+                            <a href="__URL__/status&group=<{$value.group}>&id=<{$value.index}>">[<{$Think.lang.change}>]</a>
+                        </td>
+                        <td><a href="javascript:;" id="click<{$value.index}>"><{$Think.lang.detail}></a></td>
+                        <td><a href="__URL__/edit&group=<{$value.group}>&id=<{$value.index}>"><{$Think.lang.edit}></a></td>
+                        <td><a href="__URL__/delete&group=<{$value.group}>&id=<{$value.index}>"><{$Think.lang.delete}></a></td>
+                    </tr>
+
+                    <tr id="detail<{$value.index}>" style="display:none;">
+                        <td class="details" colspan="100%">
+                            <table class="table table-bordered table-hover table-full-width">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>1</td>
+                                        <td><{$value.bonus_1}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>2</td>
+                                        <td><{$value.bonus_2}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>3</td>
+                                        <td><{$value.bonus_3}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>4</td>
+                                        <td><{$value.bonus_4}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>5</td>
+                                        <td><{$value.bonus_5}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>6</td>
+                                        <td><{$value.bonus_6}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>7</td>
+                                        <td><{$value.bonus_7}></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><{$Think.lang.activity_bonus}>8</td>
+                                        <td><{$value.bonus_8}></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <input type="hidden" id="switch<{$value.index}>" value="0" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $("#click<{$value.index}>").click(function(){
+                                if($("#switch<{$value.index}>").val() == '0'){
+                                    $("#click<{$value.index}>").html('<{$Think.lang.close}>');
+                                    $("#switch<{$value.index}>").val('1');
+                                    $("#detail<{$value.index}>").show('fast');
+                                }else{
+                                    $("#click<{$value.index}>").html('<{$Think.lang.detail}>');
+                                    $("#switch<{$value.index}>").val('0');
+                                    $("#detail<{$value.index}>").hide('fast');
+                                }
+                            });
+                        });
+                    </script>
+                </volist>
+            </tbody>
+        </table>
+
+        <{$vPageBar}>
+        <include file="Public/tableEndEmpty" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

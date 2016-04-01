@@ -1,0 +1,386 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    function addContent(title, content){
+        var count = $("#sub").val();
+        ++count;
+        var html = '';
+        html += '<div class="form-group" id="div_subtitle' + count + '">';
+        html += '<label class="col-md-3 control-label"><{$Think.lang.notice_subtitle}>' + count + '</label>';
+        html += '<div class="col-md-9">';
+        html += '<input type="text" class="form-control" id="subtitle' + count + '" name="subtitle' + count + '" >';
+        html += '<span class="help-block"><{$Think.lang.notice_subtitle_input}></span>';
+        html += '</div>';
+        html += '</div>';
+
+        html += '<div class="form-group" id="div_content' + count + '">';
+        html += '<label class="col-md-3 control-label"><{$Think.lang.notice_subtitle_content}>' + count + '</label>';
+        html += '<div class="col-md-9">';
+        html += '<textarea class="form-control" rows="3" id="content' + count + '" name="content' + count + '"></textarea>';
+        html += '<span class="help-block"><{$Think.lang.notice_subtitle_content_input}></span>';
+        html += '</div>';
+        html += '</div>';
+        $("#div_button").before(html);
+        $("#subtitle" + count).val(title);
+        $("#content" + count).val(content);
+        $("#sub").val(count);
+    }
+
+    function delContent(){
+        var count = $("#sub").val();
+        if(count == 1){
+            alert('<{$Think.lang.one_notice_subtitle_least}>');
+        }else{
+            $("#div_subtitle" + count).remove();
+            $("#div_content" + count).remove();
+            --count;
+            $("#sub").val(count);
+        }
+    }
+
+    $(document).ready(function(){
+
+        //Server&&Channel
+        $("#server_type_all").attr('checked',true);
+        $("#server_radio").hide('fast');
+
+        $("#server_type_all").click(function(){
+            $("#server_radio").hide('fast');
+        });
+
+        $("#server_type_check").click(function(){
+            $("#server_radio").show();
+        });
+
+        $("#channel_type_all").attr('checked',true);
+        $("#channel_radio").hide('fast');
+
+        $("#channel_type_all").click(function(){
+            $("#channel_radio").hide('fast');
+        });
+
+        $("#channel_type_check").click(function(){
+            $("#channel_radio").show('fast');
+        });
+
+        //优先级
+        $("#hot_1").attr('checked', true);
+        $("#priority").val(0);
+        $("#priority").blur(function(){
+            if(!($("#priority").val() > 0)){
+                $("#priority").val(0);
+            }
+        });
+
+        //公告内容
+        $("#sub").val(0);
+        addContent('','');
+        $("#add_content").click(function(){
+            addContent('','');
+        });
+        $("#del_content").click(function(){
+            delContent();
+        });
+
+        //时间类型
+        $("#time_type_1").attr('checked', true);
+        $("#div_starttime0").hide();
+
+        $("#time_type_0").click(function () {
+            $("#div_starttime0").show();
+            $("#div_starttime1").hide();
+            $("#div_endtime1").hide();
+        });
+        $("#time_type_1").click(function () {
+            $("#div_starttime0").hide();
+            $("#div_starttime1").show();
+            $("#div_endtime1").show();
+        });
+
+        //时间
+        $("#starttime0").val('<{$vTime.starttime}>');
+        $("#starttime1").val('<{$vTime.starttime}>');
+        $("#endtime1").val('<{$vTime.endtime}>');
+
+
+        $("#starttime0").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>'
+            });
+        });
+        $("#starttime0_button").click(function(){
+            WdatePicker({
+                el:'starttime0',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>'
+            });
+        });
+
+        $("#starttime1").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime1\')}'
+            });
+        });
+        $("#starttime1_button").click(function(){
+            WdatePicker({
+                el:'starttime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'<{$vTime.starttime}>',
+                maxDate:'#F{$dp.$D(\'endtime1\')}'
+            });
+        });
+
+        $("#endtime1").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime1\')}'
+            });
+        });
+        $("#endtime1_button").click(function(){
+            WdatePicker({
+                el:'endtime1',
+                dateFmt:'yyyy-MM-dd HH:mm:ss',
+                minDate:'#F{$dp.$D(\'starttime1\')}'
+            });
+        });
+
+        //提交
+        $("#mainform").submit(function(){
+
+            if($("#tab").val() == ''){
+                alert('<{$Think.lang.notice_tab_input}>');
+                return false;
+            }
+
+            if($("#title").val() == ''){
+                alert('<{$Think.lang.notice_title_input}>');
+                return false;
+            }
+
+            var count = $("#sub").val();
+            for(var i=1;i<=count;++i){
+                if($("#content" + i).val() == ''){
+                    alert('<{$Think.lang.notice_subtitle_content_input}>');
+                    return false;
+                }
+            }
+
+            return true;
+
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.gm_notice_add}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_all" name="server_type" value="all" /><{$Think.lang.all_server}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="server_type_check" name="server_type" value="check" /><{$Think.lang.select_server}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="server_radio">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9">
+                                    <foreach name="vServer" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="server<{$key}>" name="server[]" value="<{$key}>" />
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </label>
+                                    </foreach>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.exchange_type_channel}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="channel_type_all" name="channel_type" value="all" /><{$Think.lang.all_channel}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="channel_type_check" name="channel_type" value="check" /><{$Think.lang.select_channel}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.exchange_type_channel_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="channel_radio">
+                                <label class="col-md-3 control-label"><{$Think.lang.exchange_type_channel}></label>
+                                <div class="col-md-9">
+                                    <foreach name="vChannel" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="channel<{$key}>" name="channel[]" value="<{$key}>" />
+                                            <{$key}>-<{$value}>
+                                        </label>
+                                    </foreach>
+                                    <span class="help-block"><{$Think.lang.exchange_type_channel_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.notice_tab}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="tab" name="tab" >
+                                    <span class="help-block"><{$Think.lang.notice_tab_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.notice_title}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="title" name="title" >
+                                    <span class="help-block"><{$Think.lang.notice_title_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group radio-list">
+                                <label class="col-md-3 control-label"><{$Think.lang.notice_hot}></label>
+                                <div class="col-md-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="hot_1" name="hot" value="1" /><{$Think.lang.yes}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="hot_0" name="hot" value="0" /><{$Think.lang.no}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.notice_hot_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.priority}></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="priority" name="priority" >
+                                    <span class="help-block"><{$Think.lang.notice_priority_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.time_limit}></label>
+                                <div class="col-md-9 radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="time_type_1" name="time_type" value="1" /><{$Think.lang.limit}>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="time_type_0" name="time_type" value="0" /><{$Think.lang.no_limit}>
+                                    </label>
+                                    <span class="help-block"><{$Think.lang.time_limit_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_starttime0">
+                                <label class="col-md-3 control-label"><{$Think.lang.starttime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="starttime0" name="starttime0" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="starttime0_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_starttime_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_starttime1">
+                                <label class="col-md-3 control-label"><{$Think.lang.starttime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="starttime1" name="starttime1" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="starttime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_starttime_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_endtime1">
+                                <label class="col-md-3 control-label"><{$Think.lang.endtime}></label>
+                                <div class="col-md-9">
+                                    <input style="float:left;" id="endtime1" name="endtime1" class="form-control input-medium" type="text" value="" />
+                                    <span style="float:left;">
+                                    <button id="endtime1_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span class="help-block"><{$Think.lang.notice_endtime_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_button">
+                                <label class="col-md-3 control-label"><{$Think.lang.notice_content_operation}></label>
+                                <div class="col-md-9">
+                                    <button type="button" class="btn blue" id="add_content"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+                                    <button type="button" class="btn blue" id="del_content"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.delete}></button>
+                                </div>
+                            </div>
+
+                            <input id="sub" name="sub" type="hidden" />
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

@@ -1,0 +1,76 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.type}>' != ''){$("#type").val('<{$vGet.type}>');}
+        $("#mainform").submit(function(){
+            if($("#team_id").val() == '' || $("#item_id").val() == 0){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <select style="float: left; margin-left: 10px;" class="form-control input-medium" id="type" name="type">
+            <option value="all"><{$Think.lang.all_type}></option>
+            <foreach name="vAttr" item="value" key="key" >
+                <option value="<{$value}>"><{$Think.lang.$value}></option>
+            </foreach>
+        </select>
+        <include file="Public/inputTeamID" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                    <tr>
+                        <th><{$Think.lang.tid}></th>
+                        <th><{$Think.lang.user_attr}></th>
+                        <th><{$Think.lang.user_value}></th>
+                        <th><{$Think.lang.user_before}></th>
+                        <th><{$Think.lang.user_after}></th>
+                        <th><{$Think.lang.user_behave}></th>
+                        <th><{$Think.lang.user_account_ctime}></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <foreach name="vTable" item="vo" key="k" >
+                        <tr>
+                            <td><{$vo['user_tid']}></td>
+                            <td><{$vo['user_attr']}></td>
+                            <td><{$vo['user_value']}></td>
+                            <td><{$vo['user_before']}></td>
+                            <td><{$vo['user_after']}></td>
+                            <td><{$vo['user_behave']}></td>
+                            <td><{$vo['user_account_ctime']}></td>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+</div>
+
+<include file="Public/footer" />

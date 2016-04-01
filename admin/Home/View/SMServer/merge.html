@@ -1,0 +1,113 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    //初始
+    $("#master_server_id").val('0');
+    $("#merged_server_id").val('0');
+
+    //选择
+    $("#master_server_id").change(function(){
+        if($("#master_server_id").val() != 0 && $("#master_server_id").val() == $("#merged_server_id").val()){
+            $("#master_server_id").val('0');
+            alert('<{$Think.lang.not_allow_same_server}>');
+        }
+    });
+
+    $("#merged_server_id").change(function(){
+        if($("#merged_server_id").val() != 0 && $("#master_server_id").val() == $("#merged_server_id").val()){
+            $("#merged_server_id").val('0');
+            alert('<{$Think.lang.not_allow_same_server}>');
+        }
+    });
+
+    //提交
+	$("#mainform").submit(function(){
+        return true;
+	});
+});
+</script>
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-exchange"></i><{$Think.lang.sm_server_merge}></div>
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.master_server}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-medium" id="master_server_id" name="master_server_id">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                        <foreach name="vServer" item="value" key="key" >
+                                        <option value="<{$key}>">
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.merged_server}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-medium" id="merged_server_id" name="merged_server_id">
+                                        <option value="0"><{$Think.lang.please_select}></option>
+                                        <foreach name="vServer" item="value" key="key" >
+                                        <option value="<{$key}>">
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn blue"><i class="fa fa-upload"></i>&nbsp;<{$Think.lang.submit}></button>
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__/index&search_channel_id=<{$vGet.search_channel_id}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+                        </div>
+
+                    </form>
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

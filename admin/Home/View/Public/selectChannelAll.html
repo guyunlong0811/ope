@@ -1,0 +1,11 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        if('<{$vGet.channel_id}>' != ''){$("#channel_id").val('<{$vGet.channel_id}>');}
+    });
+</script>
+<select style="float:left; margin-left:10px;" class="form-control input-medium" id="channel_id" name="channel_id">
+    <option value="0"><{$Think.lang.all_channel}></option>
+    <foreach name="vChannel" item="value" key="key" >
+        <option value=<{$key}>><{$value}></option>
+    </foreach>
+</select>

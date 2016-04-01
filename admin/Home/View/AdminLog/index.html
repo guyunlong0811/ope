@@ -1,0 +1,85 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/tableStart" />
+        <include file="Public/tableMiddle" />
+
+        <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+            <thead>
+                <tr>
+                    <th><{$Think.lang.admin_account}></th>
+                    <th><{$Think.lang.controller}></th>
+                    <th><{$Think.lang.action}></th>
+                    <th><{$Think.lang.server}></th>
+                    <th><{$Think.lang.ip}></th>
+                    <th><{$Think.lang.datetime}></th>
+                    <th><{$Think.lang.more}></th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="vTable" id="value">
+
+                    <tr>
+                        <td><{$value.username}></td>
+                        <td><{$value.controller}></td>
+                        <td><{$value.action}></td>
+                        <td><{$value.server}></td>
+                        <td><{$value.ip}></td>
+                        <td><{$value.ctime}></td>
+                        <td><a href="javascript:;" id="click<{$value.id}>"><{$Think.lang.detail}></a></td>
+                    </tr>
+                    <tr id="detail<{$value.id}>" style="display:none;">
+                        <td class="details" colspan="100%">
+                            <table class="table table-bordered table-hover table-full-width">
+                                <tbody>
+                                    <neq name="value.sql" value="">
+                                    <volist name="value.sql" id="val">
+                                    <neq name="val" value="">
+                                    <tr>
+                                        <td style="word-break:break-all;"><{$val}></td>
+                                    </tr>
+                                    </neq>
+                                    </volist>
+                                    <else />
+                                    <tr>
+                                        <td><{$Think.lang.no_sql}></td>
+                                    </tr>
+                                    </neq>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <input type="hidden" id="switch<{$value.id}>" value="0" />
+                    <script type="text/javascript">
+                    $(document).ready(function(){
+                        $("#click<{$value.id}>").click(function(){
+                            if($("#switch<{$value.id}>").val() == '0'){
+                                $("#click<{$value.id}>").html('<{$Think.lang.close}>');
+                                $("#switch<{$value.id}>").val('1');
+                                $("#detail<{$value.id}>").show('fast');
+                            }else{
+                                $("#click<{$value.id}>").html('<{$Think.lang.detail}>');
+                                $("#switch<{$value.id}>").val('0');
+                                $("#detail<{$value.id}>").hide('fast');
+                            }
+                        });
+                    });
+                    </script>
+
+                </volist>
+            </tbody>
+        </table>
+
+        <{$vPageBar}>
+        <include file="Public/tableEnd" />
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

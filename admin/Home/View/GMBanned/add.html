@@ -1,0 +1,174 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#uid").val('');
+    $("#time").val('1');
+    $("#reason").val('');
+
+
+	$("#mainform").submit(function(){
+		
+		if($("#uid").val() == ''){
+			alert('<{$Think.lang.uid_input}>');
+			return false;
+		}else if(!($("#time").val() > 0)){
+            alert($("#time").val());
+			alert('<{$Think.lang.banned_time_input}>');
+			return false;
+		}else if($("#reason").val() == ''){
+			alert('<{$Think.lang.banned_reason_input}>');
+			return false;
+		}else{
+			return true;
+		}
+		
+	})
+})
+</script>
+
+<!-- BEGIN PAGE -->
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.new_banned}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.uid}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="uid" name="uid" >
+                                        <span class="help-block"><{$Think.lang.uid_input}></span>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<label class="col-md-3 control-label"><{$Think.lang.game}></label>-->
+                                    <!--<div class="col-md-9">-->
+                                        <!--<select class="form-control input-small" name = "gid">-->
+                                            <!--<option value="0"><{$Think.lang.all_game}></option>-->
+                                            <!--<option value="<{$gameId}>"><{$gameName}></option>-->
+                                        <!--</select>-->
+                                        <!--<span class="help-block"><{$Think.lang.server_select}></span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                    <div class="col-md-9">
+                                        <!--<select class="form-control input-small" name = "sid">-->
+                                            <!--<option value="0"><{$Think.lang.all_server}></option>-->
+                                            <!--<foreach name="vServer" item="value" key="key" >-->
+                                            <!--<option value="<{$key}>"><{$value.name}></option>-->
+                                            <!--</foreach>-->
+                                        <!--</select>-->
+                                        <foreach name="vServer" item="value" key="key">
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="<{$key}>" id="server<{$key}>" name="server[]" />
+                                            <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                        </label>
+                                        </foreach>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.banned_type}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-small" name = "type">
+                                            <foreach name="type" item="value" key="key" >
+                                            <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.banned_type_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.banned_time}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-small" style="float:left;" id="time" name="time">
+                                        <select class="form-control input-small" id = "time_type" name = "time_type">
+                                            <option value="1" selected><{$Think.lang.day}></option>
+                                            <option value="2"><{$Think.lang.hour}></option>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.banned_time_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.reason}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="reason" name="reason"></textarea>
+                                        <span class="help-block"><{$Think.lang.banned_reason_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+    <include file="Public/footer" />

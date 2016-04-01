@@ -1,0 +1,389 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#name").val('');
+    $('#channel').val('1001');
+    $('#sid').val(0);
+    $('#db_master_host').val('');
+    $('#db_master_user').val('');
+    $('#db_master_pwd').val('');
+    $('#db_master_port').val('');
+    $('#db_slave_host').val('');
+    $('#db_slave_user').val('');
+    $('#db_slave_pwd').val('');
+    $('#db_slave_port').val('');
+    $('#redis_host').val('');
+    $('#redis_port').val('');
+    $('#team_creation').val('1');
+
+    $('#team_creation').blur(function () {
+        if(!($("#team_creation").val() > 0)){
+            $('#team_creation').val('1');
+        }
+    });
+
+    $('#sid').blur(function () {
+        if(!($("#sid").val() >= 0)){
+            $('#sid').val(0);
+        }
+    });
+
+    $("#db_type_old").attr('checked',true);
+    $("#db_config_select").show();
+    $("#db_config_input").hide();
+
+    $("#db_type_old").click(function(){
+        $("#db_config_select").show('fast');
+        $("#db_config_input").hide('fast');
+    });
+
+    $("#db_type_new").click(function(){
+        $("#db_config_select").hide('fast');
+        $("#db_config_input").show('fast');
+    });
+
+    $("#log_db_type_old").attr('checked',true);
+    $("#log_db_config_select").show();
+    $("#log_db_config_input").hide();
+
+    $("#log_db_type_old").click(function(){
+        $("#log_db_config_select").show('fast');
+        $("#log_db_config_input").hide('fast');
+    });
+
+    $("#log_db_type_new").click(function(){
+        $("#log_db_config_select").hide('fast');
+        $("#log_db_config_input").show('fast');
+    });
+
+    $("#redis_type_old").attr('checked',true);
+    $("#redis_config_select").show();
+    $("#redis_config_input").hide();
+
+    $("#redis_type_old").click(function(){
+        $("#redis_config_select").show('fast');
+        $("#redis_config_input").hide('fast');
+    });
+
+    $("#redis_type_new").click(function(){
+        $("#redis_config_select").hide('fast');
+        $("#redis_config_input").show('fast');
+    });
+
+	$("#mainform").submit(function(){
+
+        if($("#name").val() == ''){
+            alert('<{$Think.lang.server_name_input}>');
+            return false;
+        }
+
+        if($("#dbname").val() == ''){
+            alert('<{$Think.lang.dbname_input}>');
+            return false;
+        }
+
+        if(!($("#team_creation").val() > 0)){
+            alert('<{$Think.lang.team_creation_input}>');
+            return false;
+        }
+
+        if($('input:radio[name=db_type]:checked').val() == 'new'){
+            if($('#db_master_host').val() == '' || $('#db_master_user').val() == '' || $('#db_master_pwd').val() == '' || $('#db_master_port').val() == '' || $('#db_slave_host').val() == '' || $('#db_slave_user').val() == '' || $('#db_slave_pwd').val() == '' || $('#db_slave_port').val() == ''){
+                alert('<{$Think.lang.db_config_input}>');
+                return false;
+            }
+        }
+
+        if($('input:radio[name=redis_type]:checked').val() == 'new'){
+            if($('#redis_host').val() == '' || $('#redis_port').val() == ''){
+                alert('<{$Think.lang.redis_config_input}>');
+                return false;
+            }
+        }
+
+        return true;
+
+	});
+});
+</script>
+
+<!-- BEGIN PAGE -->
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-plus"></i><{$Think.lang.sm_server_open}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="name" name="name" >
+                                        <span class="help-block"><{$Think.lang.server_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.sm_server_type}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-small" id="type" name="type">
+                                            <foreach name="vType" item="val" key="k">
+                                                <option value="<{$k}>"><{$val}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.server_type_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="server_radio">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server_channel}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-large" id="channel" name="channel">
+                                            <foreach name="channel" item="value" key="key">
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.server_channel_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server_id}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="sid" name="sid" >
+                                        <span class="help-block"><{$Think.lang.server_id_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.db_config}></label>
+                                    <div class="col-md-9 radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" id="db_type_old" name="db_type" value="old" /><{$Think.lang.old_db}>
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="db_type_new" name="db_type" value="new" /><{$Think.lang.new_db}>
+                                        </label>
+                                        <span class="help-block"><{$Think.lang.db_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="db_config_select">
+                                    <label class="col-md-3 control-label"><{$Think.lang.db_config}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-large" name="db_select">
+                                            <foreach name="db" item="value" key="key">
+                                            <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.db_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="db_config_input">
+                                    <label class="col-md-3 control-label"><{$Think.lang.db_config}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="db_master_host" name="db_master_host" value="" placeholder="DB MASTER HOST" >
+                                        <input type="text" class="form-control input-large" id="db_master_user" name="db_master_user" value="" placeholder="DB MASTER USER" >
+                                        <input type="text" class="form-control input-large" id="db_master_pwd" name="db_master_pwd" value="" placeholder="DB MASTER PWD" >
+                                        <input type="text" class="form-control input-large" id="db_master_port" name="db_master_port" value="" placeholder="DB MASTER PORT" >
+                                        <input type="text" class="form-control input-large" id="db_slave_host" name="db_slave_host" value="" placeholder="DB SLAVE HOST" >
+                                        <input type="text" class="form-control input-large" id="db_slave_user" name="db_slave_user" value="" placeholder="DB SLAVE USER" >
+                                        <input type="text" class="form-control input-large" id="db_slave_pwd" name="db_slave_pwd" value="" placeholder="DB SLAVE PWD" >
+                                        <input type="text" class="form-control input-large" id="db_slave_port" name="db_slave_port" value="" placeholder="DB SLAVE PORT" >
+                                        <span class="help-block"><{$Think.lang.db_config_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.db_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="dbname" name="dbname" >
+                                        <span class="help-block"><{$Think.lang.db_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.log_db_config}></label>
+                                    <div class="col-md-9 radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" id="log_db_type_old" name="log_db_type" value="old" /><{$Think.lang.old_db}>
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="log_db_type_new" name="log_db_type" value="new" /><{$Think.lang.new_db}>
+                                        </label>
+                                        <span class="help-block"><{$Think.lang.db_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="log_db_config_select">
+                                    <label class="col-md-3 control-label"><{$Think.lang.log_db_config}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-large" name="log_db_select">
+                                            <foreach name="logDB" item="value" key="key">
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.log_db_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="log_db_config_input">
+                                    <label class="col-md-3 control-label"><{$Think.lang.log_db_config}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="log_db_host" name="log_db_host" value="" placeholder="DB MASTER HOST" >
+                                        <input type="text" class="form-control input-large" id="log_db_user" name="log_db_user" value="" placeholder="DB MASTER USER" >
+                                        <input type="text" class="form-control input-large" id="log_db_pwd" name="log_db_pwd" value="" placeholder="DB MASTER PWD" >
+                                        <input type="text" class="form-control input-large" id="log_db_port" name="log_db_port" value="" placeholder="DB MASTER PORT" >
+                                        <span class="help-block"><{$Think.lang.log_db_config_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.log_db_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="log_dbname" name="log_dbname" >
+                                        <span class="help-block"><{$Think.lang.log_db_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.redis_config}></label>
+                                    <div class="col-md-9 radio-list">
+                                        <label class="radio-inline">
+                                            <input type="radio" id="redis_type_old" name="redis_type" value="old" /><{$Think.lang.old_db}>
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="redis_type_new" name="redis_type" value="new" /><{$Think.lang.new_db}>
+                                        </label>
+                                        <span class="help-block"><{$Think.lang.redis_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="redis_config_select">
+                                    <label class="col-md-3 control-label"><{$Think.lang.redis_config}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-large" name="redis_select">
+                                            <foreach name="redis" item="value" key="key">
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.redis_config_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="redis_config_input">
+                                    <label class="col-md-3 control-label"><{$Think.lang.redis_config}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="redis_host" name="redis_host" value="" placeholder="REDIS HOST" >
+                                        <input type="text" class="form-control input-large" id="redis_port" name="redis_port" value="" placeholder="REDIS PORT" >
+                                        <span class="help-block"><{$Think.lang.redis_config_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.team_creation}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="team_creation" name="team_creation" >
+                                        <span class="help-block"><{$Think.lang.team_creation_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.script_server}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="script">
+                                            <foreach name="vScript" item="value" key="key">
+                                                <option value="<{$value.id}>"><{$value.name}>-<{$value.url}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.script_server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.platform_url}> http://</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="platform_url" name="platform_url">
+                                        <span class="help-block"><{$Think.lang.platform_url_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.platform_sid}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-large" id="platform_sid" name="platform_sid" >
+                                        <span class="help-block"><{$Think.lang.platform_sid_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__/index&search_channel_id=<{$vGet.search_channel_id}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+<include file="Public/footer" />

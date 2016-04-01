@@ -1,0 +1,61 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServerAll" />
+        <include file="Public/selectChannelAll" />
+        <include file="Public/selectDate" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <include file="Public/chart" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th><{$Think.lang.goods_id}></th>
+                        <th><{$Think.lang.goods_name}></th>
+                        <th><{$Think.lang.goods_des}></th>
+                        <th><{$Think.lang.goods_price}></th>
+                        <th><{$Think.lang.goods_sell_count}></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                
+                    <foreach name="vTable" item="value" key="key" >
+                        <tr>
+                            <td><{$value.cash_id}></td>
+                            <td><{$value.cash_name}></td>
+                            <td><{$value.cash_des}></td>
+                            <td><{$value.cash_price}></td>
+                            <td><{$value.count}></td>
+                        </tr>
+                    </foreach>
+
+                </tbody>
+
+            </table>
+
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

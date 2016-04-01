@@ -1,0 +1,118 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <!--<h3 class="page-title">-->
+                <!--Advanced Tables <small>advanced datatables</small>-->
+                <!--</h3>-->
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-trash-o"></i><{$Think.lang.sm_cache}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <input type="hidden" name="flag" value="1" />
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.click_clear}></label>
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn blue"><i class="fa fa-trash-o"></i>&nbsp;<{$Think.lang.clear}></button>
+                                    </div>
+                                </div>
+
+                                <notempty name="result">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.result}></label>
+                                    <div class="col-md-9"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_server}></label>
+                                    <div class="col-md-9">
+                                        <p><{$result.admin.name}> => <{$result.admin.info}></p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.script_server}></label>
+                                    <div class="col-md-9">
+                                        <foreach name="result.script" item="value" key="key">
+                                        <p><{$value.name}> => <{$value.info}></p>
+                                        </foreach>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.game_server}></label>
+                                    <div class="col-md-9">
+                                        <foreach name="result.game" item="value" key="key">
+                                            <p><{$value.name}> => <{$value.info}></p>
+                                        </foreach>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Redis</label>
+                                    <div class="col-md-9">
+                                        <foreach name="result.redis" item="value" key="key">
+                                            <p><{$value.name}> => <{$value.info}></p>
+                                        </foreach>
+                                    </div>
+                                </div>
+
+                                </notempty>
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+<include file="Public/footer" />

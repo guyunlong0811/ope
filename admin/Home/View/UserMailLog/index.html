@@ -1,0 +1,126 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#mainform").submit(function(){
+            if($("#team_id").val() == ''){
+                alert('<{$Think.lang.one_condition_least}>');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+<div class="page-content" style="min-height:648px !important">
+
+    <div class="container-fluid">
+
+        <include file="Public/searchStart" />
+
+        <include file="Public/selectServer" />
+        <include file="Public/inputTeamID" />
+        <include file="Public/buttonSearch" />
+
+        <include file="Public/searchEnd" />
+
+        <notempty name="vGet">
+
+            <include file="Public/tableStart" />
+            <include file="Public/tableMiddle" />
+
+            <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <thead>
+                <tr>
+                    <th><{$Think.lang.tid}></th>
+                    <th><{$Think.lang.mail_title}></th>
+                    <th><{$Think.lang.mail_from}></th>
+                    <th><{$Think.lang.mail_type}></th>
+                    <th><{$Think.lang.status}></th>
+                    <th><{$Think.lang.mail_operation_time}></th>
+                    <th><{$Think.lang.operation}></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <volist name="vTable" id="value">
+                        <tr>
+                            <td><{$value.tid}></td>
+                            <td><{$value.title}></td>
+                            <td><{$value.from}></td>
+                            <td><{$value.type}></td>
+                            <td><{$Think.lang.mail_status_$value[status]}></td>
+                            <td><{$value.create_time}></td>
+                            <td><a href="javascript:;" id="click_detail_<{$value.id}>"><{$Think.lang.detail}></a></td>
+                        </tr>
+                        <tr id="detail_<{$value.id}>" style="display:none;">
+                            <td class="details" colspan="100%">
+                                <table class="table table-bordered table-hover table-full-width">
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_des}></td>
+                                            <td><{$value.des}></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_annex1}></td>
+                                            <td><{$value.annex1}></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_annex2}></td>
+                                            <td><{$value.annex2}></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_annex3}></td>
+                                            <td><{$value.annex3}></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_annex4}></td>
+                                            <td><{$value.annex4}></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_ctime}></td>
+                                            <td><{$value.ctime}></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-2"><{$Think.lang.mail_expire_time}></td>
+                                            <td><{$value.dtime}></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <input type="hidden" id="switch_detail_<{$value.id}>" value="0" />
+                        <input type="hidden" id="switch_create_<{$value.id}>" value="0" />
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+
+                                //详情
+                                $("#click_detail_<{$value.id}>").click(function(){
+                                    if($("#switch_detail_<{$value.id}>").val() == '0'){
+                                        $("#click_detail_<{$value.id}>").html('<{$Think.lang.close}>');
+                                        $("#switch_detail_<{$value.id}>").val('1');
+                                        $("#detail_<{$value.id}>").show('fast');
+                                    }else{
+                                        $("#click_detail_<{$value.id}>").html('<{$Think.lang.detail}>');
+                                        $("#switch_detail_<{$value.id}>").val('0');
+                                        $("#detail_<{$value.id}>").hide('fast');
+                                    }
+                                });
+                            });
+                        </script>
+                    </volist>
+                </tbody>
+            </table>
+
+            <{$vPageBar}>
+            <include file="Public/tableEnd" />
+
+        </notempty>
+
+    </div>
+
+</div>
+
+<include file="Public/footer" />

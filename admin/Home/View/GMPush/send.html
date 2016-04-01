@@ -1,0 +1,186 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        if('<{$result}>' != ''){
+            var rs = eval(<{$result}>);
+            $('#result').show();
+            $('#all').html(rs.all);
+            $('#success').html(rs.success);
+            $('#fail').html(rs.fail);
+        }else{
+            $('#result').hide();
+        }
+
+        //初始化
+        $("#sid").val(0);
+        $("#user").val(0);
+        $("#user").attr('disabled',true);
+        $("#user_list").val('');
+        $("#div_user_list").hide();
+        $("#os").val(0);
+        $("#msg").val('');
+
+        //change
+        $("#sid").change(function(){
+            $("#user").val(0);
+            $("#user_list").val('');
+            $("#div_user_list").hide('fast');
+            if($("#sid").val() == 0){
+                $("#user").attr('disabled',true);
+            }else{
+                $("#user").attr('disabled',false);
+            }
+        });
+
+        $("#user").change(function(){
+            $("#user_list").val('');
+            if($("#user").val() == 0){
+                $("#div_user_list").hide('fast');
+            }else{
+                $("#div_user_list").show('fast');
+            }
+        });
+
+        $("#mainform").submit(function(){
+
+            if($("#msg").val() == ''){
+                alert('<{$Think.lang.push_msg_input}>');
+                return false;
+            }else if($("#sid").val() != '0' && $("#user").val() != '0' && $("#user_list").val() == ''){
+                alert('<{$Think.lang.tid_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    })
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+
+        <div class="row-fluid">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet box blue">
+
+                <div class="portlet-title">
+
+                    <div class="caption"><i class="fa fa-share"></i><{$Think.lang.gm_push_send}></div>
+
+                </div>
+
+                <div class="portlet-body form">
+
+                    <!-- BEGIN FORM-->
+
+                    <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id = "sid" name = "sid">
+                                        <option value="0"><{$Think.lang.all_server}></option>
+                                        <foreach name="vServer" item="value" key="key" >
+                                            <option value="<{$key}>">
+                                                <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                            </option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.push_tid}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id = "user" name = "user">
+                                        <option value="0"><{$Think.lang.all_user}></option>
+                                        <option value="1"><{$Think.lang.select_user}></option>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.send_user_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_user_list">
+                                <label class="col-md-3 control-label"><{$Think.lang.push_tid}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="2" id="user_list" name="user_list"></textarea>
+                                    <span class="help-block"><{$Think.lang.tid_input}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.os}></label>
+                                <div class="col-md-9">
+                                    <select class="form-control input-small" id = "os" name = "os">
+                                        <foreach name="vOS" item="value" key="key" >
+                                            <option value="<{$key}>"><{$value}></option>
+                                        </foreach>
+                                    </select>
+                                    <span class="help-block"><{$Think.lang.server_select}></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.push_msg}></label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" rows="2" id="msg" name="msg"></textarea>
+                                    <span class="help-block"><{$Think.lang.push_msg_input}></span>
+                                </div>
+                            </div>
+
+                            <div id="result" class="form-group">
+                                <label class="col-md-3 control-label"><{$Think.lang.push_result}></label>
+                                <div class="col-md-9">
+                                    <span class="help-block"><{$Think.lang.push_all_count}>:<span id="all"></span></span>
+                                    <span class="help-block"><{$Think.lang.push_success_count}>:<span id="success"></span></span>
+                                    <span class="help-block"><{$Think.lang.push_fail_count}>:<span id="fail"></span></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                            <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                        </div>
+
+                    </form>
+
+
+
+                    <!-- END FORM-->
+
+                </div>
+
+            </div>
+
+            <!-- END SAMPLE FORM PORTLET-->
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />

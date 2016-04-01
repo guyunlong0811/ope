@@ -1,0 +1,82 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<div class="page-content" style="min-height:648px !important">
+
+    <include file="Public/searchStart" />
+
+    <include file="Public/selectServerGeneralAll" />
+    <include file="Public/selectChannelGeneralAll" />
+    <script type="application/javascript">
+        $(document).ready(function(){
+            if('<{$vGet.instance}>' != ''){$("#instance").val('<{$vGet.instance}>');}
+        });
+    </script>
+    <select style="float:left; margin-left:10px;" class="form-control input-medium" id="instance" name="instance">
+        <option value="0"><{$Think.lang.all_instance}></option>
+        <foreach name="vInstance" item="value" key="key" >
+            <option value=<{$key}>><{$Think.lang.$value}></option>
+        </foreach>
+    </select>
+    <include file="Public/buttonSearch" />
+
+    <include file="Public/searchEnd" />
+
+    <include file="Public/tableStartEmpty" />
+    <a href="__URL__/add&server_id=<{$vGet.server_id}>&channel_id=<{$vGet.channel_id}>&instance=<{$vGet.instance}>&p=<{$pg}>" style="color:whitesmoke;"><{$Think.lang.gm_operation_add}></a>
+    <include file="Public/tableMiddle" />
+
+    <table class="table table-bordered table-hover">
+
+        <thead>
+            <tr>
+                <th><{$Think.lang.server}></th>
+                <th><{$Think.lang.channel}></th>
+                <th><{$Think.lang.instance_name}></th>
+                <th><{$Think.lang.starttime}></th>
+                <th><{$Think.lang.endtime}></th>
+                <th><{$Think.lang.status}></th>
+                <th><{$Think.lang.operation}></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <notempty name="vTable">
+
+                <foreach name="vTable" item="value" key="key" >
+                    <tr>
+                        <td><{$value.server_name}></td>
+                        <td><{$value.channel_name}></td>
+                        <td><{$value[instance_name]}></th></td>
+                        <td><{$value.starttime}></td>
+                        <td><{$value.endtime}></td>
+                        <td>
+                            <{$value.status}>
+                            <a href="__URL__/status&server_id=<{$vGet.server_id}>&channel_id=<{$vGet.channel_id}>&instance=<{$vGet.instance}>&p=<{$pg}>&id=<{$value.index}>">[<{$Think.lang.change}>]</a>
+                        </td>
+                        <td><a href="__URL__/delete&server_id=<{$vGet.server_id}>&channel_id=<{$vGet.channel_id}>&instance=<{$vGet.instance}>&p=<{$pg}>&id=<{$value.index}>"><{$Think.lang.delete}></a></td>
+                    </tr>
+                </foreach>
+
+            <else />
+
+            <tr>
+                <td colspan="100%" align="center"><{$Think.lang.no_data}></td>
+            </tr>
+
+            </notempty>
+
+        </tbody>
+
+
+
+    </table>
+
+    <{$vPageBar}>
+    <include file="Public/tableEndEmpty" />
+
+</div>
+
+<include file="Public/footer" />

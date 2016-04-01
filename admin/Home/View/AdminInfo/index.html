@@ -1,0 +1,126 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $("#nickname").val("<{$data.nickname}>");
+        $("#mainform").submit(function(){
+            if($("#nickname").val() == ''){
+                alert('<{$Think.lang.nickname_require}>');
+                return false;
+            }else{
+                if($("#password").val() != $("#repassword").val()){
+                    alert('<{$Think.lang.repassword_error}>');
+                    return false;
+                }
+                if($("#password").val().length < 6 && $("#password").val() != ''){
+                    alert('<{$Think.lang.password_length}>');
+                    return false;
+                }
+                if($("#password").val().length > 16){
+                    alert('<{$Think.lang.password_length}>');
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        $("#nickname").blur(function(){
+            if($("#nickname").val() == ''){
+                $("#nickname").val("<{$data.nickname}>");
+            }
+        });
+    });
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-edit"></i><{$Think.lang.admin_edit}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_account}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="<{$data.username}>" disabled >
+                                        <span class="help-block"><{$Think.lang.not_allow_to_update}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_nickname}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="nickname" name="nickname" >
+                                        <span class="help-block"><{$Think.lang.nickname_require}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_pwd}></label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="password" name="password" >
+                                        <span class="help-block"><{$Think.lang.pwd_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.admin_repwd}></label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="repassword" name="repassword" >
+                                        <span class="help-block"><{$Think.lang.pwd_confirm}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue"><i class="fa fa-save"></i>&nbsp;<{$Think.lang.save}></button>
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+
+        </div>
+        <!-- END PAGE CONTENT-->
+
+    </div>
+    <!-- END PAGE CONTAINER-->
+
+</div>
+<!-- END PAGE -->
+
+<include file="Public/footer" />
