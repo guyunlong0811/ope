@@ -60,7 +60,9 @@ class VerReleaseController extends BaseController
             }
 
             //遍历文件
-            $this->traverse($this->mVersionPath);
+            if (!$this->traverse($this->mVersionPath)) {
+                goto end;
+            }
 
             if (empty($this->mPkg)) {
                 C('G_ERROR', 'version_file_empty');
@@ -71,7 +73,7 @@ class VerReleaseController extends BaseController
             $newVer = array(
                 'ver' => I('post.ver'),
                 'basever' => $this->vVersion['currentbase'],
-                'cdnroot' => CDN_DOWNLOAD_URL . I('post.ver') . "/",
+                'cdnroot' => '',
                 'pkg' => $this->mPkg
             );
 
@@ -79,15 +81,6 @@ class VerReleaseController extends BaseController
             $newVerList = $this->vVersion;
             $newVerList['verlist'][] = $newVer;
             $newVerList['currentver'] = I('post.ver');
-
-            //上传数据包
-            if (CDN_SERVER_ZIP_HOST != '') {
-                $zipServerList = explode(',', CDN_SERVER_ZIP_HOST);
-                foreach ($zipServerList as $server) {
-                    $exec = 'scp -r ' . $this->mZipPath . I('post.ver') . ' ' . CDN_SERVER_ZIP_USER . '@' . $server . ':' . CDN_PATH_ZIP;
-                    exec($exec);
-                }
-            }
 
             //生成文件
             $str = str_replace("\\/", "/", json_encode($newVerList));
@@ -142,15 +135,25 @@ class VerReleaseController extends BaseController
                 //如果是文件,直接输出
                 $path_parts = pathinfo($file);
                 if ($path_parts['extension'] == 'zip') {
-                    $arr['file'] = $file;
-                    $arr['size'] = filesize($this->mVersionPath . $file);
-                    $arr['md5'] = md5_file($this->mVersionPath . $file);
+
+                    $newFileName = md5_file($this->mVersionPath . $file);
+                    $exec = 'cd ' . $this->mVersionPath . ' && mv ' . $file . ' ' . $newFileName;
+                    exec($exec);
+
+                    //云分发
+                    if (!$ret = D('SndaCdn')->upload($this->mVersionPath . $newFileName, 'ver/' . I('post.ver') . '/')) {
+                        return false;
+                    }
+
+                    $arr['file'] = $ret['url'];
+                    $arr['size'] = filesize($this->mVersionPath . $newFileName);
+                    $arr['md5'] = md5_file($this->mVersionPath . $newFileName);
                     $this->mPkg[] = $arr;
                 }
             }
         }
 
-        return;
+        return true;
     }
 
 }

@@ -442,6 +442,7 @@ class BaseController extends Controller
         $name = 'S' . $sid . '-';
         foreach ($this->mServerList[$sid]['channel'] as $val) {
             $name .= $val['name'] . '/';
+            break;
         }
         $name = substr($name, 0, -1);
         return $name;

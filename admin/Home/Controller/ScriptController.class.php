@@ -1671,4 +1671,18 @@ class ScriptController extends BaseController
 
     }
 
+    //人数监控曲线接口
+    public function online()
+    {
+        header_info('plain', 'gbk');
+        $list = array_keys($this->mServerList);
+        $str = '';
+        foreach ($list as $sid) {
+            $keyList = D('Predis')->cli('game', $sid)->keys('u:*');
+            $count = count($keyList);
+            $str .= "{$sid}服\\{$count};";
+        }
+        echo iconv('utf-8', 'gbk', $str);
+    }
+
 }

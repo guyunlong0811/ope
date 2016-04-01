@@ -1,0 +1,312 @@
+<include file="Public/header" />
+
+<include file="Public/sidebar" />
+
+<script type="text/javascript" src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        //初始化
+        $("#toPlatform").val(1);
+        $("#title").val('');
+        $("#content").val('');
+        $("#styleId").val(1);
+        $("#package_name").val('');
+        $("#url").val('');
+        $("#push_memo").val('');
+        $("#receiverType").val(101);
+        $("#receivers").val('');
+        $("#schedule").val(1);
+        $("#scheduleTime").val('<{$time}>');
+        $("#keepSeconds").val(86400);
+
+        $("#package_name").attr('disabled', true);
+        $("#url").attr('disabled', true);
+        $("#receivers").attr('disabled', true);
+        $("#areaId").attr('disabled', true);
+        $("#scheduleTime").attr('disabled', true);
+
+        //change
+        $("#toPlatform").change(function(){
+            $("#styleId").val(1);
+            $("#package_name").attr('disabled', true);
+            $("#url").attr('disabled', true);
+            if($("#toPlatform").val() == 1){
+                $("#styleId").attr('disabled', false);
+            }else{
+                $("#styleId").attr('disabled', true);
+            }
+        });
+
+        $("#styleId").change(function(){
+            switch ($("#styleId").val()){
+                case '1':
+                    $("#package_name").attr('disabled', true);
+                    $("#url").attr('disabled', true);
+                    break;
+                case '2':
+                case '4':
+                case '5':
+                    $("#package_name").attr('disabled', true);
+                    $("#url").attr('disabled', false);
+                    break;
+                case '3':
+                    $("#package_name").attr('disabled', false);
+                    $("#url").attr('disabled', true);
+                    break;
+            }
+        });
+
+        $("#receiverType").change(function(){
+            switch ($("#receiverType").val()){
+                case '101':
+                    $("#receivers").attr('disabled', true);
+                    $("#areaId").attr('disabled', true);
+                    break;
+                case '102':
+                    $("#receivers").attr('disabled', true);
+                    $("#areaId").attr('disabled', false);
+                    break;
+                case '103':
+                    $("#receivers").attr('disabled', false);
+                    $("#areaId").attr('disabled', true);
+                    break;
+                case '104':
+                case '105':
+                    $("#receivers").attr('disabled', false);
+                    $("#areaId").attr('disabled', false);
+                    break;
+            }
+        });
+
+        $("#schedule").change(function(){
+            if($("#schedule").val() == 1){
+                $("#scheduleTime").attr('disabled', true);
+            }else{
+                $("#scheduleTime").attr('disabled', false);
+            }
+        });
+
+        $("#scheduleTime").focus(function(){
+            WdatePicker({
+                dateFmt:'yyyy-MM-dd HH:mm:00',
+                minDate:'%y-%M-%d %H:{%m+1}:00'
+            });
+        });
+        $("#scheduleTime_button").click(function(){
+            WdatePicker({
+                el:'scheduleTime',
+                dateFmt:'yyyy-MM-dd HH:mm:00',
+                minDate:'%y-%M-%d %H:{%m+1}:00'
+            });
+        });
+
+        $("#mainform").submit(function(){
+
+            if($("#content").val() == ''){
+                alert('<{$Think.lang.push_msg_snda_input}>');
+                return false;
+            }
+
+            if(($("#receiverType").val() == '3' || $("#receiverType").val() == '4' || $("#receiverType").val() == '5') && $("#receivers").val() == ''){
+                alert('<{$Think.lang.push_user_input}>');
+                return false;
+            }
+
+            return true;
+
+        });
+
+    })
+</script>
+
+<!-- BEGIN PAGE -->
+<div class="page-content" style="min-height:648px !important">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN SAMPLE FORM PORTLET-->
+
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+
+                        <div class="caption"><i class="fa fa-share"></i><{$Think.lang.gm_push_send}></div>
+
+                    </div>
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form action="" method="POST" id="mainform" class="form-horizontal">
+
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.os}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-medium" id = "toPlatform" name = "toPlatform">
+                                            <foreach name="vOS" item="value" key="key" >
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.push_title}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="2" id="title" name="title"></textarea>
+                                        <span class="help-block"><{$Think.lang.push_title_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.push_msg}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+                                        <span class="help-block"><{$Think.lang.push_msg_snda_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.push_style}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-medium" id = "styleId" name = "styleId">
+                                            <foreach name="vStyle" item="value" key="key" >
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.push_style_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.package_name}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="package_name" name="package_name" >
+                                        <span class="help-block"><{$Think.lang.package_name_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.url}> http://</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="url" name="url">
+                                        <span class="help-block"><{$Think.lang.url_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.push_memo}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="2" id="memo" name="memo"></textarea>
+                                        <span class="help-block"><{$Think.lang.push_memo_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.receiver_type}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id = "receiverType" name = "receiverType">
+                                            <foreach name="vReceiverType" item="value" key="key" >
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.receiver_type_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.push_user}></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" rows="2" id="receivers" name="receivers"></textarea>
+                                        <span class="help-block"><{$Think.lang.push_user_input}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.server}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-medium" id = "areaId" name = "areaId">
+                                            <foreach name="vServer" item="value" key="key" >
+                                                <option value="<{$key}>">
+                                                    <php>$i=1;</php>S<{$key}>-<foreach name="value.channel" item="val" key="k" ><eq name="i" value="1"><{$val.name}><php>$i=0;</php><else />/<{$val.name}></eq></foreach>
+                                                </option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.server_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.schedule}></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control input-medium" id = "schedule" name = "schedule">
+                                            <foreach name="vSchedule" item="value" key="key" >
+                                                <option value="<{$key}>"><{$value}></option>
+                                            </foreach>
+                                        </select>
+                                        <span class="help-block"><{$Think.lang.schedule_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.scheduleTime}></label>
+                                    <div class="col-md-9 input-medium">
+                                        <div class="input-group input-medium">
+                                            <input id="scheduleTime" name="scheduleTime" class="form-control" type="text" value="" />
+                                        <span class="input-group-btn">
+                                            <button id="scheduleTime_button" class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                        </div>
+                                        <span class="help-block"><{$Think.lang.scheduleTime_select}></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><{$Think.lang.keepSeconds}></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="keepSeconds" name="keepSeconds" >
+                                        <span class="help-block"><{$Think.lang.keepSeconds_input}></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="btn blue"><i class="fa fa-plus"></i>&nbsp;<{$Think.lang.add}></button>
+
+                                <button type="button" class="btn" onclick="javascript:window.location.href='__URL__&p=<{$pg}>';"><i class="fa fa-undo"></i>&nbsp;<{$Think.lang.return}></button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- END FORM-->
+
+                    </div>
+
+                </div>
+
+                <!-- END SAMPLE FORM PORTLET-->
+
+            </div>
+            <!-- END PAGE CONTENT-->
+
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+
+    <include file="Public/footer" />

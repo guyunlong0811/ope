@@ -2,7 +2,7 @@
 namespace Home\Model;
 
 use Think\Model;
-//use Think;
+use Think;
 use Predis;
 
 class PredisModel
@@ -44,8 +44,8 @@ class PredisModel
         $redis = $list[$sid]['redis'];
         C('REDIS_DB', $redis);
         $server = array('host' => $redis['host'], 'port' => $redis['port'], 'database' => $redis['game']);
-//        Think\Log::record(json_encode($list), 'DEBUG');
-//        Think\Log::record(json_encode($server), 'DEBUG');
+        Think\Log::record(json_encode($list), 'DEBUG');
+        Think\Log::record(json_encode($server), 'DEBUG');
         require_once(APP_PATH . '../Predis/Autoloader.php');
         Predis\Autoloader::register();
         $client = new Predis\Client($server);

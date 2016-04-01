@@ -652,6 +652,15 @@ return array(
                     ),
                 ),
 
+                array(
+                    'name' => 'gm_push_snda',
+                    'controller' => 'GMPushSnda',
+                    'permission' => array(
+                        array('action' => 'index', 'name' => 'gm_push_snda_index',),
+                        array('action' => 'send', 'name' => 'gm_push_snda_send',),
+                    ),
+                ),
+
             ),
         ),
 

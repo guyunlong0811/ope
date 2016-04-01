@@ -71,7 +71,7 @@ class IndexController extends BaseController
             $this->alert = get_error();
         }
 
-        $online = 0;//当前在线玩家数
+        /*$online = 0;//当前在线玩家数
         $nuu = 0;//昨日新增玩家数
         $dau = 0;//昨日活跃玩家数
         $pu = 0;//昨日付费玩家数
@@ -87,7 +87,7 @@ class IndexController extends BaseController
         $this->online = $online;
         $this->nuu = $nuu;
         $this->dau = $dau;
-        $this->pu = $pu;
+        $this->pu = $pu;*/
 
         //查询数据
         $where = "`status`=0 && ";

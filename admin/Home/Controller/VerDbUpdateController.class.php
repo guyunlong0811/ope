@@ -27,12 +27,12 @@ class VerDbUpdateController extends BaseController
 
             //分组
             $group = array();
-            foreach($table as $value){
+            foreach ($table as $value) {
                 $group[$value['group']][] = $value['table'];
             }
 
             //数据处理
-            if(!empty($group)){
+            if (!empty($group)) {
 
                 $ts = time();
 
@@ -45,11 +45,10 @@ class VerDbUpdateController extends BaseController
                 $str = $aes->decrypt($content);
                 $jsonVer = json_decode($str, true);
 
-                foreach($group as $key => $value){
+                foreach ($group as $key => $value) {
 
                     //该文件名
                     $fileName = $this->mFilename . $key . '.png';
-                    $zipName = $this->mFilename . $key . '_' . $ts . '.zip';
 
                     //删除原文件
                     unlink($this->mDbPath . $fileName);
@@ -69,13 +68,16 @@ class VerDbUpdateController extends BaseController
                     }
 
                     //文件重命名
-                    if(!rename($this->mDbPath . 'db.sqlite', $this->mDbPath . $fileName)){
+                    if (!rename($this->mDbPath . 'db.sqlite', $this->mDbPath . $fileName)) {
                         C('G_ERROR', 'fail');
                         goto end;
                     }
 
+                    //zip文件名
+                    $zipName = md5_file($this->mDbPath . $fileName);
+
                     //打zip包
-                    $exec = 'cd ' . $this->mDbPath . '&& zip ' . $zipName . ' ' . $fileName;
+                    $exec = 'cd ' . $this->mDbPath . ' && zip ' . $zipName . ' ' . $fileName . ' && mv ' . $zipName . '.zip' . ' ' . $zipName;
                     exec($exec);
 
                     //检查zip包情况
@@ -84,12 +86,17 @@ class VerDbUpdateController extends BaseController
                         goto end;
                     }
 
+                    //云分发
+                    if (!$ret = D('SndaCdn')->upload($this->mDbPath . $zipName, 'img/')) {
+                        goto end;
+                    }
+
                     //生成数据
                     $data = array(
                         "file" => $fileName,
                         "size" => filesize($this->mDbPath . $fileName),
                         "md5" => md5_file($this->mDbPath . $fileName),
-                        "download" => CDN_DOWNLOAD_URL . $zipName,
+                        "download" => $ret['url'],
                         "dsize" => filesize($this->mDbPath . $zipName)
                     );
 
@@ -102,18 +109,10 @@ class VerDbUpdateController extends BaseController
                         }
                     }
 
-                    if($flag == 0){
+                    if ($flag == 0) {
                         $jsonVer['data'][] = $data;
                     }
 
-                    //上传数据包
-                    if (CDN_SERVER_STATIC_HOST != '') {
-                        $staticServerList = explode(',', CDN_SERVER_STATIC_HOST);
-                        foreach ($staticServerList as $server) {
-                            $exec = 'scp ' . $this->mDbPath . $zipName . ' ' . CDN_SERVER_STATIC_USER . '@' . $server . ':' . CDN_PATH_STATIC;
-                            exec($exec);
-                        }
-                    }
 
                 }
 

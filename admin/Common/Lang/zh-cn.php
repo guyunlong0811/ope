@@ -1090,6 +1090,7 @@ return array(
     'select_channel' => '选择渠道',
     'all_user' => '所有用户',
     'all_type' => '所有类别',
+    'snda_upload_fail' => '盛大云分发上传文件失败',
 
     'os' => '系统',
     'os_all' => '所有系统',

@@ -50,10 +50,10 @@ class VerLuaUpdateController extends BaseController
                 goto end;
             }
 
-            $zipFilename = $name[0] . '_' . $ts . '.zip';
+            $zipFilename = md5_file($uploadfile);
 
             //zip打包
-            $exec = 'cd ' . $this->mLuaPath . '&& zip ' . $zipFilename . ' ' . $_FILES['file']['name'];
+            $exec = 'cd ' . $this->mLuaPath . ' && zip ' . $zipFilename . ' ' . $_FILES['file']['name'] . ' && mv ' . $zipFilename . '.zip' . ' ' . $zipFilename;
             exec($exec);
 
             if (!file_exists($this->mLuaPath . $zipFilename)) {
@@ -61,11 +61,16 @@ class VerLuaUpdateController extends BaseController
                 goto end;
             }
 
+            //云分发
+            if (!$ret = D('SndaCdn')->upload($this->mLuaPath . $zipFilename, 'lua/')) {
+                goto end;
+            }
+
             $data = array(
                 "file" => $_FILES['file']['name'],
                 "size" => filesize($uploadfile),
                 "md5" => md5_file($uploadfile),
-                "download" => CDN_DOWNLOAD_URL . $zipFilename,
+                "download" => $ret['url'],
                 "dsize" => filesize($this->mLuaPath . $zipFilename)
             );
             $content = D('DParams')->where("`index`='VERLIST_NEW'")->getField('value');
@@ -97,15 +102,6 @@ class VerLuaUpdateController extends BaseController
 
             //修改Static
             D('DParams')->where("`index`='VERLIST_NEW'")->setField('value', $str);
-
-            //上传数据包
-            if (CDN_SERVER_STATIC_HOST != '') {
-                $staticServerList = explode(',', CDN_SERVER_STATIC_HOST);
-                foreach ($staticServerList as $server) {
-                    $exec = 'scp ' . $this->mLuaPath . $zipFilename . ' ' . CDN_SERVER_STATIC_USER . '@' . $server . ':' . CDN_PATH_LUA;
-                    exec($exec);
-                }
-            }
 
             C('G_ERROR', 'success');
 

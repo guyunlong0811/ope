@@ -27,22 +27,15 @@ define('DB_GM_PWD', 'root');
 define('DB_GM_PORT', '3306');
 define('DB_GM_NAME', 'zettaiope');
 
-//CDN
-define('CDN_SERVER_VERSION_HOST', '127.0.0.1');//多服务器用逗号','分割
-define('CDN_SERVER_VERSION_USER', 'game');
-define('CDN_SERVER_ZIP_HOST', '127.0.0.1');//多服务器用逗号','分割
-define('CDN_SERVER_ZIP_USER', 'game');
-define('CDN_SERVER_STATIC_HOST', '127.0.0.1');//多服务器用逗号','分割
-define('CDN_SERVER_STATIC_USER', 'game');
-define('CDN_PATH_VERSION', '/usr/local/nginx/html/cdn/');
-define('CDN_PATH_ZIP', '/usr/local/nginx/html/cdn/');
-define('CDN_PATH_STATIC', '/usr/local/nginx/html/cdn/');
-define('CDN_PATH_LUA', '/usr/local/nginx/html/cdn/');
-define('CDN_DOWNLOAD_URL', 'http://sbapi7.forevergame.com/cdn/');
-
 //URL
 define('UC_URL', 'http://sbuc.forevergame.com/user.php');
 define('OPE_URL', 'http://sbope7.forevergame.com/admin.php');
+
+//盛大特殊配置
+define('SNDA_APP_ID', 791000183);
+define('SNDA_APP_KEY', '8810c07a5524cce637716a033c1ac008');
+define('SNDA_LOGIN_URL', 'http://api.mygm.sdo.com/v1/open/ticket');
+define('SNDA_HPS_USER', 'MEIYU_791000183');
 
 return array(
     //'配置项'=>'配置值'

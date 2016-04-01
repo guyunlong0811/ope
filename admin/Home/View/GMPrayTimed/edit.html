@@ -39,7 +39,7 @@
 
         $("#des").val('<{$vData.des}>');
         $("#des").blur(function(){
-            if($("#des").val() == ''){
+            if(!($("#des").val() > 0)){
                 $("#des").val('<{$vData.des}>');
             }
         });
