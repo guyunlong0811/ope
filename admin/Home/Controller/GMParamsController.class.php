@@ -9,7 +9,10 @@ class GMParamsController extends BaseController
     private $mKey = array(
         'ENABLE_EVENT',
         'ENABLE_MEMBER',
-        'EVENT_ICON',
+        'main_icon_1',
+        'main_icon_2',
+        'event_icon_1',
+        'event_icon_2',
         'GAME_SERVICE',
         'TEAM_MAX_LEVEL',
         'FATE_OPEN_TIME',

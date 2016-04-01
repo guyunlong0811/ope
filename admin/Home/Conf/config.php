@@ -27,8 +27,8 @@ $config = array(
     'LOG_RECORD' => true,//开启了日志记录
     'LOG_LEVEL'  =>'DEBUG,EMERG,ALERT,CRIT,ERR',
 
-    'GAME_ID' => 1,
-    'GAME_NAME' => '永恒幻想',
+    'GAME_ID' => 2,
+    'GAME_NAME' => '偷星九月天',
     'REDIS_CHAT_NOTICE_TIME' => 259200,//公告保存时间
     'SERVER_START' => 100,//服务器起始编号
 

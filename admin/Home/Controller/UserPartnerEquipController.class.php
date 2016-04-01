@@ -20,11 +20,8 @@ class UserPartnerEquipController extends BInitController
         if (!empty($_GET)) {
 
             $this->server_id = I('get.server_id');
-            $where = array();
-            if (I('get.team_id')) {
-                $where['tid'] = I('get.team_id');
-            }
-
+            $where['tid'] = I('get.team_id');
+            $t = $where['tid'] % 10;
             if (I('get.partner_group_id') != 0) {
                 $where['partner_group'] = I('get.partner_group_id');
             }
@@ -34,9 +31,9 @@ class UserPartnerEquipController extends BInitController
             } else {
 
                 $dbConfig = change_db_server(I('get.server_id'), 'master');
-                $page = $this->page(M()->db(I('get.server_id')->table('g_equip'), $dbConfig), 'sql', $where);
+                $page = $this->page(M()->db(I('get.server_id')->table('g_equip_' . $t), $dbConfig), 'sql', $where);
                 $order = array('group' => 'asc', 'index' => 'asc');
-                $list = M()->db(I('get.server_id'))->table('g_equip')->page($this->pg . ',' . $page->listRows)->where($where)->order($order)->select();
+                $list = M()->db(I('get.server_id'))->table('g_equip_' . $t)->page($this->pg . ',' . $page->listRows)->where($where)->order($order)->select();
                 if (!empty($list)) {
                     foreach ($list as $key => $value) {
                         $list[$key]['partner_group'] = $this->vPartnerConfig[$value['partner_group']];

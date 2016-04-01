@@ -131,10 +131,412 @@ CREATE TABLE `g_emblem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
---  Table structure for `g_equip`
+--  Table structure for `g_emblem_0`
 -- ----------------------------
-DROP TABLE IF EXISTS `g_equip`;
-CREATE TABLE `g_equip` (
+DROP TABLE IF EXISTS `g_emblem_0`;
+CREATE TABLE `g_emblem_0` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_1`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_1`;
+CREATE TABLE `g_emblem_1` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_2`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_2`;
+CREATE TABLE `g_emblem_2` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_3`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_3`;
+CREATE TABLE `g_emblem_3` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_4`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_4`;
+CREATE TABLE `g_emblem_4` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_5`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_5`;
+CREATE TABLE `g_emblem_5` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_6`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_6`;
+CREATE TABLE `g_emblem_6` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_7`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_7`;
+CREATE TABLE `g_emblem_7` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_8`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_8`;
+CREATE TABLE `g_emblem_8` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_9`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_9`;
+CREATE TABLE `g_emblem_9` (
+  `tid` int(10) unsigned NOT NULL COMMENT '战队ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) unsigned NOT NULL COMMENT '数量',
+  `total` smallint(5) unsigned NOT NULL COMMENT '总数量',
+  PRIMARY KEY (`tid`,`emblem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_emblem_equip`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_emblem_equip`;
+CREATE TABLE `g_emblem_equip` (
+  `tid` int(10) unsigned NOT NULL COMMENT '所属战队',
+  `partner` int(10) unsigned NOT NULL COMMENT '装备伙伴组ID',
+  `slot` tinyint(3) unsigned NOT NULL COMMENT '所属孔位',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  PRIMARY KEY (`tid`,`partner`,`slot`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_0`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_0`;
+CREATE TABLE `g_equip_0` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_1`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_1`;
+CREATE TABLE `g_equip_1` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_2`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_2`;
+CREATE TABLE `g_equip_2` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_3`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_3`;
+CREATE TABLE `g_equip_3` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_4`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_4`;
+CREATE TABLE `g_equip_4` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_5`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_5`;
+CREATE TABLE `g_equip_5` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_6`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_6`;
+CREATE TABLE `g_equip_6` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_7`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_7`;
+CREATE TABLE `g_equip_7` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_8`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_8`;
+CREATE TABLE `g_equip_8` (
+  `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `group` int(10) unsigned NOT NULL COMMENT '装备组',
+  `index` int(10) unsigned NOT NULL COMMENT '装备ID',
+  `partner_group` int(10) unsigned NOT NULL COMMENT '归属伙伴组ID',
+  `level` tinyint(3) unsigned NOT NULL COMMENT '装备等级',
+  `extra_1_type` int(10) unsigned NOT NULL COMMENT '附加属性类型(0:无;)',
+  `extra_1_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_1_value` smallint(5) unsigned NOT NULL COMMENT '附加属性值',
+  `extra_1_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_2_type` int(10) unsigned NOT NULL,
+  `extra_2_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_2_value` smallint(5) unsigned NOT NULL,
+  `extra_2_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_3_type` int(10) unsigned NOT NULL,
+  `extra_3_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_3_value` smallint(5) unsigned NOT NULL,
+  `extra_3_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  `extra_4_type` int(10) unsigned NOT NULL,
+  `extra_4_id` int(10) unsigned NOT NULL COMMENT '附加属性ID(0:无;)',
+  `extra_4_value` smallint(5) unsigned NOT NULL,
+  `extra_4_lock` tinyint(3) unsigned NOT NULL COMMENT '属性是否锁闭',
+  PRIMARY KEY (`tid`,`group`),
+  KEY `tid_group` (`tid`,`partner_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+--  Table structure for `g_equip_9`
+-- ----------------------------
+DROP TABLE IF EXISTS `g_equip_9`;
+CREATE TABLE `g_equip_9` (
   `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
   `group` int(10) unsigned NOT NULL COMMENT '装备组',
   `index` int(10) unsigned NOT NULL COMMENT '装备ID',
@@ -716,7 +1118,7 @@ CREATE TABLE `g_params` (
 --  Records of `g_params`
 -- ----------------------------
 BEGIN;
-INSERT INTO `g_params` VALUES ('ENABLE_EVENT', '[101,201,401,501,801,901,1001,1002,1401,1501,1601,1701,1801, 1901, 2001,2101,2201,2202,2203,2204,2205]'), ('ENABLE_MEMBER', '[10001,20001]'), ('EVENT_ICON', '{\"home\":[1005,1000,1002,1003,1004,1010,1006],\"list\":[1008,1009,1011,1012,1013]}'), ('FATE_OPEN_TIME', '[{\"starttime\": \"2015-10-01 11:00:00\",\"endtime\": \"2015-12-31 23:00:00\"}]'), ('FIRST_PAY_RESET_TIME', '2015-08-17 15:52:31'), ('FUND_CLOSE', '2015-12-25 11:00:00'), ('FUND_RATE', '0.3'), ('GAME_SERVICE', 'http://os.sdo.com/default.aspx?gm=791000183&source=040002&user=@xx_s@'), ('LEAGUE_ARENA_TOP', '[]'), ('MAINTAIN_TIPS', '123456'), ('NEW_SERVER_BONUS', '2016-12-25 11:00:00'), ('PRAY_TIMED', '[{\"starttime\": \"2015-09-13 11:00:00\",\"endtime\": \"2015-09-20 11:00:00\"},{\"starttime\": \"2015-10-01 11:00:00\",\"endtime\": \"2015-10-07 11:00:00\"},{\"starttime\": \"2016-01-04 14:42:00\",\"endtime\": \"2016-01-11 14:42:00\"}]'), ('PRE_DOWNLOAD_BONUS', '{\"mail_id\": \"7004\",\"endtime\": \"2013-12-25 11:00:00\"}'), ('TEAM_MAX_LEVEL', '99');
+INSERT INTO `g_params` VALUES ('ENABLE_EVENT', '[101,201,401,501,801,901,1001,1002,1401,1501,1601,1701,1801, 1901, 2001]'), ('ENABLE_MEMBER', '[10001,20001]'), ('EVENT_ICON_1', '{\"home\":[],\"list\":[]}'), ('EVENT_ICON_2', '[111,112]'), ('FATE_OPEN_TIME', '[{\"starttime\":\"2015-12-15 11:00:00\",\"endtime\":\"2015-12-21 23:59:59\"}]'), ('FIRST_PAY_RESET_TIME', '2014-08-17 15:52:31'), ('FUND_CLOSE', '2015-12-23 11:00:00'), ('FUND_RATE', '0.3'), ('GAME_SERVICE', 'http://os.sdo.com/default.aspx?gm=791000183&amp;source=040002&amp;user=@xx_s@'), ('LEAGUE_ARENA_TOP', '[]'), ('MAINTAIN_TIPS', ''), ('MAIN_ICON_1', '[101,102,103,104,105,106]'), ('MAIN_ICON_2', '[107,108,109,110]'), ('NEW_SERVER_BONUS', '2015-12-21 23:59:59'), ('PRAY_TIMED', '[{\"starttime\": \"2015-09-13 11:00:00\",\"endtime\": \"2015-09-20 11:00:00\"},{\"starttime\": \"2015-10-01 11:00:00\",\"endtime\": \"2015-10-07 11:00:00\"}]'), ('PRE_DOWNLOAD_BONUS', '{\"mail_id\":\"7004\",\"endtime\":\"2014-10-25 11:00:00\"}'), ('TEAM_MAX_LEVEL', '60');
 COMMIT;
 
 -- ----------------------------
@@ -1175,12 +1577,14 @@ CREATE TABLE `l_dynamic` (
 -- ----------------------------
 DROP TABLE IF EXISTS `l_emblem`;
 CREATE TABLE `l_emblem` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `index` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'LOGID',
   `tid` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `emblem` int(10) unsigned NOT NULL COMMENT '纹章ID',
+  `count` smallint(5) NOT NULL COMMENT '改变数量',
   `behave` mediumint(6) unsigned NOT NULL COMMENT '获取或消耗方式',
   `ctime` int(10) unsigned NOT NULL COMMENT '记录时间戳',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------

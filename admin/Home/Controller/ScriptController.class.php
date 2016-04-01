@@ -1064,8 +1064,12 @@ class ScriptController extends BaseController
             //装备
             $where = array();
             $where['tid'] = array('in', $tidList);
-            $select = $this->mModel->db($this->mSid)->table('g_equip')->field("`tid`,`index`,`level`")->where($where)->select();
-            foreach ($select as $value) {
+            $selectT = array();
+            for($i=0;$i<=9;++$i){
+                $select = $this->mModel->db($this->mSid)->table('g_equip_' . $i)->field("`tid`,`index`,`level`")->where($where)->select();
+                $selectT = array_merge($selectT, $select);
+            }
+            foreach ($selectT as $value) {
                 $quality = substr($value['index'], -1);
                 $list[$value['tid']]['equip_upgrade'] += (int)$quality;
                 $list[$value['tid']]['equip_level'] += $value['level'];
@@ -1075,10 +1079,10 @@ class ScriptController extends BaseController
             $emblemConfig = D('Static')->access('emblem');
             $where = array();
             $where['tid'] = array('in', $tidList);
-            $select = $this->mModel->db($this->mSid)->table('g_emblem')->field("`tid`,`index`")->where($where)->select();
+            $select = $this->mModel->db($this->mSid)->table('g_emblem')->field("`tid`,`emblem`")->where($where)->select();
             foreach ($select as $value) {
                 $list[$value['tid']]['emblem_count'] += 1;
-                $list[$value['tid']]['emblem_upgrade'] += $emblemConfig[$value['index']]['quality'];
+                $list[$value['tid']]['emblem_upgrade'] += $emblemConfig[$value['emblem']]['quality'];
             }
 
             //星灵

@@ -21,8 +21,27 @@ class SMServerController extends BInitController
             'g_count',
             'g_daily_register',
             'g_device',
-            'g_emblem',
-            'g_equip',
+            'g_emblem_0',
+            'g_emblem_1',
+            'g_emblem_2',
+            'g_emblem_3',
+            'g_emblem_4',
+            'g_emblem_5',
+            'g_emblem_6',
+            'g_emblem_7',
+            'g_emblem_8',
+            'g_emblem_9',
+            'g_emblem_equip',
+            'g_equip_0',
+            'g_equip_1',
+            'g_equip_2',
+            'g_equip_3',
+            'g_equip_4',
+            'g_equip_5',
+            'g_equip_6',
+            'g_equip_7',
+            'g_equip_8',
+            'g_equip_9',
             'g_event',
             'g_fate',
             'g_friend',
@@ -669,7 +688,10 @@ class SMServerController extends BInitController
         $sqlPartnerBase = "insert into `g_partner` (`tid`,`group`,`index`,`level`,`exp`,`favour`,`soul`,`skill_1_level`,`skill_2_level`,`skill_3_level`,`skill_4_level`,`skill_5_level`,`skill_6_level`,`force`,`utime`,`ctime`) values ";
 
         //装备
-        $sqlEquipBase = "insert into `g_equip` (`tid`,`group`,`index`,`partner_group`,`level`,`extra_1_type`,`extra_1_id`,`extra_1_value`,`extra_1_lock`,`extra_2_type`,`extra_2_id`,`extra_2_value`,`extra_2_lock`,`extra_3_type`,`extra_3_id`,`extra_3_value`,`extra_3_lock`,`extra_4_type`,`extra_4_id`,`extra_4_value`,`extra_4_lock`) values ";
+        $sqlEquipBase = array();
+        for ($i = 0; $i <= 9; ++$i) {
+            $sqlEquipBase[$i] = "insert into `g_equip_" . $i . "` (`tid`,`group`,`index`,`partner_group`,`level`,`extra_1_type`,`extra_1_id`,`extra_1_value`,`extra_1_lock`,`extra_2_type`,`extra_2_id`,`extra_2_value`,`extra_2_lock`,`extra_3_type`,`extra_3_id`,`extra_3_value`,`extra_3_lock`,`extra_4_type`,`extra_4_id`,`extra_4_value`,`extra_4_lock`) values ";
+        }
 
         //竞技场
         $sqlArenaBase = "insert into `g_arena` (`tid`,`rank`,`honour`,`partner`,`rand_list`,`win`,`rank_change`,`last_refresh_time`,`ctime`) values ";
@@ -680,7 +702,7 @@ class SMServerController extends BInitController
         //count
         $sqlCountBase = "insert into `g_count` (`tid`) values ";
 
-        //vip
+        //道具
         $sqlItemBase = array();
         for ($i = 0; $i <= 9; ++$i) {
             $sqlItemBase[$i] = "insert into `g_item_{$i}` (`tid`,`item`,`count`) values ";
@@ -699,9 +721,7 @@ class SMServerController extends BInitController
         $sqlTeam = '';
         $sqlArena = '';
         $sqlPartner = '';
-        $sqlEquip = '';
-
-        $sumPartner = 0;
+        $sqlEquip = array();
 
         //获取机器人配置
         $nicknameConfig = D('Static')->access('nickname');
@@ -717,6 +737,7 @@ class SMServerController extends BInitController
 
                 //战队
                 $tid = $i;
+                $t = $tid % 10;
 //                $team_nickname = $this->getNickname($nicknameConfig, $nicknameMax);
                 $team_nickname = D('Static')->access('params', 'ROBOT_NAME_SUB') . $i;
                 $team_icon = $robotTeamConfig[$value['robot_team']]['partner_1_group'];
@@ -744,35 +765,15 @@ class SMServerController extends BInitController
                     $partner_skill_2_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
                     $partner_skill_3_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
                     $sqlPartner .= "\r\n" . "('{$tid}','{$partner_group}','{$partner_index}','{$partner_level}','0','{$partner_favour}','0','1','{$partner_skill_2_level}','{$partner_skill_3_level}','0','0','0','{$partner_force}','0','0'),";
-                    ++$sumPartner;
-                    if ($sumPartner % 10000 == 0) {
-                        $sql = $sqlPartnerBase . substr($sqlPartner, 0, -1) . ';';
-                        create_sql($sql, $this->mDBPath, $filename);
-                        $sqlPartner = '';
-                    }
 
                     $equipIndex = floor($robotTeamConfig[$value['robot_team']]['partner_' . $j . '_quality'] / 2);
                     $equipIndex = $equipIndex == 0 ? 1 : $equipIndex;
 
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_weapon'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_weapon'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_armor'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_armor'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_accessory'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_accessory'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                    if ($sumPartner % 5000 == 0) {
-                        $sql = $sqlEquipBase . substr($sqlEquip, 0, -1) . ';';
-                        create_sql($sql, $this->mDBPath, $filename);
-                        $sqlEquip = '';
+                    for ($k = 1; $k <= 6; ++$k) {
+                        $equip_group = $partner_group . '0' . $k;
+                        $equip_index = $equip_group . '0' . $equipIndex;
+                        $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
+                        $sqlEquip[$t] .= "\r\n" . "('{$tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
                     }
 
                 }
@@ -790,9 +791,11 @@ class SMServerController extends BInitController
             $sql = $sqlPartnerBase . substr($sqlPartner, 0, -1) . ';';
             create_sql($sql, $this->mDBPath, $filename);
         }
-        if ($sqlEquip != '') {
-            $sql = $sqlEquipBase . substr($sqlEquip, 0, -1) . ';';
-            create_sql($sql, $this->mDBPath, $filename);
+        for ($i = 0; $i <= 9; ++$i) {
+            if ($sqlEquip[$i] != '') {
+                $sql = $sqlEquipBase[$i] . substr($sqlEquip[$i], 0, -1) . ';';
+                create_sql($sql, $this->mDBPath, $filename);
+            }
         }
         if ($sqlArenaBase != '') {
             $sql = $sqlArenaBase . substr($sqlArena, 0, -1) . ';';
@@ -802,7 +805,7 @@ class SMServerController extends BInitController
         //插入10000条玩家信息
         $sqlTeam = '';
         $sqlPartner = '';
-        $sqlEquip = '';
+        $sqlEquip = array();
         $sqlVip = '';
         $sqlCount = '';
         $sqlItem = array();
@@ -857,40 +860,23 @@ class SMServerController extends BInitController
             $partner_index = $partnerConfig['index'];
 
             //装备
-            $weaponGroupConfig = D('Static')->access('equipment', $partnerConfig['init_equipment_weapon']);
-            $armorGroupConfig = D('Static')->access('equipment', $partnerConfig['init_equipment_armor']);
-            $accessoryGroupConfig = D('Static')->access('equipment', $partnerConfig['init_equipment_accessory']);
-
-            foreach ($weaponGroupConfig as $config) {
-                if ($config['is_init'] == 1) {
-                    $weaponConfig = $config;
-                    break;
-                }
-            }
-            foreach ($armorGroupConfig as $config) {
-                if ($config['is_init'] == 1) {
-                    $armorConfig = $config;
-                    break;
-                }
-            }
-            foreach ($accessoryGroupConfig as $config) {
-                if ($config['is_init'] == 1) {
-                    $accessoryConfig = $config;
-                    break;
+            $equipConfigList = array();
+            for ($i = 1; $i <= 6; ++$i) {
+                $equipConfig = D('Static')->access('equipment', $partnerConfig['group'] . '0' . $i);
+                foreach ($equipConfig as $config) {
+                    if ($config['is_init'] == 1) {
+                        $equipConfigList[$i] = $config;
+                        break;
+                    }
                 }
             }
 
             for ($i = 1; $i <= self::PRE_CREATE_NUM; ++$i) {
                 $tid = $sid * 1000000 + $i;
+                $t = $tid % 10;
                 $sqlPartner .= "\r\n" . "('{$tid}','{$partner_group}','{$partner_index}','1','0','0','0','1','1','1','0','0','0','0','{$now}','0'),";
-                $sqlEquip .= "\r\n" . "('{$tid}','{$weaponConfig['group']}','{$weaponConfig['index']}','{$partner_group}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-                $sqlEquip .= "\r\n" . "('{$tid}','{$armorConfig['group']}','{$armorConfig['index']}','{$partner_group}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-                $sqlEquip .= "\r\n" . "('{$tid}','{$accessoryConfig['group']}','{$accessoryConfig['index']}','{$partner_group}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                if ($i % 5000 == 0) {
-                    $sql = $sqlEquipBase . substr($sqlEquip, 0, -1) . ';';
-                    create_sql($sql, $this->mDBPath, $filename);
-                    $sqlEquip = '';
+                for ($k = 1; $k <= 6; ++$k) {
+                    $sqlEquip[$t] .= "\r\n" . "('{$tid}','{$equipConfigList[$k]['group']}','{$equipConfigList[$k]['index']}','{$partner_group}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
                 }
             }
 
@@ -976,9 +962,11 @@ class SMServerController extends BInitController
             $sql = $sqlPartnerBase . substr($sqlPartner, 0, -1) . ';';
             create_sql($sql, $this->mDBPath, $filename);
         }
-        if ($sqlEquip != '') {
-            $sql = $sqlEquipBase . substr($sqlEquip, 0, -1) . ';';
-            create_sql($sql, $this->mDBPath, $filename);
+        for ($i = 0; $i <= 9; ++$i) {
+            if ($sqlEquip[$i] != '') {
+                $sql = $sqlEquipBase[$i] . substr($sqlEquip[$i], 0, -1) . ';';
+                create_sql($sql, $this->mDBPath, $filename);
+            }
         }
         if ($sqlVip != '') {
             $sql = $sqlVipBase . substr($sqlVip, 0, -1) . ';';
@@ -1040,14 +1028,19 @@ class SMServerController extends BInitController
         $sql = "delete from `g_partner` where `tid`<=10000;";
         create_sql($sql, $this->mDBPath, $filename);
 
-        $sql = "delete from `g_equip` where `tid`<=10000;";
-        create_sql($sql, $this->mDBPath, $filename);
+        for ($i = 0; $i <= 9; ++$i) {
+            $sql = "delete from `g_equip_{$i}` where `tid`<=10000;";
+            create_sql($sql, $this->mDBPath, $filename);
+        }
 
         //伙伴
         $sqlPartner = "insert into `g_partner` (`tid`,`group`,`index`,`level`,`exp`,`favour`,`soul`,`skill_1_level`,`skill_2_level`,`skill_3_level`,`skill_4_level`,`skill_5_level`,`skill_6_level`,`force`,`utime`,`ctime`) values ";
 
         //装备
-        $sqlEquip = "insert into `g_equip` (`tid`,`group`,`index`,`partner_group`,`level`,`extra_1_type`,`extra_1_id`,`extra_1_value`,`extra_1_lock`,`extra_2_type`,`extra_2_id`,`extra_2_value`,`extra_2_lock`,`extra_3_type`,`extra_3_id`,`extra_3_value`,`extra_3_lock`,`extra_4_type`,`extra_4_id`,`extra_4_value`,`extra_4_lock`) values ";
+        $sqlEquip = array();
+        for ($i = 0; $i <= 9; ++$i) {
+            $sqlEquip[$i] = "insert into `g_equip_" . $i . "` (`tid`,`group`,`index`,`partner_group`,`level`,`extra_1_type`,`extra_1_id`,`extra_1_value`,`extra_1_lock`,`extra_2_type`,`extra_2_id`,`extra_2_value`,`extra_2_lock`,`extra_3_type`,`extra_3_id`,`extra_3_value`,`extra_3_lock`,`extra_4_type`,`extra_4_id`,`extra_4_value`,`extra_4_lock`) values ";
+        }
 
         //生成数据
         foreach ($robotArenaConfig as $value) {
@@ -1065,6 +1058,7 @@ class SMServerController extends BInitController
                 //伙伴装备
                 for ($j = 1; $j <= 5; ++$j) {
                     $partner_tid = $i;
+                    $t = $partner_tid % 10;
                     $partner_group = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_group'];
                     $partner_index = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_group'] . $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_quality'];
                     $partner_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
@@ -1078,20 +1072,12 @@ class SMServerController extends BInitController
                     $equipIndex = floor($robotTeamConfig[$value['robot_team']]['partner_' . $j . '_quality'] / 2);
                     $equipIndex = $equipIndex == 0 ? 1 : $equipIndex;
                     $equip_tid = $i;
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_weapon'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_weapon'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$equip_tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_armor'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_armor'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$equip_tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
-
-                    $equip_group = $partnerConfig[$partner_index]['init_equipment_accessory'];
-                    $equip_index = $partnerConfig[$partner_index]['init_equipment_accessory'] . '0' . $equipIndex;
-                    $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
-                    $sqlEquip .= "\r\n" . "('{$equip_tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
+                    for ($k = 1; $k <= 6; ++$k) {
+                        $equip_group = $partner_group . '0' . $k;
+                        $equip_index = $equip_group . '0' . $equipIndex;
+                        $equip_level = $robotTeamConfig[$value['robot_team']]['partner_' . $j . '_level'];
+                        $sqlEquip[$t] .= "\r\n" . "('{$equip_tid}','{$equip_group}','{$equip_index}','{$partner_group}','{$equip_level}','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'),";
+                    }
                 }
 
             }
@@ -1099,10 +1085,13 @@ class SMServerController extends BInitController
         }
 
         $sqlPartner = substr($sqlPartner, 0, -1) . ';';
-        $sqlEquip = substr($sqlEquip, 0, -1) . ';';
-
         create_sql($sqlPartner, $this->mDBPath, $filename);
-        create_sql($sqlEquip, $this->mDBPath, $filename);
+        for ($i = 0; $i <= 9; ++$i) {
+            if ($sqlEquip[$i] != '') {
+                $sql = substr($sqlEquip[$i], 0, -1) . ';';
+                create_sql($sql, $this->mDBPath, $filename);
+            }
+        }
 
         //执行
         $exec = 'mysql -h' . $logicInfo['master']['db_host'] . ' -u' . $logicInfo['master']['db_user'] . ' -p\'' . $logicInfo['master']['db_pwd'] . '\' ' . $logicInfo['dbname'] . ' < ' . $this->mDBPath . $filename;
@@ -1303,8 +1292,27 @@ class SMServerController extends BInitController
                             switch ($val) {
                                 case 'g_arena':
                                 case 'g_partner':
-                                case 'g_equip':
-                                case 'g_emblem':
+                                case 'g_equip_0':
+                                case 'g_equip_1':
+                                case 'g_equip_2':
+                                case 'g_equip_3':
+                                case 'g_equip_4':
+                                case 'g_equip_5':
+                                case 'g_equip_6':
+                                case 'g_equip_7':
+                                case 'g_equip_8':
+                                case 'g_equip_9':
+                                case 'g_emblem_0':
+                                case 'g_emblem_1':
+                                case 'g_emblem_2':
+                                case 'g_emblem_3':
+                                case 'g_emblem_4':
+                                case 'g_emblem_5':
+                                case 'g_emblem_6':
+                                case 'g_emblem_7':
+                                case 'g_emblem_8':
+                                case 'g_emblem_9':
+                                case 'g_emblem_equip':
                                 case 'g_vip':
                                 case 'g_count':
                                 case 'g_quest':
@@ -1344,7 +1352,6 @@ class SMServerController extends BInitController
                                     $this->mergeArena($dbConfigMaster, $dbConfigMerge);
                                     break;
                                 case 'g_mail':
-                                case 'g_emblem':
                                     if (!$this->copyExceptId($val, $dbConfigMaster, $dbConfigMerge)) {
                                         $error[] = $val;
                                     }
@@ -1388,10 +1395,10 @@ class SMServerController extends BInitController
             if (empty($error)) {
                 $this->clearApc('server');
                 C('G_ERROR', 'success');
-            }else{
+            } else {
                 C('G_ERROR', 'fail');
-                dump(111);
-                dump($error);
+//                dump(111);
+//                dump($error);
             }
 
         }
@@ -1488,7 +1495,7 @@ class SMServerController extends BInitController
         //合服竞技场情况
         $arenaMergeSelect = M()->db(I('post.merged_server_id'), $dbConfigMerge)->table('g_arena')->order('`rank` ASC')->select();
         $arenaMerge = array();
-        foreach($arenaMergeSelect as $value){
+        foreach ($arenaMergeSelect as $value) {
             $arenaMerge[$value['rank']] = $value;
         }
 

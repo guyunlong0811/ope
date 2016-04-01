@@ -36,7 +36,7 @@ class UserPartnerEmblemController extends BInitController
                 $dbConfig = change_db_server(I('get.server_id'), 'master');
                 $page = $this->page(M()->db(I('get.server_id'), $dbConfig)->table('g_emblem'), 'sql', $where);
                 $order = array('partner' => 'asc', 'slot' => 'asc');
-                $list = M()->db(I('get.server_id'))->table('g_emblem')->page($this->pg . ',' . $page->listRows)->where($where)->order($order)->select();
+                $list = M()->db(I('get.server_id'))->table('g_emblem_equip')->page($this->pg . ',' . $page->listRows)->where($where)->order($order)->select();
                 if (!empty($list)) {
                     foreach ($list as $key => $value) {
                         $list[$key]['partner'] = $value['partner'] == 0 ? '/' : $this->vPartnerConfig[$value['partner']];

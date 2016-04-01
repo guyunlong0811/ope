@@ -5,8 +5,8 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#mainform").submit(function(){
-            if($("#partner_group_id").val() == 0 && $("#team_id").val() == ''){
-                alert('<{$Think.lang.one_condition_least}>');
+            if($("#team_id").val() == ''){
+                alert('<{$Think.lang.team_id_input}>');
                 return false;
             }
             return true;
